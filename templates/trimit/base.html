@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en"></html>
+
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <head>
+            <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
+        <title>
+            Trimit - 
+
+            {% block title_block %}
+                Find your perfect hairdresser
+            {% endblock %}
+
+        </title>
+    </head>
+    <body>
+        <div>
+            {% block header_block%}
+            <div class="menu" id="menu"> 
+                    <a href="#"><img class="logo" src="{% static "images/logo.png" %}"></a>
+                    <ul>
+                    <a href="#hairdresserSignUp">Hairdresser sign up</a>
+                    <a href="#userSignUp">User sign up</a>
+                    <a href="#login">login</a>
+                    <a href="#contact">contact us</a>
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    </ul>
+                    </a>
+            </div>
+            {% endblock %}
+        </div>
+        <div>
+            {% block body_block %}
+            <div class="container-fluid">
+                <div class="row row-centered">
+                        <div class="col-lg-10">                 
+                                Add your stuff here.
+                      </div>
+            {% endblock %}
+        </div>
+        <div>
+            {% block footer_block %}
+            <div class="footer">
+                <div class="contain">
+                    <div class="col">
+                        <ul>
+                            <li>Home</li>
+                            <li>About</li>
+                            <li>Contact Us</li>  
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li>Sign Up - Hairdresser</li>
+                            <li>Sign Up - User</li>
+                            <li>Login</li>
+                        </ul>
+                    </div>
+                    </div>
+                    </div>
+            {% endblock %}
+        </div>
+    </body>
+</html>
