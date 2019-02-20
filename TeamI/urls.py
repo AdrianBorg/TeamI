@@ -16,12 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
-from manes import views
+from trimit import views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^admin/', admin.site.urls),
-    url(r'^manes/', include('manes.urls')),
+    url(r'^trimit/', include('trimit.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
