@@ -16,18 +16,18 @@
             {% endblock %}
 
         </title>
+        <script src="{% static "js/base.js" %}"></script>
     </head>
     <body>
         <div>
             {% block header_block%}
             <div class="menu" id="menu"> 
-                    <a href="#"><img class="logo" src="{% static "images/logo.png" %}"></a>
+                    <a href="#logo" onclick=home();><img class="logo" src="{% static "images/logo.png" %}"></a>
                     <ul>
-                    <a href="#hairdresserSignUp">Hairdresser sign up</a>
-                    <a href="#userSignUp">User sign up</a>
-                    <a href="#login">login</a>
-                    <a href="#contact">contact us</a>
-                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <a href="#hairdresserSignUp" onclick=hairdresserSignup();>Hairdresser sign up</a>
+                    <a href="#userSignUp" onclick=userSignup();>User sign up</a>
+                    <a href="#login" onclick=login();>login</a>
+                    <a href="#contact" onclick=contact();>contact us</a>
                     </ul>
                     </a>
             </div>
