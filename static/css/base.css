@@ -3,6 +3,39 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.h1 {
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.h2 {
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.text {
+    font-size: 19px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.button {
+    max-width: 65px;
+    min-width: 65px;
+    margin: 5px;
+    background-color: #a81d73;
+    transition-duration: 0.4s;
+    font-size: 20px;
+    font-family: arial, serif;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
 .menu { 
     overflow: hidden;
     background-color: #ffffff;
