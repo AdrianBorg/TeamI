@@ -4,18 +4,19 @@ body {
 }
 
 .h1 {
+    color: #a81d73;
     font-size: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 
 .h2 {
-    font-size: 25px;
+    font-size: 22px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 .text {
-    font-size: 19px;
+    font-size: 17px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -55,10 +56,10 @@ body {
 
 .logo{
     float: left;
-    vertical-align: left;
+    vertical-align: right;
     width: 200px;
     height: 45px;
-    margin-right: 500px;
+    margin-right: 600px;
 }
 
 .menu a:hover {
@@ -75,7 +76,7 @@ body {
 }
 
 .footer {
-    width: 99%;
+    width: 98.7%;
     position: absolute;
     bottom: 0;
     height: auto;
@@ -89,6 +90,19 @@ body {
     box-sizing: border-box;
     padding: 20px 20px 20px 20px;
 }
+
+.footer .col h1 {
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 0px 0px 5px 0px;
+    color: #a81d73;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.250em;
+  }
 
 .footer .col ul{
     list-style-type: none;
