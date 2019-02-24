@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en"></html>
+
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+
+    <head>
+            <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
+        <title>
+            Trimit - 
+
+            {% block title_block %}
+                Find your perfect hairdresser
+            {% endblock %}
+
+        </title>
+        <script src="{% static "js/base.js" %}"></script>
+    </head>
+    <body>
+        <div>
+            {% block header_block%}
+            <div class="menu" id="menu"> 
+                    <a href="#logo" onclick=home();><img class="logo" src="{% static "images/logo.png" %}"></a>
+                    <ul>
+                    <a href="#hairdresserSignUp" onclick=hairdresserSignup();>Hairdresser sign up</a>
+                    <a href="#userSignUp" onclick=userSignup();>User sign up</a>
+                    <a href="#login" onclick=login();>login</a>
+                    <a href="#contact" onclick=contact();>contact</a>
+                    </ul>
+                    </a>
+            </div>
+            {% endblock %}
+        </div>
+        <div>
+            {% block body_block %}
+            <div class="container-fluid">
+                <div class="row row-centered">
+                        <div class="col-lg-10">                 
+                               <!--Main body-->
+                      </div>
+            {% endblock %}
+        </div>
+        <div>
+            {% block footer_block %}
+            <div class="footer">
+                <div class="contain">
+                    <div class="col">
+                        <h1>Trimit</h1>
+                        <ul>
+                            <li>Home</li>
+                            <li>About</li>
+                            <li>Contact Us</li>  
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h1>join</h1>
+                        <ul>
+                            <li>Sign Up - Hairdresser</li>
+                            <li>Sign Up - User</li>
+                            <li>Login</li>
+                        </ul>
+                    </div>
+                    </div>
+                    </div>
+            {% endblock %}
+        </div>
+    </body>
+</html>
