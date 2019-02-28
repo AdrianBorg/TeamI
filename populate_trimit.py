@@ -5,6 +5,7 @@ import django
 django.setup()
 from trimit.models import Page, UserProfile, Review
 from django.contrib.auth.models import User
+from django_countries import countries
 
 
 def populate():
@@ -13,35 +14,24 @@ def populate():
         {
             "username": "user1",
             "password": "1",
-            "type": 0,
         },
         {
             "username": "user2",
             "password": "2",
-            "type": 0,
         },
         {
             "username": "user3",
             "password": "3",
-            "type": 0,
         },
         {
-            "username": "stylist1",
-            "password": "1",
-            "type": 1,
-            "page": 0,
+            "username": "user4",
+            "password": "4",
         },
+    ]
+
+    deleting_users = [
         {
-            "username": "stylist2",
-            "password": "2",
-            "type": 1,
-            "page": 1,
-        },
-        {
-            "username": "stylist3",
-            "password": "3",
-            "type": 1,
-            "page": 2,
+            "username": "user4",
         },
     ]
 
@@ -57,59 +47,88 @@ def populate():
         }
     ]
 
+    stylists = [
+        {
+            "username": "stylist1",
+            "password": "1",
+        },
+        {
+            "username": "stylist2",
+            "password": "2",
+        },
+        {
+            "username": "stylist3",
+            "password": "3",
+        },
+        {
+            "username": "stylist4",
+            "password": "4",
+        }
+    ]
+
     hairdresser_pages = [
         {
-            "user": users[3]["username"],
             "str": "1 Argyle Str",
             "city": "Glasgow",
-            "country": "UK",
+            "country": "GB",
         },
         {
-            "user": users[4]["username"],
             "str": "5 Bath Str",
             "city": "Glasgow",
-            "country": "UK",
+            "country": "GB",
         },
         {
-            "user": users[5]["username"],
             "str": "50 Great Western Road",
             "city": "Glasgow",
-            "country": "UK",
-        }
+            "country": "GB",
+        },
+        {
+            "str": "90 triq il-kbira",
+            "city": "Siggiewi",
+            "country": "MT",
+        },
     ]
 
     reviews = [
         {
             "user": users[0]["username"],
-            "page": users[3]["username"],
+            "page": stylists[0]["username"],
             "rating": 5.0,
             "comment": "test1",
         },
         {
             "user": users[1]["username"],
-            "page": users[4]["username"],
+            "page": stylists[1]["username"],
             "rating": 3.5,
             "comment": "test2",
         },
         {
             "user": users[2]["username"],
-            "page": users[3]["username"],
+            "page": stylists[0]["username"],
             "rating": 4.5,
             "comment": "test3",
         },
         {
             "user": users[0]["username"],
-            "page": users[4]["username"],
+            "page": stylists[1]["username"],
             "rating": 2.7,
             "comment": "test4",
         },
         {
             "user": users[0]["username"],
-            "page": users[5]["username"],
+            "page": stylists[2]["username"],
             "rating": 1.5,
             "comment": "test5",
         },
+        {
+            "user": deleting_users[0]["username"],
+            "page": stylists[2]["username"],
+            "rating": 0.6,
+            "comment": "deletedtest5",
+        },
     ]
+
+
 
     def add_user(username, password):
         user = User.objects.get_or_create(username=username, password=password)[0]
@@ -122,7 +141,12 @@ def populate():
 
     def add_page(username, street, city, country):
         user = User.objects.get(username=username)
-        page = Page.objects.get_or_create(user=user, street_address=street, city=city, country=country)[0]
+        print(country)
+        for c in list(countries):
+            if country.lower() == c[1].lower() or country.lower == c[0].lower:
+                cntry = country
+
+        page = Page.objects.get_or_create(user=user, street_address=street, city=city, country=cntry)[0]
         page.save()
 
     def add_review(username, pagename, rating, comment):
@@ -131,14 +155,22 @@ def populate():
         review = Review.objects.get_or_create(page=page, user=user, overall_rating=rating, comment=comment)[0]
         review.save()
 
+    def delete_user(username):
+        user = User.objects.get(username=username)
+        user.delete()
+
     for us in users:
         add_user(us['username'], us['password'])
-        if us['type'] == 0:
-            add_userprofile(us['username'])
-        if us['type'] == 1:
-            hairdresser = hairdresser_pages[us['page']]
-            u = User.objects.get(username=us['username'])
-            add_page(u, hairdresser['str'], hairdresser['city'], hairdresser['country'])
+        add_userprofile(us['username'])
+
+    i = 0
+
+    for hs in stylists:
+        add_user(hs['username'], hs['password'])
+        hairdresser = hairdresser_pages[i]
+        u = User.objects.get(username=hs['username'])
+        add_page(u, hairdresser['str'], hairdresser['city'], hairdresser['country'])
+        i += 1
 
     for rev in reviews:
         add_review(rev['user'], rev['page'], rev['rating'], rev['comment'])
@@ -146,9 +178,17 @@ def populate():
     for u in User.objects.all():
         for p in UserProfile.objects.filter(user=u):
             print("- {0} - UserProfile {1}".format(str(u), str(p)))
+            for r in Review.objects.filter(user=u):
+                print("\t - Review {0}".format(str(r)))
+        for p in Page.objects.filter(user=u):
+            print("- {0} - HairdresserPage {1}".format(str(u), str(p)))
         for p in Page.objects.filter(user=u):
             for r in Review.objects.filter(page=p):
-                print("- {0} - HairDresserPage {1} - Review {2}".format(str(u), str(p), str(r)))
+                print("\t- Review {0}".format(str(r)))
+
+    for u in deleting_users:
+        delete_user(username=u['username'])
+        print("- DELETED - {0}".format(u['username']))
 
 
 if __name__ == '__main__':

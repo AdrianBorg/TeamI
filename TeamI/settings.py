@@ -130,3 +130,7 @@ STATICFILES_DIRS = [STATIC_DIR, ]
 # Media files
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+# API KEYS
+
+GoogleGeocodeKey = 'AIzaSyAxn4-s7ubCCeK4mUdkMcXpbK4OTXEY-jM'
