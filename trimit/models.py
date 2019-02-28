@@ -4,13 +4,10 @@ from django.contrib.auth import get_user_model
 from django_countries.fields import CountryField
 from django.template.defaultfilters import slugify
 from geopy.geocoders import Nominatim
+import datetime
 from django.conf import settings
 
 
-def deleted_user():
-    return get_user_model().objects.get_or_create(username='deleted_user')[0]
-
-   
 class Page(models.Model):
     user = models.OneToOneField(User)
     specialities = models.CharField(max_length=30, null=True)
@@ -35,7 +32,7 @@ class Page(models.Model):
         self.slug = slugify(spaced_name)
         if (self.latitude is None) or (self.longitude is None):
             geolocator = Nominatim(user_agent='trimit', country_bias='GB')
-            address = self.street_address + ', ' + self.city + ', ' + self.postcode + ', ' + self.country
+            address = self.street_address + ', ' + self.city + ', ' + self.postcode + ', ' + str(self.country)
             location = geolocator.geocode(address)
             if location is not None:
                 if self.longitude is None:
@@ -44,6 +41,9 @@ class Page(models.Model):
                     self.latitude = location.latitude
         super(Page, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.user.username
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -51,12 +51,16 @@ class UserProfile(models.Model):
     hairpicture = models.ImageField(upload_to='user_images', blank=True)
 
     def __str__(self):
-        return self.user.get_username
+        return self.user.username
+
+
+def deleted_user():
+    return get_user_model().objects.get_or_create(username='deleted_user')[0]
 
 
 class Review(models.Model):
     page = models.ForeignKey('Page', on_delete=models.CASCADE)
-    user = models.ForeignKey(get_user_model(), on_delete=models.SET(deleted_user), default=models.SET(deleted_user))
+    user = models.ForeignKey(User, on_delete=models.SET(deleted_user), default=models.SET(deleted_user))
     overall_rating = models.DecimalField(max_digits=10, decimal_places=1, default=0)
     atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
     price_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
@@ -65,8 +69,12 @@ class Review(models.Model):
     time = models.DateTimeField
     picture = models.ImageField()
 
+    def save(self, *args, **kwargs):
+        self.time = datetime.datetime.now()
+        super(Review, self).save(*args, **kwargs)
+
     def __str__(self):
-        return self
+        return self.comment
 
 
 
