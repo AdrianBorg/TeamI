@@ -150,7 +150,7 @@ def populate():
         page.save()
 
     def add_review(username, pagename, rating, comment):
-        user = User.objects.get(username=username)
+        user = UserProfile.objects.get(user=User.objects.get(username=username))
         page = Page.objects.get(user=User.objects.get(username=pagename))
         review = Review.objects.get_or_create(page=page, user=user, overall_rating=rating, comment=comment)[0]
         review.save()
@@ -178,7 +178,7 @@ def populate():
     for u in User.objects.all():
         for p in UserProfile.objects.filter(user=u):
             print("- {0} - UserProfile {1}".format(str(u), str(p)))
-            for r in Review.objects.filter(user=u):
+            for r in Review.objects.filter(user=UserProfile.objects.filter(user=u)):
                 print("\t - Review {0}".format(str(r)))
         for p in Page.objects.filter(user=u):
             print("- {0} - HairdresserPage {1}".format(str(u), str(p)))

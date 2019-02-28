@@ -60,12 +60,16 @@ class UserProfile(models.Model):
 def deleted_user():
     return get_user_model().objects.get_or_create(username='deleted_user')[0]
 
-# def deleted_userProfile():
-#     return UserProfile.objects.get_or_create(deleted_user())
+
+def deleted_userprofile():
+    return UserProfile.objects.get_or_create(user=deleted_user())[0]
+
 
 class Review(models.Model):
     page = models.ForeignKey('Page', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.SET(deleted_user), default=models.SET(deleted_user))
+    user = models.ForeignKey('UserProfile',
+                             on_delete=models.SET_NULL,  # models.SET(deleted_userprofile),
+                             null=True)
     overall_rating = models.DecimalField(max_digits=10, decimal_places=1, default=0)
     atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
     price_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
@@ -79,7 +83,11 @@ class Review(models.Model):
         super(Review, self).save(*args, **kwargs)
 
     def __str__(self):
-        return str(self.page) + " | " + str(self.user.username) + " | " + self.comment
+        if self.user is not None:
+            u = str(self.user.user.username)
+        else:
+            u = 'deleted'
+        return str(self.page) + " | " + u + " | " + self.comment
 
 
 
