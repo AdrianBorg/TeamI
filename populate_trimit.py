@@ -121,14 +121,12 @@ def populate():
             "comment": "test5",
         },
         {
-            "user": deleting_users[0]["username"],
+            "user": users[3]["username"],
             "page": stylists[2]["username"],
             "rating": 0.6,
             "comment": "deletedtest5",
         },
     ]
-
-
 
     def add_user(username, password):
         user = User.objects.get_or_create(username=username, password=password)[0]

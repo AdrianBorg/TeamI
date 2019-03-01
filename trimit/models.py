@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import get_user_model
 from django_countries.fields import CountryField
 from django.template.defaultfilters import slugify
@@ -9,17 +9,19 @@ from TeamI.settings import GoogleGeocodeKey
 from django.conf import settings
 
 API_KEY = GoogleGeocodeKey
+HAIRDRESSER_GROUP = 'hairdressers'
+USER_GROUP = 'users'
 
 
 class Page(models.Model):
     user = models.OneToOneField(User)
-    specialities = models.CharField(max_length=30, null=True)
+    specialities = models.CharField(max_length=30, blank=True, null=True)
     flat_number = models.CharField(max_length=15, blank=True)
     street_address = models.CharField(max_length=30, blank=False)
     city = models.CharField(max_length=30, blank=False)
     postcode = models.CharField(max_length=30, blank=True)
     country = CountryField(blank=False)
-    opening_times = models.CharField(max_length=200, null=True)
+    opening_times = models.CharField(max_length=200, blank=True, null=True)
     webpage = models.URLField(blank=True)
     instagram = models.URLField(blank=True)
     picture = models.ImageField(upload_to='hairpage_images', blank=True)
@@ -31,6 +33,8 @@ class Page(models.Model):
     slug = models.SlugField(unique=True)
 
     def save(self, *args, **kwargs):
+        group = Group.objects.get_or_create(name=HAIRDRESSER_GROUP)[0]
+        self.user.groups.add(group)
         spaced_name = self.user.username.replace('_', ' ')
         self.slug = slugify(spaced_name)
         if (self.latitude is None) or (self.longitude is None):
@@ -53,6 +57,11 @@ class UserProfile(models.Model):
     picture = models.ImageField(upload_to='user_profile_images', blank=True)
     hairpicture = models.ImageField(upload_to='user_images', blank=True)
 
+    def save(self, *args, **kwargs):
+        group = Group.objects.get_or_create(name=USER_GROUP)[0]
+        self.user.groups.add(group)
+        super(UserProfile, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.user.username
 
@@ -71,12 +80,12 @@ class Review(models.Model):
                              on_delete=models.SET_NULL,  # models.SET(deleted_userprofile),
                              null=True)
     overall_rating = models.DecimalField(max_digits=10, decimal_places=1, default=0)
-    atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
-    price_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
-    service_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
-    comment = models.CharField(max_length=500, null=True)
+    atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
+    price_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
+    service_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
+    comment = models.CharField(max_length=500, null=True, blank=True)
     time = models.DateTimeField(null=True)#,default=datetime.datetime.now())
-    picture = models.ImageField()
+    picture = models.ImageField(blank=True)
 
     def save(self, *args, **kwargs):
         self.time = datetime.datetime.now()
