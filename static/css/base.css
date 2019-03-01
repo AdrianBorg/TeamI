@@ -1,0 +1,125 @@
+body {
+    background-color: #f1f1f1;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.h1 {
+    color: #a81d73;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.h2 {
+    font-size: 22px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.text {
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.button {
+    max-width: 65px;
+    min-width: 65px;
+    margin: 5px;
+    background-color: #a81d73;
+    transition-duration: 0.4s;
+    font-size: 20px;
+    font-family: arial, serif;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+.menu { 
+    overflow: hidden;
+    background-color: #ffffff;
+    width: 100%
+}
+
+.menu a {
+    text-transform: uppercase;
+    float: left;
+    display: block;
+    color: #000000;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 8px;
+    font-size: 17px; 
+}
+
+.logo{
+    float: left;
+    vertical-align: right;
+    width: 200px;
+    height: 45px;
+    margin-right: 600px;
+}
+
+.menu a:hover {
+    color: #a81d73;
+}
+
+.row-centered {
+    text-align: center;
+}
+.col-centered {
+    text-align: center;
+    display: inline-block;
+    float: none;
+}
+
+.footer {
+    width: 98.7%;
+    position: absolute;
+    bottom: 0;
+    height: auto;
+    background-color: #ffffff;
+}
+
+.footer .col {
+    width: 200px;
+    height: auto;
+    float:left;
+    box-sizing: border-box;
+    padding: 20px 20px 20px 20px;
+}
+
+.footer .col h1 {
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 0px 0px 5px 0px;
+    color: #a81d73;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.250em;
+  }
+
+.footer .col ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer .col ul li {
+    color: #000000;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    padding: 5px 0px 5px 0px;
+    cursor: pointer;
+}
+
+.footer .col ul li:hover {
+    color: #a81d73;
+}
+

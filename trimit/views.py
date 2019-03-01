@@ -6,4 +6,4 @@ from django.http import HttpResponse
 
 def index(request):
     context_dict = {'boldmessage': "Crunchy, creamy, cookie, candy, cupcake!"}
-    return render(request, 'manes/testhtml.html', context=context_dict)
+    return render(request, 'trimit/base.html', context=context_dict)
