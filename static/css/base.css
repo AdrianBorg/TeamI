@@ -1,6 +1,8 @@
 body {
     background-color: #f1f1f1;
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .h1 {
@@ -40,30 +42,69 @@ body {
 .menu { 
     overflow: hidden;
     background-color: #ffffff;
-    width: 100%
+    width: 100%;
+    display: flex;
+    /*flex-wrap: wrap;*/
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navigate {
+    display: flex;
+    flex-flow: row wrap;
+
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+}
+
+.nav {
+    height: auto;
 }
 
 .menu a {
     text-transform: uppercase;
-    float: left;
-    display: block;
+    display: flex;
+    align-items: center;
+    /*float: left;*/
+    /*display: block;*/
     color: #000000;
-    text-align: center;
+    /*text-align: center;*/
     text-decoration: none;
-    padding: 10px 8px;
-    font-size: 17px; 
+    /*padding: 10px 8px;*/
+    font-size: 17px;
+    cursor: pointer;
+    height: 100%;
+    padding: 1em;
+    /*-webkit-box-shadow: 4px 0 1px -10px #888;*/
+            box-shadow: -16px 0 0px -15px #a81d73;
+}
+
+.menu a:first-child {
+    box-shadow: none;
+}
+
+.menu ul {
+    margin: 0;
+    padding: 0;
 }
 
 .logo{
     float: left;
-    vertical-align: right;
+    vertical-align: center;
     width: 200px;
     height: 45px;
-    margin-right: 600px;
+    /*margin-right: 600px;*/
+}
+
+img.logo {
+    cursor: pointer;
 }
 
 .menu a:hover {
-    color: #a81d73;
+    /*color: #a81d73;*/
+    background: #f4eaff;
 }
 
 .row-centered {
@@ -76,7 +117,7 @@ body {
 }
 
 .footer {
-    width: 98.7%;
+    width: 100%;
     position: absolute;
     bottom: 0;
     height: auto;
@@ -122,4 +163,48 @@ body {
 .footer .col ul li:hover {
     color: #a81d73;
 }
+
+@media all and (max-width: 800px) {
+    .menu {
+        justify-content: space-around;
+    }
+
+    .navigate a {
+        border-top: 1px solid rgba(255,255,255,0.3);
+        border-top: 1px solid rgba(0,0,0,0.1);
+        border-right: none;
+    }
+}
+
+@media all and (max-width: 600px) {
+    .menu {
+        flex-direction: column;
+    }
+
+    .navigate {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .navigate a {
+        text-align: center;
+        padding: 10px;
+        border-top: 1px solid rgba(255,255,255,0.3);
+        border-top: 1px solid rgba(0,0,0,0.1);
+        border-right: none;
+        width: 100%;
+        display: block;
+    }
+
+    .nav {
+        width: 100%;
+    }
+
+}
+
+/*div {*/
+    /*border-style: solid;*/
+    /*border-width: 1px;*/
+    /*border-color: blue;*/
+/*}*/
 
