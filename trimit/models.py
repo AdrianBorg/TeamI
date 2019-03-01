@@ -93,7 +93,7 @@ class Review(models.Model):
     service_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
     comment = models.CharField(max_length=500, null=True, blank=True)
     time = models.DateTimeField(null=True)#,default=datetime.datetime.now())
-    picture = models.ImageField(blank=True)
+    picture = models.ImageField(upload_to='review_images', blank=True)
 
     def save(self, *args, **kwargs):
         self.time = datetime.datetime.now()
