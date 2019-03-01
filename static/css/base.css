@@ -110,17 +110,12 @@ img.logo {
 
 .contain {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
-.row-centered {
-    text-align: center;
-}
-.col-centered {
-    text-align: center;
-    display: inline-block;
-    float: none;
-}
+/*.row-centered {*/
+    /*text-align: center;*/
+/*}*/
 
 .footer {
     width: 100%;
@@ -131,7 +126,7 @@ img.logo {
 }
 
 .footer .col {
-    width: 200px;
+    width: 49%;
     height: auto;
     float:left;
     box-sizing: border-box;
