@@ -208,6 +208,10 @@ img.logo {
         flex-direction: column;
     }
 
+    .navigate {
+        width: 100%;
+    }
+
     .navigate a {
         text-align: center;
         padding: 10px;
@@ -216,6 +220,7 @@ img.logo {
         border-right: none;
         width: 100%;
         display: block;
+        box-shadow: none;
     }
 
     .nav {
