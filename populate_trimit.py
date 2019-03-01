@@ -4,7 +4,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from trimit.models import Page, UserProfile, Review
-from django.contrib.auth.models import User
+from trimit.models import EUser as User
+from django.conf import settings
 from django_countries import countries
 
 
@@ -14,18 +15,22 @@ def populate():
         {
             "username": "user1",
             "password": "1",
+            "email": "user1@trimit.com",
         },
         {
             "username": "user2",
             "password": "2",
+            "email": "user2@trimit.com",
         },
         {
             "username": "user3",
             "password": "3",
+            "email": "user3@trimit.com",
         },
         {
             "username": "user4",
             "password": "4",
+            "email": "user4@trimit.com",
         },
     ]
 
@@ -51,18 +56,22 @@ def populate():
         {
             "username": "stylist1",
             "password": "1",
+            "email": "stylist1@trimit.com",
         },
         {
             "username": "stylist2",
             "password": "2",
+            "email": "stylist2@trimit.com",
         },
         {
             "username": "stylist3",
             "password": "3",
+            "email": "stylist3@trimit.com",
         },
         {
             "username": "stylist4",
             "password": "4",
+            "email": "stylist4@trimit.com",
         }
     ]
 
@@ -128,9 +137,10 @@ def populate():
         },
     ]
 
-    def add_user(username, password):
-        user = User.objects.get_or_create(username=username, password=password)[0]
-        user.save()
+    def add_user(username, password, email):
+        user, created = User.objects.get_or_create(username=username, password=password, email=email)
+        if created:
+            user.save()
 
     def add_userprofile(username):
         user = User.objects.get(username=username)
@@ -158,13 +168,13 @@ def populate():
         user.delete()
 
     for us in users:
-        add_user(us['username'], us['password'])
+        add_user(us['username'], us['password'], us['email'])
         add_userprofile(us['username'])
 
     i = 0
 
     for hs in stylists:
-        add_user(hs['username'], hs['password'])
+        add_user(hs['username'], hs['password'], hs['email'])
         hairdresser = hairdresser_pages[i]
         u = User.objects.get(username=hs['username'])
         add_page(u, hairdresser['str'], hairdresser['city'], hairdresser['country'])
