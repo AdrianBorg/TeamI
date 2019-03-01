@@ -20,8 +20,8 @@ class Page(models.Model):
     postcode = models.CharField(max_length=30, blank=True)
     country = CountryField(blank=False)
     opening_times = models.CharField(max_length=200, null=True)
-    webpage = models.URLField
-    instagram = models.URLField
+    webpage = models.URLField(blank=True)
+    instagram = models.URLField(blank=True)
     picture = models.ImageField(upload_to='hairpage_images', blank=True)
     contact_number = models.CharField(max_length=15, blank=True)
 
