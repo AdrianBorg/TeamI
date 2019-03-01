@@ -34,7 +34,7 @@ class Page(models.Model):
         spaced_name = self.user.username.replace('_', ' ')
         self.slug = slugify(spaced_name)
         if (self.latitude is None) or (self.longitude is None):
-            geolocator = GoogleV3(api_key=API_KEY)#Nominatim(user_agent='trimit')#, country_bias='GB')
+            geolocator = GoogleV3(api_key=API_KEY)  # Nominatim(user_agent='trimit')#, country_bias='GB')
             address = self.street_address + ', ' + self.city + ', ' + self.postcode + ', ' + str(self.country)
             location = geolocator.geocode(query=address)
             if location is not None:

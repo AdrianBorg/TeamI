@@ -133,4 +133,4 @@ MEDIA_URL = '/media/'
 
 # API KEYS
 
-GoogleGeocodeKey = 'AIzaSyAxn4-s7ubCCeK4mUdkMcXpbK4OTXEY-jM'
+GoogleGeocodeKey = 'AIzaSyBh1c6xCPIo3PNhfUGmTJhKwU76AuIaJ8o'
