@@ -19,6 +19,8 @@
     float: right;
     font-size: 28px;
     font-weight: bold;
+    padding-right: 8px;
+    padding-left: 6px;
 }
 
 .close:hover,
@@ -30,14 +32,68 @@
 
 /* Modal Header */
 .modal-header {
-    padding: 2px 16px;
-    background-color: #a81d73;
+    /*padding: 2px 16px;*/
+    background-color: #a81d73;/*#430a2e;*/
     color: white;
-    float: left;
+    min-height: 32px;
+    height: 32px;
+}
+
+/* Modal tabs */
+.popup-tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 100%;
+    border-top-right-radius: 10px;
+    background-color: #a81d73;
+}
+
+.tab-title {
+    flex-grow: 1;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.tab {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    height: 75%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.tab-text {
+    text-align: center;
+}
+
+#signup-tab-title {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+#login-tab-title {
+    border-top-right-radius: 10px;
+    background-color: #f4eaff;
+    color: #a81d73;
 }
 
 /* Modal Body */
 .modal-body {padding: 2px 16px;}
+
+/*forms*/
+#signup-form {
+    display: none;
+}
+
 
 /* Modal Footer */
 .modal-footer {
@@ -48,9 +104,9 @@
 
 /* Modal Content */
 .modal-content {
-    display: flex;
+    border-radius: 10px;
     position: relative;
-    background-color: #fefefe;
+    background-color: white;
     margin: auto;
     padding: 0;
     top: 10%;
@@ -58,14 +114,12 @@
     border: none; /*1px solid #888;*/
     width: 80%;
     overflow: auto;
-    /*box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);*/
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     animation-name: animatetop;
     animation-duration: 0.4s
 }
 
-/*.modal-content div {*/
-    /*display: inherit;*/
-/*}*/
+
 
 /* Add Animation */
 @keyframes animatetop {
