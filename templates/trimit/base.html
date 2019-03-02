@@ -19,14 +19,13 @@
 
     <!--Imports-->
 
-{#    <link rel="stylesheet" type="text/css" href="{% static "libraries/bootstrap.min.css" %}" />#}
+    {#    <link rel="stylesheet" type="text/css" href="{% static "libraries/bootstrap.min.css" %}" />#}
 
     <script src="{% static "libraries/jquery-3.3.1.min.js" %}"></script>
-{#    <script src="{% static "libraries/bootstrap.bundle.min.js" %}"></script>#}
+    {#    <script src="{% static "libraries/bootstrap.bundle.min.js" %}"></script>#}
 
     <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
-    <script src="{% static "js/baseScript.js" %}"></script>
-
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}" />
     {% block import_block %}
         <!--Other file imports go here-->
     {% endblock %}
@@ -39,15 +38,15 @@
     <div class="menu" id="menu">
         <div class="logo">
             {#                <a href="#logo" onclick=home();>#}
-            <img class="logo" href="#logo" onclick=home(); src="{% static "images/logo.png" %}">
+            <img class="logo home-btn" src="{% static "images/logo.png" %}">
             {#                </a>#}
         </div>
         <div class="nav">
             <ul class="navigate">
                 <a href="#hairdresserSignUp" onclick=hairdresserSignup();>Hairdresser Sign Up</a>
-                <a href="#userSignUp" onclick=userSignup();>User Sign Up</a>
-                <a href="#login" onclick=login();>login</a>
-                <a href="#contact" onclick=contact();>contact</a>
+                <a class="user-signup-btn">User Sign Up</a>
+                <a class="login-btn">login</a>
+                <a class="contact-us-btn">contact</a>
             </ul>
         </div>
     </div>
@@ -60,6 +59,69 @@
     <div class="container-fluid">
         <div class="row">
             <div class="page-content">
+{#                <!-- Trigger/Open The Modal -->#}
+{#                <button id="myBtn">Open Modal</button>#}
+
+                <!-- The Modal -->
+                <div id="loginModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="close">&times;</div>
+                            <div class="popup-tabs">
+                                <div class="tab-title" id="login-tab-title">
+                                    <div class="tab login-tab">
+                                        <div class="tab-text">Login</div>
+                                    </div>
+                                </div>
+                                <div class="tab-title" id="signup-tab-title">
+                                    <div class="tab signup-tab">
+                                        <div class="tab-text">Sign Up</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-body">
+                                <div class="form-container" id="login-form">
+                                    <div class="frm">
+                                        login form
+                                    </div>
+                                </div>
+                                <div class="form-container" id="signup-form">
+                                    <div class="frm">
+                                        <h1>Register for Trimit</h1>
+                                        {% if registered %}
+                                            <strong>thank you for registering!</strong>
+                                            <a href="{% url 'index' %}">Return to the homepage.</a><br/>
+                                        {% else %}
+                                            <strong>register here!</strong><br />
+                                            <form id="user_form" method="post" action="{% url 'user_register' %}"
+                                                  enctype="multipart/form-data">
+
+                                                {% csrf_token %}
+
+                                                <!-- Display each form -->
+                                                {{ user_form.as_p }}
+                                                {{ profile_form.as_p }}
+
+                                                <input type="hidden" name="redir" value="{{ request.path }}">
+
+                                                <!-- Provide a button to click to submit the form -->
+                                                <input type="submit" name="submit" value="Register"/>
+                                            </form>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>Modal Footer</div>
+                        </div>
+                    </div>
+
+                </div>
                 {% block body_block %}
                     <!--Main body-->
                 {% endblock %}
@@ -77,9 +139,9 @@
             <div class="col trimit">
                 <h1>Trimit</h1>
                 <ul>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Contact Us</li>
+                    <li class="home-btn" data-link="{% url "index" %}">Home</li>
+                    <li class="about-btn" data-link="{% url "about" %}">About</li>
+                    <li class="contact-us-btn" data-link="{% url "contact_us" %}">Contact Us</li>
                 </ul>
             </div>
             <div class="divider"></div>
@@ -87,13 +149,16 @@
                 <h1>join</h1>
                 <ul>
                     <li>Sign Up - Hairdresser</li>
-                    <li>Sign Up - User</li>
-                    <li>Login</li>
+                    <li class="user-signup-btn">Sign Up - User</li>
+                    <li class="login-btn">Login</li>
                 </ul>
             </div>
         </div>
     </div>
-
+    <script src="{% static "js/baseScript.js" %}"></script>
+    <script src="{% static "js/modal.js" %}"></script>
+    {% block end_block %}
+    {% endblock %}
 </div>
 </body>
 </html>

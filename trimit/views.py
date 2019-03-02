@@ -7,7 +7,26 @@ from django.http import HttpResponse, JsonResponse
 
 
 def index(request):
-    context_dict = {'boldmessage': "Crunchy, creamy, cookie, candy, cupcake!"}
+    user_form = EUserForm()
+    profile_form = UserProfileForm()
+    context_dict = {'user_form': user_form,
+                    'profile_form': profile_form, }
+    return render(request, 'trimit/base.html', context=context_dict)
+
+
+def about(request):
+    user_form = EUserForm()
+    profile_form = UserProfileForm()
+    context_dict = {'user_form': user_form,
+                    'profile_form': profile_form, }
+    return render(request, 'trimit/base.html', context=context_dict)
+
+
+def contact_us(request):
+    user_form = EUserForm()
+    profile_form = UserProfileForm()
+    context_dict = {'user_form': user_form,
+                    'profile_form': profile_form, }
     return render(request, 'trimit/base.html', context=context_dict)
 
 
@@ -29,7 +48,7 @@ def user_register(request):
         if request.POST.get('redir') != '':
             context_dict['redir'] = request.POST.get('redir')
             context_dict['redir_name'] = resolve(context_dict['redir']).url_name
-        print(context_dict)
+
         if user_form.is_valid() and profile_form.is_valid():
 
             user = user_form.save()

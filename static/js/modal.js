@@ -13,9 +13,21 @@ var signupTab = document.getElementById("signup-tab-title");
 var activeTab = loginTab;
 
 // When the user clicks on the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
+if (btn) {
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
 }
+
+$(".login-btn").on('click', function(){
+    switch2login();
+    modal.style.display = "block";
+});
+
+$(".user-signup-btn").on('click', function(){
+    switch2signup();
+    modal.style.display = "block";
+})
 
 // When the user clicks on <span> (x), close the modal
 cls.onclick = function() {
