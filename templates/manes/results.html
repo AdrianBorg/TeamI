@@ -1,18 +1,39 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
     <head>
+
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../static/css/results_style.css">
-    </head>
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="{% static 'css/results_style.css' %}">
+        <script src="{% static 'js/results_jscript.js'%}"></script>
     <body>
     <div id="box">
-    <div id="left_box">
+    <div id="hairdressers_information_box">
         Where information about each hairdresser will be.
+
     </div>
-    <div id="right_box">
+
+    <div id="filters_box">
         <p id="box_header">Filter my results</p>
-        <p1><br>Price</br></p1>
-        <p1><br>Distance</br></p1>
+        <br></br>
+        <div id="filters">
+            <p1>Price</p1>
+            <p1><br>Distance</br></p1>
+        </div>
+        <!--sliders div-->
+        <div id="sliders">
+
+        <div id="price_slider">
+        </div>
+
+        <div id="distance_slider"></div>
+        </div>
+
         <br></br>
         <div id="map_box">Where the map will be.</div>
 
