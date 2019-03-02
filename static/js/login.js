@@ -54,3 +54,20 @@ function switch2signup() {
     $('#login-form').css("display", "none");
     $('#signup-form').css("display", "block");
 }
+
+// $('#user_form').submit(function (e) {
+//     e.preventDefault();
+//     var form = $(this).closest('form');
+//     $.ajax({
+//         type: $(this).attr('method'), //'POST',
+//         data: $(this).serialize(),
+//         url: form.attr("form-registration"),
+//         success: function (result) {
+//             debugger;
+//
+//         },
+//         error: function (data) {
+//             debugger;
+//         }
+//     })
+// })
