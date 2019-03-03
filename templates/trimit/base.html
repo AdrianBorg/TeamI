@@ -33,7 +33,7 @@
 
 </head>
 <body>
-<div id="top-div" data-static-images="{% static "images/" %}">
+<div id="head" data-static-images="{% static "images/" %}">
 
     <div class="menu" id="menu">
         <div class="logo">
@@ -59,7 +59,7 @@
     {#                <button id="myBtn">Open Modal</button>#}
 
     <!-- The Modal -->
-    <div id="loginModal" class="modal">
+    <div id="loginModal" class="modal" data-popup="{{ popup }}">
 
         <!-- Modal content -->
         <div class="modal-content">
@@ -108,7 +108,7 @@
                     </div>
                     <div class="form-container" id="signup-form">
                         <div class="frm">
-                            <h1>Register for Trimit</h1>
+                            <h1>Register as a User</h1>
                             {% if registered %}
                                 <strong>thank you for registering!</strong>
                                 <a href="{% url 'index' %}">Return to the homepage.</a><br/>
@@ -141,8 +141,7 @@
     </div>
 
 </div>
-<div>
-
+<div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="page-content">
@@ -152,9 +151,8 @@
             </div>
         </div>
     </div>
-
 </div>
-<div>
+<div class="foot">
     {% block footer_block %}
         <!--add before base footer-->
     {% endblock %}
@@ -172,9 +170,13 @@
             <div class="col join">
                 <h1>join</h1>
                 <ul>
-                    <li class="hairdresser-signup-btn" data-link="{% url "hairdresser_register" %}">Sign Up - Hairdresser</li>
-                    <li class="user-signup-btn">Sign Up - User</li>
-                    <li class="login-btn">Login</li>
+                    {% if user.is_authenticated %}
+                        <li class="logout-btn" data-link="{% url "logout" %}">Logout</li>
+                    {% else %}
+                        <li class="hairdresser-signup-btn" data-link="{% url "hairdresser_register" %}">Sign Up - Hairdresser</li>
+                        <li class="user-signup-btn">Sign Up - User</li>
+                        <li class="login-btn">Login</li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

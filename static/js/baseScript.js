@@ -42,3 +42,8 @@ $(".hairdresser-signup-btn").on('click', function(){
     var url = $("li.hairdresser-signup-btn").attr("data-link");
      window.location = url;
 });
+
+$(".logout-btn").on('click', function(){
+    var url = $("li.logout-btn").attr("data-link");
+     window.location = url;
+});

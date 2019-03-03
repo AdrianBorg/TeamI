@@ -20,6 +20,10 @@ class UserRegisterForm(forms.ModelForm):
 
 
 class HairdresserPageForm(forms.ModelForm):
+    opening_times = forms.CharField(
+        max_length=300,
+        widget=forms.Textarea,
+    )
     class Meta:
         model = Page
         fields = ('name', 'flat_number', 'street_address', 'city', 'postcode', 'country', 'opening_times',

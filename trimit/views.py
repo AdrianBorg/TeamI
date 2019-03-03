@@ -69,15 +69,58 @@ def ajax_user_login(request):
         return render(request, 'rango/index.html', context_dict)
 
 
-def register(request, account_type):
+def hairdresser_register(request):
     registered = False
     context_dict = {}
     if request.method == 'POST':
         user_form = UserRegisterForm(data=request.POST)
-        if account_type == 'user':
-            profile_form = UserProfileForm(data=request.POST)
-        elif account_type == 'hairdresser':
-            profile_form = HairdresserPageForm(data=request.POST)
+        hair_form = HairdresserPageForm(data=request.POST)
+
+        if request.POST.get('redir') != '':
+            context_dict['redir'] = request.POST.get('redir')
+            context_dict['redir_name'] = resolve(context_dict['redir']).url_name
+
+        if user_form.is_valid() and hair_form.is_valid():
+
+            user = user_form.save()
+
+            user.set_password(user.password)
+            user.save()
+
+            profile = hair_form.save(commit=False)
+            profile.user = user
+
+            if 'profile_picture' in request.FILES:
+                profile.profile_picture = request.FILES['profile_picture']
+
+            profile.save()
+
+            registered = True
+
+        else:
+            print(user_form.errors, hair_form.errors)
+
+    else:
+        user_form = UserRegisterForm()
+        hair_form = HairdresserPageForm()
+        profile_form = UserProfileForm()
+
+    context_dict.update({'user_form': user_form,
+                         'profile_form': profile_form,
+                         'hair_form': hair_form,
+                         'registered': registered})
+
+    return render(request,
+                  'trimit/hairdresser_register.html',
+                  context_dict)
+
+
+def user_register(request):
+    registered = False
+    context_dict = {}
+    if request.method == 'POST':
+        user_form = UserRegisterForm(data=request.POST)
+        profile_form = UserProfileForm(data=request.POST)
 
         if request.POST.get('redir') != '':
             context_dict['redir'] = request.POST.get('redir')
@@ -105,23 +148,15 @@ def register(request, account_type):
 
     else:
         user_form = UserRegisterForm()
-        if account_type == 'user':
-            profile_form = UserProfileForm()
-        elif account_type == 'hairdresser':
-            profile_form = HairdresserPageForm()
+        profile_form = UserProfileForm()
 
     context_dict.update({'user_form': user_form,
                          'profile_form': profile_form,
                          'registered': registered})
 
-    if account_type == 'user':
-        return render(request,
-                      'trimit/user_register.html',
-                      context_dict)
-    elif account_type == 'hairdresser':
-        return render(request,
-                      'trimit/hairdresser_register.html',
-                      context_dict)
+    return render(request,
+                  'trimit/user_register.html',
+                  context_dict)
 
 
 @login_required

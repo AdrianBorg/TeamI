@@ -67,6 +67,18 @@ function switch2signup() {
     $('#signup-form').css("display", "block");
 }
 
+$(document).ready(function() {
+    var popup = $("#loginModal").attr("data-popup");
+    if (popup.toLowerCase() == 'login') {
+        switch2login()
+        modal.style.display = "block";
+    } else if (popup.toLowerCase() == 'signup') {
+        switch2signup()
+        modal.style.display = "block";
+    }
+
+})
+
 $('#login_form').submit(function (e) {
     e.preventDefault();
     var form = $(this).closest('form');
@@ -99,3 +111,5 @@ $('#login_form').submit(function (e) {
     $('#login-load').addClass('loader')
     $("input").prop('disabled', true);
 })
+
+
