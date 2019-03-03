@@ -4,7 +4,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 from trimit.models import Page, UserProfile, Review, UserHairImage, PageImage
-from trimit.models import EUser as User
+# from trimit.models import EUser as User
+from django.contrib.auth.models import User
 from django.conf import settings
 from django_countries import countries
 from django.core.files import File

@@ -1,12 +1,17 @@
 from django import forms
-from trimit.models import EUser, UserProfile
+from django.contrib.auth.models import User
+from trimit.models import UserProfile
 
 
-class EUserForm(forms.ModelForm):
+# class loginForm(forms.ModelForm):
+
+
+
+class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
-        model = EUser
+        model = User
         fields = ('username', 'email', 'password',)
 
     def __init__(self, *args, **kwargs):
@@ -14,6 +19,7 @@ class EUserForm(forms.ModelForm):
         self.fields['username'].widget.attrs.update({'id': 'username-field'})
         self.fields['email'].widget.attrs.update({'id': 'email-field',
                                                   'placeholder': 'user@trimit.com'},)
+        self.fields['email'].required = True
         self.fields['password'].widget.attrs.update({'id': 'password-field'})
 
 

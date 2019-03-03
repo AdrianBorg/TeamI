@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from trimit.forms import EUserForm, UserProfileForm
+from trimit.forms import UserRegisterForm, UserProfileForm
 from django.urls import reverse, resolve
 from django.http import HttpResponse, JsonResponse
 
@@ -7,7 +7,7 @@ from django.http import HttpResponse, JsonResponse
 
 
 def index(request):
-    user_form = EUserForm()
+    user_form = UserRegisterForm()
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
@@ -15,7 +15,7 @@ def index(request):
 
 
 def about(request):
-    user_form = EUserForm()
+    user_form = UserRegisterForm()
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
@@ -23,7 +23,7 @@ def about(request):
 
 
 def contact_us(request):
-    user_form = EUserForm()
+    user_form = UserRegisterForm()
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
@@ -31,7 +31,7 @@ def contact_us(request):
 
 
 def popupTest(request):
-    user_form = EUserForm()
+    user_form = UserRegisterForm()
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
@@ -42,7 +42,7 @@ def user_register(request):
     registered = False
     context_dict = {}
     if request.method == 'POST':
-        user_form = EUserForm(data=request.POST)
+        user_form = UserRegisterForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
 
         if request.POST.get('redir') != '':
@@ -70,7 +70,7 @@ def user_register(request):
             print(user_form.errors, profile_form.errors)
 
     else:
-        user_form = EUserForm()
+        user_form = UserRegisterForm()
         profile_form = UserProfileForm()
 
     context_dict.update({'user_form': user_form,

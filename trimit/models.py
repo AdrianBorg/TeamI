@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser, Group
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import get_user_model
 from django_countries.fields import CountryField
 from django.template.defaultfilters import slugify
@@ -13,8 +13,8 @@ HAIRDRESSER_GROUP = 'hairdressers'
 USER_GROUP = 'users'
 
 
-class EUser(AbstractUser):
-    email = models.EmailField(unique=True, blank=False)
+# class EUser(AbstractUser):
+#     email = models.EmailField(unique=True, blank=False)
 
 
 class Page(models.Model):
