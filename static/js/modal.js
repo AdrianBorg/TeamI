@@ -80,17 +80,22 @@ $('#login_form').submit(function (e) {
                 // $('.loader').css("color", "white");
                 $('#login-load').removeClass('loader')
                 if (response['login']) {
+                    $("input").prop('disabled', false);
                     location.reload();
                 } else {
                     $('#login-notif-text').text(response['error']);
+                    $("input").prop('disabled', false);
                 }
             }, 700);
         },
         error: function (response) {
             $('.loader').css("color", "white");
-            $('#login-notif-text').text(response.status + ': ' + response.statusText)
+            $('#login-notif-text').text(response.status + ': ' + response.statusText);
+            $("input").prop('disabled', false);
+
         }
     })
     // $('.loader').css("color", "#a81d73");
     $('#login-load').addClass('loader')
+    $("input").prop('disabled', true);
 })

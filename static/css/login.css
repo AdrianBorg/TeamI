@@ -117,6 +117,7 @@
     /*margin: 10% auto;*/
     border: none; /*1px solid #888;*/
     width: 80%;
+    max-width: 600px;
     overflow: auto;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     animation-name: animatetop;
@@ -151,13 +152,13 @@
     height: 1em;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
-    -webkit-animation: load7 1s infinite ease-in-out;
-    animation: load7 1s infinite ease-in-out;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
 }
 .loader {
     color: #a81d73;
     font-size: 10px;
-    margin: 0 auto 1em auto;
+    margin: 0 auto 0em auto;
     position: relative;
     /*text-indent: -9999em;*/
     -webkit-transform: translateZ(0);
