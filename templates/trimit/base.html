@@ -43,7 +43,7 @@
         </div>
         <div class="nav">
             <ul class="navigate">
-                <a href="#hairdresserSignUp" onclick=hairdresserSignup();>Hairdresser Sign Up</a>
+                <a class="hairdresser-signup-btn">Hairdresser Sign Up</a>
                 <a class="user-signup-btn">User Sign Up</a>
                 <a class="login-btn">login</a>
                 <a class="contact-us-btn">contact</a>
@@ -172,7 +172,7 @@
             <div class="col join">
                 <h1>join</h1>
                 <ul>
-                    <li>Sign Up - Hairdresser</li>
+                    <li class="hairdresser-signup-btn" data-link="{% url "hairdresser_register" %}">Sign Up - Hairdresser</li>
                     <li class="user-signup-btn">Sign Up - User</li>
                     <li class="login-btn">Login</li>
                 </ul>

@@ -3,6 +3,6 @@ $(document).ready(function () {
     if ($('#link').val() != '' ){
         setTimeout(function(){
             window.location.href = $('#link').val();
-        }, 5000);
+        }, 3000);
     }
 })

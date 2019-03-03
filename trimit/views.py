@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from trimit.forms import UserRegisterForm, UserProfileForm
-from django.contrib.auth import authenticate, login
+from trimit.forms import UserRegisterForm, UserProfileForm, HairdresserPageForm
+from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse, resolve
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -68,12 +69,15 @@ def ajax_user_login(request):
         return render(request, 'rango/index.html', context_dict)
 
 
-def user_register(request):
+def register(request, account_type):
     registered = False
     context_dict = {}
     if request.method == 'POST':
         user_form = UserRegisterForm(data=request.POST)
-        profile_form = UserProfileForm(data=request.POST)
+        if account_type == 'user':
+            profile_form = UserProfileForm(data=request.POST)
+        elif account_type == 'hairdresser':
+            profile_form = HairdresserPageForm(data=request.POST)
 
         if request.POST.get('redir') != '':
             context_dict['redir'] = request.POST.get('redir')
@@ -101,17 +105,26 @@ def user_register(request):
 
     else:
         user_form = UserRegisterForm()
-        profile_form = UserProfileForm()
+        if account_type == 'user':
+            profile_form = UserProfileForm()
+        elif account_type == 'hairdresser':
+            profile_form = HairdresserPageForm()
 
     context_dict.update({'user_form': user_form,
                          'profile_form': profile_form,
                          'registered': registered})
-    # if context_dict['next'] and registered:
-    #     print(context_dict)
-    #     return render(request,
-    #                   'trimit/' + resolve(context_dict['next']).url_name + '.html',
-    #                   context_dict)
-    # else:
-    return render(request,
-                  'trimit/user_register.html',
-                  context_dict)
+
+    if account_type == 'user':
+        return render(request,
+                      'trimit/user_register.html',
+                      context_dict)
+    elif account_type == 'hairdresser':
+        return render(request,
+                      'trimit/hairdresser_register.html',
+                      context_dict)
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))

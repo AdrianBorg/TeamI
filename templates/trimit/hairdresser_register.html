@@ -1,0 +1,47 @@
+{% extends 'trimit/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Register
+{% endblock %}
+
+{% block body_block %}
+    <h1>Register as a Hairdresser</h1>
+    {% if registered %}
+        <p><strong>thank you for registering!</strong></p>
+        If you are not redirected in a few seconds:
+        {% if redir_name %}
+            <a href="{{ redir }}" id="link-back">click here to return to previous page</a><br/>
+            <input type="hidden" id="link" value={{ redir }}>
+        {% else %}
+            <a href="{% url 'index' %}"  id="link-back">click here to return to the homepage.</a><br/>
+            <input type="hidden" id="link" value={% url 'index' %}>
+        {% endif %}
+
+    {% else %}
+        <input type="hidden" id="link" value=''>
+        <strong>register here!</strong><br />
+        <form id="user_form" method="post" action="{% url 'hairdresser_register' %}"
+              enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- Display each form -->
+            {{ user_form.as_p }}
+            {{ profile_form.as_p }}
+
+            {% if redir %}
+                <input type="hidden" name="redir" value="{{ redir }}">
+            {% else %}
+                <input type="hidden" name="redir" value="">
+            {% endif %}
+
+            <!-- Provide a button to click to submit the form -->
+            <input type="submit" name="submit" value="Register"/>
+        </form>
+    {% endif %}
+{% endblock %}
+
+{% block footer_block %}
+    <script src="{% static "js/register.js" %}"></script>
+{% endblock %}

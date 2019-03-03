@@ -37,3 +37,8 @@ $(".about-btn").on('click', function(){
     var url = $("li.about-btn").attr("data-link");
      window.location = url;
 });
+
+$(".hairdresser-signup-btn").on('click', function(){
+    var url = $("li.hairdresser-signup-btn").attr("data-link");
+     window.location = url;
+});

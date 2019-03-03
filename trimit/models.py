@@ -29,7 +29,7 @@ class Page(models.Model):
     opening_times = models.CharField(max_length=200, blank=True, null=True)
     webpage = models.URLField(blank=True)
     instagram = models.URLField(blank=True)
-   # picture = models.ImageField(upload_to='hairpage_images', blank=True)
+    profile_picture = models.ImageField(upload_to='user_profile_images', blank=True)
     contact_number = models.CharField(max_length=15, blank=True)
 
     latitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, default=None)
