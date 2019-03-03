@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from trimit.forms import UserRegisterForm, UserProfileForm
-from django.urls import reverse, resolve
-from django.http import HttpResponse, JsonResponse
+from django.contrib.auth import authenticate, login
+from django.core.urlresolvers import reverse, resolve
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+
 
 # Create your views here.
 
@@ -36,6 +38,34 @@ def popupTest(request):
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
     return render(request, 'trimit/popup.html', context_dict)
+
+
+def ajax_user_login(request):
+    context_dict = {}
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+
+        if user:
+            if user.is_active:
+                login(request, user)
+                return JsonResponse({'login': True})
+            else:
+                context_dict['error'] = "Account is inactive."
+                return JsonResponse({'login': False,
+                                     'error': context_dict['error']})
+
+        else:
+            context_dict['error'] = "Username and password credentials do not match."
+            print("Invalid login details: {0}, {1}".format(username, password))
+            return JsonResponse({'login': False,
+                                 'error': context_dict['error']})
+
+    else:
+        context_dict['action'] = 'login'
+        return render(request, 'rango/index.html', context_dict)
 
 
 def user_register(request):

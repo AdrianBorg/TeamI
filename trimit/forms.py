@@ -3,10 +3,6 @@ from django.contrib.auth.models import User
 from trimit.models import UserProfile
 
 
-# class loginForm(forms.ModelForm):
-
-
-
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 

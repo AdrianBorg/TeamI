@@ -33,7 +33,7 @@
 
 </head>
 <body>
-<div>
+<div id="top-div" data-static-images="{% static "images/" %}">
 
     <div class="menu" id="menu">
         <div class="logo">
@@ -82,7 +82,28 @@
                 <div class="form-body">
                     <div class="form-container" id="login-form">
                         <div class="frm">
-                            login form
+                            <h1>Login:</h1>
+                            <form id="login_form" method="post" action="{% url 'ajax_user_login' %}">
+                                {% csrf_token %}
+                                <p id="login-notif">
+                                    <div id="login-notif-text"></div>
+                                </p>
+                                <p>
+                                    <label for="username-login">Username: </label>
+                                    <input id="username-login" type="text" name="username" value="" size="20"/>
+                                </p>
+                                <p>
+                                    <label for="password-login">Password: </label>
+                                    <input id="password-login" type="password" name="password" value="" size="20"/>
+                                </p>
+                                <input type="submit" value="Login"/>
+                                <div class="login-loader">
+                                    <div id="login-load">
+                                        <span class="before"></span>
+                                        <span class="after"></span>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="form-container" id="signup-form">
@@ -113,7 +134,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div>Modal Footer</div>
+                <div class="modal-footer-content"></div>
             </div>
         </div>
 

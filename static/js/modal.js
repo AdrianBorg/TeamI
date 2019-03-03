@@ -67,19 +67,30 @@ function switch2signup() {
     $('#signup-form').css("display", "block");
 }
 
-// $('#user_form').submit(function (e) {
-//     e.preventDefault();
-//     var form = $(this).closest('form');
-//     $.ajax({
-//         type: $(this).attr('method'), //'POST',
-//         data: $(this).serialize(),
-//         url: form.attr("form-registration"),
-//         success: function (result) {
-//             debugger;
-//
-//         },
-//         error: function (data) {
-//             debugger;
-//         }
-//     })
-// })
+$('#login_form').submit(function (e) {
+    e.preventDefault();
+    var form = $(this).closest('form');
+    $('#login-notif-text').text('');
+    $.ajax({
+        type: $(this).attr('method'), //'POST',
+        data: $(this).serialize(),
+        url: form.attr("action"),
+        success: function (response) {
+            setTimeout(function(){
+                // $('.loader').css("color", "white");
+                $('#login-load').removeClass('loader')
+                if (response['login']) {
+                    location.reload();
+                } else {
+                    $('#login-notif-text').text(response['error']);
+                }
+            }, 700);
+        },
+        error: function (response) {
+            $('.loader').css("color", "white");
+            $('#login-notif-text').text(response.status + ': ' + response.statusText)
+        }
+    })
+    // $('.loader').css("color", "#a81d73");
+    $('#login-load').addClass('loader')
+})
