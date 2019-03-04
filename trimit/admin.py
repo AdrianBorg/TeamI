@@ -16,14 +16,11 @@ admin.site.unregister(User)
 class MyUserAdmin(UserAdmin):
 
     def group(self, user):
-        groups = []
         for group in user.groups.all():
             if group.name == 'hairdressers':
                 return 'hairdresser'
             if group.name == 'users':
                 return 'user'
-        #     groups.append(group.name)
-        # return ' '.join(groups)
 
     group.short_description = 'Account Type'
 
