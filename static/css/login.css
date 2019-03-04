@@ -117,7 +117,7 @@
     /*margin: 10% auto;*/
     border: none; /*1px solid #888;*/
     width: 80%;
-    max-width: 600px;
+    max-width: 500px;
     overflow: auto;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     animation-name: animatetop;
@@ -221,55 +221,71 @@
     flex-direction: column;
     /*max-width: fit-content;*/
 }
+
 .field-wrapper {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: left;
-    margin-bottom: 0.75em;
-    margin-top: 0.75em;
+    flex-direction: column;
+    margin-bottom: 1em;
 }
 
-.field-help-text {
-    order: 99;
-    color: red;
-    font-size: xx-small;
-    text-align: left;
-    text-indent: 5em;
-    flex: 1 0 100%;
-    /*margin-right: 20%;*/
+.field-row {
+    display: flex;
+    flex-direction: row;
 }
 
 .field-value {
-    flex: 1 0 50%;
+    flex: 1 0 60%;
 }
 
+/*.field-error-row {*/
+/*padding-left: 40%;*/
+/*}*/
+
 .field-label {
-    flex: 0 0 120px;
-    min-width: 120px;
-    padding-right: 20px;
+    flex: 1 0 35%;
     text-align: right;
+    padding-right: 5%;
+}
+
+.field-help-text {
+    font-size: xx-small;
+    padding-left: 40%;
+}
+
+.field-errors {
+    color: red;
+    font-size: xx-small;
+}
+
+.field-errors > ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 40%;
 }
 
 .field-value > input,
 .field-value > select {
-    width: 100%;
-    max-width: 170px;
+    width: 70%;
+    max-width: 200px;
 }
 
 .field-value > textarea {
-    width: 100%;
-    max-width: 168px;
+    width: 70%;
+    /*max-width: 168px;*/
 }
 
 .field-value > .country-widget {
     width: 100%;
-    max-width: 174px;
+    /*max-width: 174px;*/
 }
 
 #country-field {
-    width: 88%;
-    max-width: 154px;
+    width: 71%;
+    max-width: 204px;
+}
+
+.country-select-flag {
+    width: 20px;
 }
 
 #login-form, #signup-form {
@@ -278,15 +294,33 @@
 }
 
 @media all and (max-width: 420px) {
-    .field-value, .field-label {
+    /*.field-value, .field-label {*/
+    /*flex: 1 0 100%;*/
+    /*}*/
+    .field-row {
+        flex-direction: column;
+    }
+
+    .field-row > * {
         flex: 1 0 100%;
     }
+
     .field-label {
         text-align: left;
         padding-right: 0;
     }
-    .field-help-text {
-        text-align: left;
-        text-indent: 0;
+
+    .field-error-row {
+        /*padding-left: 0;*/
+        order: 2;
     }
+
+    .field-help-text {
+        padding-left: 0;
+    }
+
+    .field-errors > ul {
+        padding-left: 0;
+    }
+
 }

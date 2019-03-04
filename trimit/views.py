@@ -72,6 +72,7 @@ def ajax_user_login(request):
 def hairdresser_register(request):
     registered = False
     context_dict = {}
+    profile_form = UserProfileForm()
     if request.method == 'POST':
         user_form = UserRegisterForm(data=request.POST)
         hair_form = HairdresserPageForm(data=request.POST)
@@ -103,7 +104,6 @@ def hairdresser_register(request):
     else:
         user_form = UserRegisterForm()
         hair_form = HairdresserPageForm()
-        profile_form = UserProfileForm()
 
     context_dict.update({'user_form': user_form,
                          'profile_form': profile_form,

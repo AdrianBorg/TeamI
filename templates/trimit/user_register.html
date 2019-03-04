@@ -40,18 +40,26 @@
                 {% endfor %}
                 {% for field in user_form.visible_fields %}
                     <div class="field-wrapper">
-                        <div class="field-errors">{{ field.errors }}</div>
-                        <div class="field-label"> {{ field.label }}</div>
-                        <div class="field-help-text">{{ field.help_text }}</div>
-                        <div class="field-value">{{ field }}</div>
+                        <div class="field-error-row">
+                            <div class="field-errors">{{ field.errors }}</div>
+                            <div class="field-help-text">{{ field.help_text }}</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-label"> {{ field.label }}</div>
+                            <div class="field-value">{{ field }}</div>
+                        </div>
                     </div>
                 {% endfor %}
                 {% for field in profie_form.visible_fields %}
                     <div class="field-wrapper">
-                        <div class="field-errors">{{ field.errors }}</div>
-                        <div class="field-label"> {{ field.label }}</div>
-                        <div class="field-help-text">{{ field.help_text }}</div>
-                        <div class="field-value">{{ field }}</div>
+                        <div class="field-error-row">
+                            <div class="field-errors">{{ field.errors }}</div>
+                            <div class="field-help-text">{{ field.help_text }}</div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field-label"> {{ field.label }}</div>
+                            <div class="field-value">{{ field }}</div>
+                        </div>
                     </div>
                 {% endfor %}
 

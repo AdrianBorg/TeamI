@@ -18,6 +18,15 @@ class UserRegisterForm(forms.ModelForm):
                                                   'placeholder': 'user@trimit.com'},)
         self.fields['email'].required = True
         self.fields['password'].widget.attrs.update({'id': 'password-field'})
+        self.fields['username'].label = 'Username*'
+        self.fields['email'].label = 'Email*'
+        self.fields['password'].label = 'Password*'
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Email already exists")
+        return email
 
 
 class HairdresserPageForm(forms.ModelForm):
@@ -47,6 +56,11 @@ class HairdresserPageForm(forms.ModelForm):
         self.fields['contact_number'].widget.attrs.update({'id': 'contact_number-field'})
         self.fields['webpage'].widget.attrs.update({'id': 'webpage-field'})
         self.fields['instagram'].widget.attrs.update({'id': 'instagram-field'})
+
+        self.fields['street_address'].label = 'Street address*'
+        self.fields['city'].label = 'City*'
+        self.fields['country'].label = 'Country*'
+        self.fields['opening_times'].required = False
 
 
 class UserProfileForm(forms.ModelForm):

@@ -32,8 +32,8 @@ class Page(models.Model):
     profile_picture = models.ImageField(upload_to='user_profile_images', blank=True)
     contact_number = models.CharField(max_length=15, blank=True)
 
-    latitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, default=None)
-    longitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, default=None)
+    latitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, null=True, default=None)
+    longitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, null=True, default=None)
 
     slug = models.SlugField(unique=True)
 
