@@ -27,17 +27,42 @@
             {% csrf_token %}
 
             <!-- Display each form -->
-            {{ user_form.as_p }}
-            {{ profile_form.as_p }}
+            <div class="form-fields">
+                <div class="non-field-errors">
+                    {{ user_form.non_field_errors }}
+                    {{ profile_form.non_field_errors }}
+                </div>
+                {% for hidden in user_form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for hidden in profile_form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+                {% for field in user_form.visible_fields %}
+                    <div class="field-wrapper">
+                        <div class="field-errors">{{ field.errors }}</div>
+                        <div class="field-label"> {{ field.label }}</div>
+                        <div class="field-help-text">{{ field.help_text }}</div>
+                        <div class="field-value">{{ field }}</div>
+                    </div>
+                {% endfor %}
+                {% for field in profie_form.visible_fields %}
+                    <div class="field-wrapper">
+                        <div class="field-errors">{{ field.errors }}</div>
+                        <div class="field-label"> {{ field.label }}</div>
+                        <div class="field-help-text">{{ field.help_text }}</div>
+                        <div class="field-value">{{ field }}</div>
+                    </div>
+                {% endfor %}
 
-            {% if redir %}
-                <input type="hidden" name="redir" value="{{ redir }}">
-            {% else %}
-                <input type="hidden" name="redir" value="">
-            {% endif %}
-
+                {% if redir %}
+                    <input type="hidden" name="redir" value="{{ redir }}">
+                {% else %}
+                    <input type="hidden" name="redir" value="">
+                {% endif %}
+            </div>
             <!-- Provide a button to click to submit the form -->
-            <input type="submit" name="submit" value="Register"/>
+            <input class="form-btn" type="submit" name="submit" value="Register"/>
         </form>
     {% endif %}
 {% endblock %}
