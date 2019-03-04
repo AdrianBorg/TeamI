@@ -222,6 +222,19 @@ img.logo {
 }
 
 @media all and (max-width: 600px) {
+    /*body {*/
+        /*flex-flow: row wrap;*/
+    /*}*/
+
+    /*#head, .content, .foot {*/
+        /*flex: 1 0 100%;*/
+        /*overflow: unset;*/
+    /*}*/
+
+    body {
+        display: block;
+    }
+
     .menu {
         flex-direction: column;
     }

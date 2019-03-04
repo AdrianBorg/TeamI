@@ -276,7 +276,7 @@
 .field-value > textarea {
     width: 70%;
     height: 8em;
-    /*max-width: 168px;*/
+    max-width: 325px;
 }
 
 .field-value > .country-widget {
@@ -328,6 +328,10 @@
 
     .field-help-text, .field-errors > ul, #login-notif-text {
         padding-left: 0;
+    }
+
+    input.form-btn {
+        margin-left: 20%;
     }
 
 }
