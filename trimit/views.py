@@ -73,22 +73,23 @@ def hairdresser_register(request):
     registered = False
     context_dict = {}
     profile_form = UserProfileForm()
+    user_form = UserRegisterForm()
     if request.method == 'POST':
-        user_form = UserRegisterForm(data=request.POST)
-        hair_form = HairdresserPageForm(data=request.POST)
+        hairdresser_form = UserRegisterForm(data=request.POST)
+        page_form = HairdresserPageForm(data=request.POST)
 
         if request.POST.get('redir') != '':
             context_dict['redir'] = request.POST.get('redir')
             context_dict['redir_name'] = resolve(context_dict['redir']).url_name
 
-        if user_form.is_valid() and hair_form.is_valid():
+        if hairdresser_form.is_valid() and page_form.is_valid():
 
-            user = user_form.save()
+            user = hairdresser_form.save()
 
             user.set_password(user.password)
             user.save()
 
-            profile = hair_form.save(commit=False)
+            profile = page_form.save(commit=False)
             profile.user = user
 
             if 'profile_picture' in request.FILES:
@@ -99,15 +100,16 @@ def hairdresser_register(request):
             registered = True
 
         else:
-            print(user_form.errors, hair_form.errors)
+            print(hairdresser_form.errors, page_form.errors)
 
     else:
-        user_form = UserRegisterForm()
-        hair_form = HairdresserPageForm()
+        hairdresser_form = UserRegisterForm()
+        page_form = HairdresserPageForm()
 
     context_dict.update({'user_form': user_form,
+                         'hairdresser_form': hairdresser_form,
                          'profile_form': profile_form,
-                         'hair_form': hair_form,
+                         'page_form': page_form,
                          'registered': registered})
 
     return render(request,

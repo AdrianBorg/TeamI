@@ -89,7 +89,6 @@ $('#login_form').submit(function (e) {
         url: form.attr("action"),
         success: function (response) {
             setTimeout(function(){
-                // $('.loader').css("color", "white");
                 $('#login-load').removeClass('loader')
                 if (response['login']) {
                     $("input").prop('disabled', false);

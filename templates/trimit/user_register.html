@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Register for Trimit</h1>
+    <h1 class="register-title">Register for Trimit</h1>
     {% if registered %}
         <p><strong>thank you for registering!</strong></p>
         If you are not redirected in a few seconds:
@@ -20,7 +20,7 @@
 
     {% else %}
         <input type="hidden" id="link" value=''>
-        <strong>register here!</strong><br />
+{#        <strong>register here!</strong><br />#}
         <form id="user_form" method="post" action="{% url 'user_register' %}"
               enctype="multipart/form-data">
 

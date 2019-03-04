@@ -82,7 +82,7 @@
                 <div class="form-body">
                     <div class="form-container" id="login-form">
                         <div class="frm">
-                            <h1>Login:</h1>
+                            <h1 class="register-title">Login</h1>
                             <form id="login_form" method="post" action="{% url 'ajax_user_login' %}">
                                 {% csrf_token %}
                                 <div class="form-fields">
@@ -116,12 +116,12 @@
                     </div>
                     <div class="form-container" id="signup-form">
                         <div class="frm">
-                            <h1>Register as a User</h1>
+                            <h1 class="register-title">Register as a User</h1>
                             {% if registered %}
                                 <strong>thank you for registering!</strong>
                                 <a href="{% url 'index' %}">Return to the homepage.</a><br/>
                             {% else %}
-                                <strong>register here!</strong><br />
+{#                                <strong>register here!</strong><br />#}
                                 <form id="signup_form" method="post" action="{% url 'user_register' %}"
                                       enctype="multipart/form-data">
 

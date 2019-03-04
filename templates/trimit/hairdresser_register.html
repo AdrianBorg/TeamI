@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body_block %}
-    <h1>Register as a Hairdresser</h1>
+    <h1 class="register-title">Register as a Hairdresser</h1>
     {% if registered %}
         <p><strong>thank you for registering!</strong></p>
         If you are not redirected in a few seconds:
@@ -20,7 +20,7 @@
 
     {% else %}
         <input type="hidden" id="link" value=''>
-        <strong>register here!</strong><br />
+{#        <strong>register here!</strong><br />#}
         <form id="user_form" method="post" action="{% url 'hairdresser_register' %}"
               enctype="multipart/form-data">
 
@@ -29,16 +29,16 @@
             <!-- Display each form -->
             <div class="form-fields">
                 <div class="non-field-errors">
-                    {{ user_form.non_field_errors }}
-                    {{ hair_form.non_field_errors }}
+                    {{ hairdresser_form.non_field_errors }}
+                    {{ page_form.non_field_errors }}
                 </div>
-                {% for hidden in user_form.hidden_fields %}
+                {% for hidden in hairdresser_form.hidden_fields %}
                     {{ hidden }}
                 {% endfor %}
-                {% for hidden in hair_form.hidden_fields %}
+                {% for hidden in page_form.hidden_fields %}
                     {{ hidden }}
                 {% endfor %}
-                {% for field in user_form.visible_fields %}
+                {% for field in hairdresser_form.visible_fields %}
                     <div class="field-wrapper">
                         <div class="field-error-row">
                             <div class="field-errors">{{ field.errors }}</div>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 {% endfor %}
-                {% for field in hair_form.visible_fields %}
+                {% for field in page_form.visible_fields %}
                     <div class="field-wrapper">
                         <div class="field-error-row">
                             <div class="field-errors">{{ field.errors }}</div>

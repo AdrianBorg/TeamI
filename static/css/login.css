@@ -138,9 +138,13 @@
 
 /* spinner */
 .login-loader {
-    display: block;
-    margin-top: -2em;
-    margin-bottom: 2.5em;
+    /*margin-top: -44px;*/
+    /*margin-bottom: 50px;*/
+    /*margin-left: 25%;*/
+    display: inline-block;
+    margin-top: -15px;
+    margin-bottom: 24px;
+    margin-left: 8%;
 }
 .loader,
 .loader:before,
@@ -264,13 +268,14 @@
 }
 
 .field-value > input,
-.field-value > select {
+.field-value > div > select {
     width: 70%;
     max-width: 200px;
 }
 
 .field-value > textarea {
     width: 70%;
+    height: 8em;
     /*max-width: 168px;*/
 }
 
@@ -280,8 +285,8 @@
 }
 
 #country-field {
-    width: 71%;
-    max-width: 204px;
+    width: 70%;
+    max-width: 192px;
 }
 
 .country-select-flag {
@@ -291,6 +296,12 @@
 #login-form, #signup-form {
     display: flex;
     flex-direction: column;
+}
+
+#login-notif-text {
+    color: red;
+    font-size: xx-small;
+    padding: 0em 0 0em 42%;
 }
 
 @media all and (max-width: 420px) {
@@ -315,12 +326,70 @@
         order: 2;
     }
 
-    .field-help-text {
+    .field-help-text, .field-errors > ul, #login-notif-text {
         padding-left: 0;
     }
 
-    .field-errors > ul {
-        padding-left: 0;
-    }
+}
 
+input, select, textarea{
+    border-radius: 7px;
+    padding: 2px 0.5em;
+    border-color: #f4eaff;
+    border-style: solid;
+    border-width: 2px;
+    /*font-family: inherit;*/
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+    outine: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #a81d73;
+    outline: none;
+}
+
+input::placeholder, select::placeholder, textarea::placeholder{
+    opacity: 1;
+    color: #cacaca;
+}
+
+input::-ms-input-placeholder, select::-ms-input-placeholder, textarea::-ms-input-placeholder{
+    color: #cacaca;
+}
+
+textarea {
+    resize: none;
+}
+
+.field-label {
+    padding-top: 4px;
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-btn {
+    border-radius: 7px;
+    padding: 2px 0.5em;
+    border-color: #f4eaff;
+    border-style: solid;
+    border-width: 2px;
+    /*font-family: inherit;*/
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+    outine: none;
+    background-color: #f4eaff;
+    cursor: pointer;
+    margin-left: 40%;
+    margin-bottom: 0.5em;
+}
+
+.form-btn:focus {
+    border-color: #a81d73;
+    outline: none;
+}
+
+.register-title {
+    text-align: center;
+    margin-bottom: 0.5em;
 }
