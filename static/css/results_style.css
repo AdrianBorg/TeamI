@@ -1,0 +1,72 @@
+
+
+#filters_box, #hairdressers_information_box{
+    margin-top: 10%;
+    }
+
+
+#hairdressers_information_box{
+    width: 40%;
+    height: 60%;
+    border-style: solid;
+    margin-left: 0.5%;
+    position: fixed;
+    overflow-y: scroll;
+    }
+
+#filters_box{
+    border-style: none;
+    width: 40%;
+    margin-left: 85%;
+    float: right;
+    height: 50%;
+    margin-right: 5%;
+    }
+
+
+#box_header{
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0px;
+    }
+ /*box that contains the text being applied to each slider*/
+#filters{
+    position:fixed;}
+/*text contained for each slider*/
+#p1{
+    font-size: 22px;
+    margin-top: 10%;
+    }
+#p2{
+    margin-top: 5%;
+    font-size: 22px;
+    }
+
+/*box that contains the sliders*/
+#sliders{
+    margin-left: 20%;
+    }
+
+#price_slider{
+    vertical-align: 10px;
+    }
+
+#distance_slider{
+    vertical-align:5%;
+    margin-top: 5%;}
+
+#map_box{
+    border-style: solid;
+    height:40%;
+    }
+ /*formatting for hairdresser image*/
+#image_box{
+    position: fixed;
+    }
+#hairdresser_data{
+    float: right;
+    margin-right: 40%;
+    }
+#rating{
+    margin-left: 45%;
+    margin-top: 20%;}

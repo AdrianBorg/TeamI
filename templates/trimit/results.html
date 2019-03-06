@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="{% static 'css/results_style.css' %}">
+        <script src="{% static 'js/results_jscript.js'%}"></script>
+    <body>
+    <div id="box">
+    <div id="hairdressers_information_box">
+        <div id="image_box">
+            <img src="//:0" width="30%" height="30%">
+        </div>
+
+        <div id="hairdresser_data">
+            <div id="name_and_distance">
+                <p3>Hairy's</p3><br></div>
+                <p4>0.4 miles</p4>
+            </div>
+            <div id="rating">
+                <p5>rating</p5>
+            </div>
+        <hr>
+        </div>
+
+    </div>
+
+    <div id="filters_box">
+        <p id="box_header">Filter my results</p>
+        <br></br>
+        <div id="filters">
+            <p1>Price</p1>
+            <p2><br>Distance</br></p2>
+        </div>
+        <!--sliders div-->
+        <div id="sliders">
+
+        <div id="price_slider">
+        </div>
+
+        <div id="distance_slider"></div>
+        </div>
+
+        <br></br>
+        <div id="map_box">Where the map will be.</div>
+
+    </div>
+    </div>
+
+    </body>
+</html>
