@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from trimit.forms import UserRegisterForm, UserProfileForm, HairdresserPageForm
+from trimit.models import Page
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse, resolve
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
+from django.utils.safestring import mark_safe
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -15,6 +19,32 @@ def index(request):
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
     return render(request, 'trimit/base.html', context=context_dict)
+
+
+def results(request, search):
+    user_form = UserRegisterForm()
+    profile_form = UserProfileForm()
+    context_dict = {'user_form': user_form,
+                    'profile_form': profile_form, }
+
+    resultset = Page.objects.filter(city__iexact=search)
+
+    context_dict['search_location'] = search
+    context_dict['number_of_results'] = resultset.count()
+    context_dict['resultset'] = mark_safe(serializers.serialize('json', resultset))
+
+    print(context_dict['resultset'])
+
+    return render(request, 'trimit/results.html', context_dict)
+
+
+@csrf_exempt
+def ajax_search_filter(request):
+    if request.method == 'POST':
+        city = request.POST.get('city')
+        results = mark_safe(serializers.serialize('json', Page.objects.filter(city__iexact=city)))
+        return JsonResponse({'results': results})
+
 
 
 def about(request):
