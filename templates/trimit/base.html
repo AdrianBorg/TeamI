@@ -183,6 +183,7 @@
 
 </div>
 <div class="content">
+    {% block custom_content %}
     <div class="container-fluid page-content">
         <div class="row">
             <div class="contents">
@@ -192,6 +193,7 @@
             </div>
         </div>
     </div>
+    {% endblock %}
 </div>
 <div class="foot">
     {% block footer_block %}
