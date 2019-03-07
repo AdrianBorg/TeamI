@@ -83,10 +83,16 @@ function setResults(results) {
 //     }
 // });
 
-function searchFilter(search) {
+function searchFilter() {
     $.ajax({
         type: 'POST',
-        data: {'city': search},
+        data: {'types': $('#hair_types'),
+               'value': $('#vrating'),
+               'rating': $('#orating'),
+               'service': $('#srating'),
+               'atmosphere': $('#arating'),
+               'latBounds': latitudeBounds,
+               'lgnBounds': longitudeBounds},
                // 'csrfmiddlewaretoken': $('#searchTxt').attr('data-token')},
         url: $('#searchTxt').attr('data-link'),
         success: function (response) {

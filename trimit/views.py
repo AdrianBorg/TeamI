@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Avg
 
 
 # Create your views here.
@@ -41,10 +42,31 @@ def results(request, search):
 @csrf_exempt
 def ajax_search_filter(request):
     if request.method == 'POST':
-        city = request.POST.get('city')
-        results = mark_safe(serializers.serialize('json', Page.objects.filter(city__iexact=city)))
-        return JsonResponse({'results': results})
+        types = request.POST.get('types')
+        value = request.POST.get('value')
+        rating = request.POST.get('rating')
+        service = request.POST.get('service')
+        atmosphere = request.POST.get('atmosphere')
+        lat_bounds = request.POST.get('latBounds')
+        lng_bounds = request.POST.get('lngBounds')
 
+        map_filtered_results = Page.objects.filter(latitude__gte=lat_bounds[0],
+                                                   latitude__lte=lat_bounds[1],
+                                                   longitude__gte=lng_bounds[0],
+                                                   longitude__lte=lng_bounds[1])
+
+        annotated_results = map_filtered_results.reviews.annotate(avgv=Avg('price_rating'),
+                                                                  avgr=Avg('overall_rating'),
+                                                                  avgs=Avg('service_rating'),
+                                                                  avga=Avg('atmosphere_rating'))
+
+        rating_filtered_results = annotated_results.filter(avgv__gte=value,
+                                                           avgr__gte=rating,
+                                                           avgs__gte=service,
+                                                           avga__gte=atmosphere)
+
+        resultset = mark_safe(serializers.serialize('json', rating_filtered_results))
+        return JsonResponse({'results': resultset})
 
 
 def about(request):
@@ -126,6 +148,7 @@ def hairdresser_register(request):
                 profile.profile_picture = request.FILES['profile_picture']
 
             profile.save()
+            page_form.save_m2m()
 
             registered = True
 
@@ -140,6 +163,7 @@ def hairdresser_register(request):
                          'hairdresser_form': hairdresser_form,
                          'profile_form': profile_form,
                          'page_form': page_form,
+                         'page_form_media': page_form.media,
                          'registered': registered})
 
     return render(request,

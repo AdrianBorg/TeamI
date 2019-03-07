@@ -2,6 +2,8 @@
 var map;
 var geocoder;
 var markers = [];
+var latitudeBounds;
+var longitudeBounds;
 var markerIcons = {
     default: null,
     red: { url: "../static/images/red-dot-icon.png" }, //"http://maps.google.com/mapfiles/ms/icons/red-dot.png" },
@@ -37,6 +39,13 @@ function initMap() {
     geocoder = new google.maps.Geocoder;
 
     //searchGeocode(''); // search location NEED TO ENTER
+    google.maps.event.addListener(map, 'idle', function (ev) {
+        var bounds = map.getBounds();
+        var ne = bounds.getNorthEast();
+        var sw = bounds.getSouthWest();
+        latitudeBounds = [sw.lat(), ne.lat()];
+        longitudeBounds = [sw.lng(), ne.lng()];
+    })
 }
 
 // searches for the location passed (as a string)
@@ -191,4 +200,5 @@ function random(min, max) {
     var random = Math.random() * (+max - +min) + +min;
     return random;
 }
+
 
