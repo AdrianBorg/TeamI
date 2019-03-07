@@ -6,65 +6,226 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
-    <head>
-            <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
-        <title>
-            Trimit - 
+<head>
 
-            {% block title_block %}
-                Find your perfect hairdresser
-            {% endblock %}
+    <title>
+        Trimit -
 
-        </title>
-        <script src="{% static "js/base.js" %}"></script>
-    </head>
-    <body>
-        <div>
-            {% block header_block%}
-            <div class="menu" id="menu"> 
-                    <a href="#logo" onclick=home();><img class="logo" src="{% static "images/logo.png" %}"></a>
-                    <ul>
-                    <a href="#hairdresserSignUp" onclick=hairdresserSignup();>Hairdresser sign up</a>
-                    <a href="#userSignUp" onclick=userSignup();>User sign up</a>
-                    <a href="#login" onclick=login();>login</a>
-                    <a href="#contact" onclick=contact();>contact</a>
-                    </ul>
-                    </a>
+        {% block title_block %}
+            Find your perfect hairdresser
+        {% endblock %}
+
+    </title>
+
+    <!--Imports-->
+
+    {#    <link rel="stylesheet" type="text/css" href="{% static "libraries/bootstrap.min.css" %}" />#}
+
+    <script src="{% static "libraries/jquery-3.3.1.min.js" %}"></script>
+    {#    <script src="{% static "libraries/bootstrap.bundle.min.js" %}"></script>#}
+
+    <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}" />
+    {% block import_block %}
+        <!--Other file imports go here-->
+    {% endblock %}
+
+
+</head>
+<body>
+<div id="head" data-static-images="{% static "" %}">
+
+    <div class="menu" id="menu">
+        <div class="logo">
+            {#                <a href="#logo" onclick=home();>#}
+            <img class="logo home-btn" src="{% static "images/logo.png" %}">
+            {#                </a>#}
+        </div>
+        <div class="nav">
+            <ul class="navigate">
+                <a class="hairdresser-signup-btn">Hairdresser Sign Up</a>
+                <a class="user-signup-btn">User Sign Up</a>
+                <a class="login-btn">login</a>
+                <a class="contact-us-btn">contact</a>
+            </ul>
+        </div>
+    </div>
+    {% block header_block%}
+        <!--add to base header-->
+    {% endblock %}
+
+
+    <!-- Trigger/Open The Modal -->
+    {#                <button id="myBtn">Open Modal</button>#}
+
+    <!-- The Modal -->
+    <div id="loginModal" class="modal" data-popup="{{ popup }}">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close">&times;</div>
+                <div class="popup-tabs">
+                    <div class="tab-title" id="login-tab-title">
+                        <div class="tab login-tab">
+                            <div class="tab-text">Login</div>
+                        </div>
+                    </div>
+                    <div class="tab-title" id="signup-tab-title">
+                        <div class="tab signup-tab">
+                            <div class="tab-text">Sign Up</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            {% endblock %}
+            <div class="modal-body">
+                <div class="form-body">
+                    <div class="form-container" id="login-form">
+                        <div class="frm">
+                            <h1 class="register-title">Login</h1>
+                            <form id="login_form" method="post" action="{% url 'ajax_user_login' %}">
+                                {% csrf_token %}
+                                <div class="form-fields">
+                                    <div class="form-errors" id="login-notif">
+                                        <div id="login-notif-text"></div>
+                                    </div>
+                                    <div class="form-fields">
+                                        <div class="field-wrapper">
+                                            <div class="field-row">
+                                                <div class="field-label">Username: </div>
+                                                <div class="field-value"><input id="username-login" type="text" name="username" value=""/></div>
+                                            </div>
+                                        </div>
+                                        <div class="field-wrapper">
+                                            <div class="field-row">
+                                                <div class="field-label">Password: </div>
+                                                <div class="field-value"><input id="password-login" type="password" name="password" value=""/></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input class="form-btn" type="submit" value="Login"/>
+                                <div class="login-loader">
+                                    <div id="login-load">
+                                        <span class="before"></span>
+                                        <span class="after"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="form-container" id="signup-form">
+                        <div class="frm">
+                            <h1 class="register-title">Register as a User</h1>
+                            {% if registered %}
+                                <strong>thank you for registering!</strong>
+                                <a href="{% url 'index' %}">Return to the homepage.</a><br/>
+                            {% else %}
+{#                                <strong>register here!</strong><br />#}
+                                <form id="signup_form" method="post" action="{% url 'user_register' %}"
+                                      enctype="multipart/form-data">
+
+                                    {% csrf_token %}
+
+                                    <!-- Display each form -->
+                                    <div class="form-fields">
+                                        <div class="non-field-errors">
+                                            {{ user_form.non_field_errors }}
+                                            {{ profile_form.non_field_errors }}
+                                        </div>
+                                        {% for hidden in user_form.hidden_fields %}
+                                            {{ hidden }}
+                                        {% endfor %}
+                                        {% for hidden in profile_form.hidden_fields %}
+                                            {{ hidden }}
+                                        {% endfor %}
+                                        {% for field in user_form.visible_fields %}
+                                            <div class="field-wrapper">
+                                                <div class="field-error-row">
+                                                    <div class="field-errors">{{ field.errors }}</div>
+                                                    <div class="field-help-text">{{ field.help_text }}</div>
+                                                </div>
+                                                <div class="field-row">
+                                                    <div class="field-label"> {{ field.label }}</div>
+                                                    <div class="field-value">{{ field }}</div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        {% for field in profie_form.visible_fields %}
+                                            <div class="field-wrapper">
+                                                <div class="field-error-row">
+                                                    <div class="field-errors">{{ field.errors }}</div>
+                                                    <div class="field-help-text">{{ field.help_text }}</div>
+                                                </div>
+                                                <div class="field-row">
+                                                    <div class="field-label"> {{ field.label }}</div>
+                                                    <div class="field-value">{{ field }}</div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <input type="hidden" name="redir" value="{{ request.path }}">
+
+                                    <!-- Provide a button to click to submit the form -->
+                                    <input class="form-btn" type="submit" name="submit" value="Register"/>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-footer-content"></div>
+            </div>
         </div>
-        <div>
-            {% block body_block %}
-            <div class="container-fluid">
-                <div class="row row-centered">
-                        <div class="col-lg-10">                 
-                               <!--Main body-->
-                      </div>
-            {% endblock %}
+
+    </div>
+
+</div>
+<div class="content">
+    <div class="container-fluid page-content">
+        <div class="row">
+            <div class="contents">
+                {% block body_block %}
+                    <!--Main body-->
+                {% endblock %}
+            </div>
         </div>
-        <div>
-            {% block footer_block %}
-            <div class="footer">
-                <div class="contain">
-                    <div class="col">
-                        <h1>trimit</h1>
-                        <ul>
-                            <li>Home</li>
-                            <li>About</li>
-                            <li>Contact Us</li>  
-                        </ul>
-                    </div>
-                    <div class="col">
-                        <h1>join</h1>
-                        <ul>
-                            <li>Sign Up - Hairdresser</li>
-                            <li>Sign Up - User</li>
-                            <li>Login</li>
-                        </ul>
-                    </div>
-                    </div>
-                    </div>
-            {% endblock %}
+    </div>
+</div>
+<div class="foot">
+    {% block footer_block %}
+        <!--add before base footer-->
+    {% endblock %}
+    <div class="footer">
+        <div class="contain">
+            <div class="col trimit">
+                <h1>Trimit</h1>
+                <ul>
+                    <li class="home-btn" data-link="{% url "index" %}">Home</li>
+                    <li class="about-btn" data-link="{% url "about" %}">About</li>
+                    <li class="contact-us-btn" data-link="{% url "contact_us" %}">Contact Us</li>
+                </ul>
+            </div>
+            <div class="divider"></div>
+            <div class="col join">
+                <h1>join</h1>
+                <ul>
+                    {% if user.is_authenticated %}
+                        <li class="logout-btn" data-link="{% url "logout" %}">Logout</li>
+                    {% else %}
+                        <li class="hairdresser-signup-btn" data-link="{% url "hairdresser_register" %}">Sign Up - Hairdresser</li>
+                        <li class="user-signup-btn">Sign Up - User</li>
+                        <li class="login-btn">Login</li>
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-    </body>
+    </div>
+    <script src="{% static "js/baseScript.js" %}"></script>
+    <script src="{% static "js/modal.js" %}"></script>
+    {% block end_block %}
+    {% endblock %}
+</div>
+</body>
 </html>
