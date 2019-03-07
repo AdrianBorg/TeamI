@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'trimit',
     'django_countries',
+    'tagulous',
 ]
 
 MIDDLEWARE = [
@@ -135,3 +136,22 @@ MEDIA_URL = '/media/'
 
 # API KEYS
 GoogleGeocodeKey = 'AIzaSyBh1c6xCPIo3PNhfUGmTJhKwU76AuIaJ8o'
+
+# tagulous settings
+SERIALIZATION_MODULES = {
+    'xml':    'tagulous.serializers.xml_serializer',
+    'json':   'tagulous.serializers.json',
+    'python': 'tagulous.serializers.python',
+    'yaml':   'tagulous.serializers.pyyaml',
+}
+
+TAGULOUS_AUTOCOMPLETE_JS = (
+    STATIC_URL + 'tagulous/lib/jquery.js',
+    STATIC_URL + 'tagulous/lib/select2-3/select2.min.js',
+    STATIC_URL + 'tagulous/tagulous.js',
+    STATIC_URL + 'tagulous/adaptor/select2-3.js',
+)
+
+TAGULOUS_AUTOCOMPLETE_CSS = {
+    'all': [STATIC_URL + 'tagulous/lib/select2-3/select2.css']
+}

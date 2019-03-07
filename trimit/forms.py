@@ -31,31 +31,35 @@ class UserRegisterForm(forms.ModelForm):
 
 
 class HairdresserPageForm(forms.ModelForm):
-    opening_times = forms.CharField(
-        max_length=300,
-        widget=forms.Textarea(
-            attrs={'placeholder': 'e.g.\n'
-                                  'Mon - Fri: 9:30am to 17:30pm\n'
-                                  'Closed on weekends',
-                   }
-        ),
+    opening_times = forms.CharField(max_length=300,
+                                    required=False,
+                                    widget=forms.Textarea(
+                                        attrs={'placeholder': 'e.g.\n'
+                                                              'Mon - Fri: 9:30am to 17:30pm\n'
+                                                              'Closed on weekends',
+                                               }
+                                    ),
     )
 
     contact_number = forms.CharField(min_length=8,
+                                     required=False,
                                      validators=[RegexValidator(r'^\+?1?\d{9,15}$',
                                                                 message="Contact number must be 8 to 15 digits long "
                                                                         "and can have a leading '+'.")])
 
+    # specialities = TagField(widget=TagWidget(), required=False)
+
     class Meta:
         model = Page
         fields = ('name', 'flat_number', 'street_address', 'city', 'postcode', 'country', 'opening_times',
-                  'contact_number', 'profile_picture', 'webpage', 'instagram',)
+                  'contact_number', 'profile_picture', 'webpage', 'instagram', 'specialities')
         widgets = {'country': CountrySelectWidget(
             layout='<div class="country-widget">{widget}<img class="country-select-flag" id="{flag_id}" style="margin: 6px 0 0 4px" src="{country.flag}"></div>'
         )}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
         self.fields['name'].label = 'Display name'
         self.fields['name'].widget.attrs.update({'id': 'name-field',
                                                  'placeholder': "e.g. Hairy Mary's"})
@@ -75,6 +79,10 @@ class HairdresserPageForm(forms.ModelForm):
         self.fields['city'].label = 'City*'
         self.fields['country'].label = 'Country*'
         self.fields['opening_times'].required = False
+
+        # self.fields['specialities'].help_text = "Separate individual specialities with commas."
+        # self.fields['specialities'].widget.attrs.update({'id': 'specialities-fiels',
+        #                                                  'placeholder': 'e.g. Blonde, Curly, Straightening'})
 
 
 class UserProfileForm(forms.ModelForm):

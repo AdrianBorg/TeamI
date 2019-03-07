@@ -5,6 +5,12 @@
     Register
 {% endblock %}
 
+{% block import_block %}
+    {{ page_form_media.css }}
+    {{ page_form_media.js }}
+    <link rel="stylesheet" href="{% static "css/tagfield_override.css" %}">
+{% endblock %}
+
 {% block body_block %}
     <h1 class="register-title">Register as a Hairdresser</h1>
     {% if registered %}

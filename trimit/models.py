@@ -7,6 +7,7 @@ from geopy.geocoders import GoogleV3
 import datetime
 from TeamI.settings import GoogleGeocodeKey
 from django.conf import settings
+import tagulous.models
 
 API_KEY = GoogleGeocodeKey
 HAIRDRESSER_GROUP = 'hairdressers'
@@ -15,12 +16,19 @@ USER_GROUP = 'users'
 
 # class EUser(AbstractUser):
 #     email = models.EmailField(unique=True, blank=False)
+class Specialities(tagulous.models.TagModel):
+    class TagMeta:
+        space_delimiter = False
+        force_lowercase = True
+        # autocomplete_limit = 8
+        verbose_name_singular = 'Speciality'
+        verbose_name_plural = 'Specialities'
 
 
 class Page(models.Model):
     name = models.CharField(max_length=30, blank=True, null=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='Page')
-    specialities = models.CharField(max_length=30, blank=True, null=True)
+    specialities = tagulous.models.TagField(to=Specialities, blank=True)
     flat_number = models.CharField(max_length=15, blank=True)
     street_address = models.CharField(max_length=30, blank=False)
     city = models.CharField(max_length=30, blank=False)
@@ -133,8 +141,4 @@ class UserHairImage(models.Model):
 
     def __str__(self):
         return 'image ' + str(self.id) + ' ' + str(self.user) + ' ' + str(self.upload_time.date())
-
-
-
-
 
