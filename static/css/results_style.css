@@ -82,3 +82,7 @@
     height: 100%;
     width: 100%;
 }
+
+.selected-marker {
+    background-color: #f4eaff;
+}

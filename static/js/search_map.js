@@ -2,17 +2,18 @@
 var map;
 var geocoder;
 var markers = [];
+var selectedMarker;
 var latitudeBounds;
 var longitudeBounds;
 var markerIcons = {
     default: null,
-    red: { url: "../static/images/red-dot-icon.png" }, //"http://maps.google.com/mapfiles/ms/icons/red-dot.png" },
-    blue: { url: "../static/images/blue-dot-icon.png" }, //"http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
-    yellow: { url: "../static/images/yellow-dot-icon.png" },
-    orange: { url: "../static/images/orange-dot-icon.png" },
-    purple: { url: "../static/images/purple-dot-icon.png" },
+    red: { url: "../../../static/images/red-dot-icon.png" }, //"http://maps.google.com/mapfiles/ms/icons/red-dot.png" },
+    blue: { url: "../../../static/images/blue-dot-icon.png" }, //"http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
+    yellow: { url: "../../../static/images/yellow-dot-icon.png" },
+    orange: { url: "../../../static/images/orange-dot-icon.png" },
+    purple: { url: "../../../static/images/purple-dot-icon.png" },
 }
-var favouriteIds = [3, 5, 7]; // CHANGE BACK TO EMPTY ##########################################
+var favouriteUsers = [3, 5, 7]; // CHANGE BACK TO EMPTY ##########################################
 
 function initMap() {
     var noPoiLabels = [
@@ -45,7 +46,13 @@ function initMap() {
         var sw = bounds.getSouthWest();
         latitudeBounds = [sw.lat(), ne.lat()];
         longitudeBounds = [sw.lng(), ne.lng()];
+        searchFilter();
     })
+
+    // google.maps.event.addListener(map, 'bounds_changed', function(ev) {
+    //     searchFilter();
+    //     debugger;
+    // })
 }
 
 // searches for the location passed (as a string)
@@ -88,11 +95,12 @@ function addMarker(marker) {
         map: map,
         id: marker.id,
         icon: markerIcons.red,
+        user: marker.user,
     });
     newMarker.addListener('click', function() {
         markerClicked(newMarker.id)
     });
-    markers.push(newMarker);
+    markers.push(newMarker); //add newMarker to markers array
     setFavouriteMarkers();
 }
 
@@ -114,16 +122,24 @@ function markerClicked(id) {
             markers[i].setIcon(markerIcons.red); // set to null to go to default one
         }
     }
+    selectedMarker = markers[index];
     setFavouriteMarkers();
-    markers[index].setIcon(markerIcons.blue);
+    // markers[index].setIcon(markerIcons.blue);
+    highlightMarkerInList(selectedMarker);
     alert(id); // ######################### change this to what is necessary
 }
 
 // set favourite markers to yellow
 function setFavouriteMarkers() {
     for (var i=0;i<markers.length;i++) {
-        if (favouriteIds.includes(markers[i].id)) {
+        if (favouriteUsers.includes(markers[i].user)) {
             markers[i].setIcon(markerIcons.yellow);
+        }
+
+        if (selectedMarker) {
+            if (selectedMarker.id == markers[i].id) {
+                markers[i].setIcon(markerIcons.blue);
+            }
         }
     }
 }

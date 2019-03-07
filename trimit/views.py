@@ -42,28 +42,32 @@ def results(request, search):
 @csrf_exempt
 def ajax_search_filter(request):
     if request.method == 'POST':
-        types = request.POST.get('types')
-        value = request.POST.get('value')
-        rating = request.POST.get('rating')
-        service = request.POST.get('service')
-        atmosphere = request.POST.get('atmosphere')
-        lat_bounds = request.POST.get('latBounds')
-        lng_bounds = request.POST.get('lngBounds')
-
+        #Commented for testing ##################################
+        # types = request.POST.get('types')
+        # value = request.POST.get('value')
+        # rating = request.POST.get('rating')
+        # service = request.POST.get('service')
+        # atmosphere = request.POST.get('atmosphere')
+        lat_bounds = [request.POST.get('latMin'), request.POST.get('latMax')]
+        lng_bounds = [request.POST.get('lngMin'), request.POST.get('lngMax')]
+        city = request.POST.get('city')
+        #
         map_filtered_results = Page.objects.filter(latitude__gte=lat_bounds[0],
                                                    latitude__lte=lat_bounds[1],
                                                    longitude__gte=lng_bounds[0],
                                                    longitude__lte=lng_bounds[1])
+        #
+        # annotated_results = map_filtered_results.reviews.annotate(avgv=Avg('price_rating'),
+        #                                                           avgr=Avg('overall_rating'),
+        #                                                           avgs=Avg('service_rating'),
+        #                                                           avga=Avg('atmosphere_rating'))
+        #
+        # rating_filtered_results = annotated_results.filter(avgv__gte=value,
+        #                                                    avgr__gte=rating,
+        #                                                    avgs__gte=service,
+        #                                                    avga__gte=atmosphere)
 
-        annotated_results = map_filtered_results.reviews.annotate(avgv=Avg('price_rating'),
-                                                                  avgr=Avg('overall_rating'),
-                                                                  avgs=Avg('service_rating'),
-                                                                  avga=Avg('atmosphere_rating'))
-
-        rating_filtered_results = annotated_results.filter(avgv__gte=value,
-                                                           avgr__gte=rating,
-                                                           avgs__gte=service,
-                                                           avga__gte=atmosphere)
+        rating_filtered_results = map_filtered_results.filter(city__iexact=city)
 
         resultset = mark_safe(serializers.serialize('json', rating_filtered_results))
         return JsonResponse({'results': resultset})
