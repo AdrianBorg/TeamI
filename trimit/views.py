@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.utils.safestring import mark_safe
+import json
 from django.db.models import Avg
 import tagulous.forms
 
@@ -54,6 +55,8 @@ def ajax_search_filter(request):
         lng_bounds = [request.POST.get('lngMin'), request.POST.get('lngMax')]
         # city = request.POST.get('city')
         #
+        specialities = json.loads(request.POST.get('specialityTags'))
+        # print(type(specialities))
         map_filtered_results = Page.objects.filter(latitude__gte=lat_bounds[0],
                                                    latitude__lte=lat_bounds[1],
                                                    longitude__gte=lng_bounds[0],

@@ -30,11 +30,6 @@
     <div id="box">
         <div id="hairdressers_information_box"></div>
 
-
-
-        <div id="filters_box">
-            <p id="box_header">Filter my results</p>
-
             <div class="tag_filter">
                 {% for field in speciality_field_form.visible_fields %}
                     <div class="tag-row">
@@ -43,6 +38,11 @@
                     </div>
                 {% endfor %}
             </div>
+
+        <div id="filters_box">
+            <p id="box_header">Filter my results</p>
+
+
 
             <div class="rating_box" id="vrating">
                 <div class= "slider_title" id="value"><p1>Value</p1></div>

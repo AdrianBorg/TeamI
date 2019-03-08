@@ -2,7 +2,7 @@
 var map;
 var geocoder;
 var markers = [];
-var selectedMarker;
+var selectedMarker = {id: -1};
 var latitudeBounds;
 var longitudeBounds;
 var markerIcons = {
@@ -117,19 +117,21 @@ function clearMarkers() {
 
 // do this when a marker is clicked
 function markerClicked(id) {
-    var index;
-    for (var i=0;i<markers.length;i++) {
-        if (markers[i].id == id) {
-            index = i;
-        } else {
-            markers[i].setIcon(markerIcons.red); // set to null to go to default one
+    if (!(selectedMarker.id == id)) {
+        var index;
+        for (var i = 0; i < markers.length; i++) {
+            if (markers[i].id == id) {
+                index = i;
+            } else {
+                markers[i].setIcon(markerIcons.red); // set to null to go to default one
+            }
         }
+        selectedMarker = markers[index];
+        setFavouriteMarkers();
+        // markers[index].setIcon(markerIcons.blue);
+        highlightMarkerInList(selectedMarker);
+        alert(id); // ######################### change this to what is necessary
     }
-    selectedMarker = markers[index];
-    setFavouriteMarkers();
-    // markers[index].setIcon(markerIcons.blue);
-    highlightMarkerInList(selectedMarker);
-    alert(id); // ######################### change this to what is necessary
 }
 
 // set favourite markers to yellow

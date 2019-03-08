@@ -82,6 +82,7 @@ function searchFilter() {
                'lngMin': longitudeBounds[0],
                'lngMax': longitudeBounds[1],
                // 'city': $('#searchTxt').val(),
+               'specialityTags': JSON.stringify(getTagFilters()),
                csrfmiddlewaretoken: CSRFtoken,
                'logged_in': LOGGED_IN,
             },
@@ -114,9 +115,13 @@ $(document).on('click', '.hairdresser', function() {
             break;
         }
     }
-
 })
 
-function highlightMarkerOnMap(user) {
-    debugger; //// ##########impement what happens when you clock on a menu item
+function getTagFilters() {
+    var specitalityTags = [];
+    $('.tag_filter .tag-row .tag-values div ul').children('.select2-search-choice').each(function () {
+        specitalityTags.push($(this).children('div').text())
+    })
+    debugger;
+    return specitalityTags;
 }
