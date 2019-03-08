@@ -85,6 +85,12 @@ class HairdresserPageForm(forms.ModelForm):
         #                                                  'placeholder': 'e.g. Blonde, Curly, Straightening'})
 
 
+class HairPageSpecialityForm(forms.ModelForm):
+    class Meta:
+        model = Page
+        fields = ('specialities', )
+
+
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile

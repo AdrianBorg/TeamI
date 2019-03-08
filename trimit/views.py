@@ -1,14 +1,14 @@
 from django.shortcuts import render
-from trimit.forms import UserRegisterForm, UserProfileForm, HairdresserPageForm
-from trimit.models import Page, UserProfile
+from trimit.forms import UserRegisterForm, UserProfileForm, HairdresserPageForm, HairPageSpecialityForm
+from trimit.models import Page, UserProfile, Specialities
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse, resolve
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.utils.safestring import mark_safe
-from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg
+import tagulous.forms
 
 
 # Create your views here.
@@ -33,13 +33,14 @@ def results(request, search):
     context_dict['search_location'] = search
     context_dict['number_of_results'] = resultset.count()
     context_dict['resultset'] = mark_safe(serializers.serialize('json', resultset))
+    context_dict['speciality_field_form'] = HairPageSpecialityForm
+    print(HairPageSpecialityForm)
 
     #print(context_dict['resultset'])
 
     return render(request, 'trimit/results.html', context_dict)
 
 
-# @csrf_exempt
 def ajax_search_filter(request):
     if request.method == 'POST':
         favourites = None
@@ -75,9 +76,9 @@ def ajax_search_filter(request):
             user = request.user
             # print(UserProfile.objects.filter(user=user).first().favourites.all())
             favourites = UserProfile.objects.filter(user=user).first().favourites.all()
-            print(favourites, "111")
+            # print(favourites, "111")
             favourite_usernames = [fav.user.pk for fav in favourites]
-            print(favourite_usernames, "222")
+            # print(favourite_usernames, "222")
             favourites_json = str(favourite_usernames) #serializers.serialize('json', favourite_usernames)
 
             return JsonResponse({'results': resultset,

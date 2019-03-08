@@ -2,6 +2,10 @@
 {% load staticfiles %}
 
 {% block import_block %}
+    {{ speciality_field_form.media.css }}
+    {{ speciality_field_form.media.js }}
+    <link rel="stylesheet" href="{% static "css/tagfield_override.css" %}">
+
     <link rel="stylesheet" href="{% static "libraries/jquery-ui.min.css" %}">
     <link rel="stylesheet" href="{% static 'css/results_style.css' %}">
     <script src="{% static "libraries/jquery-ui.min.js" %}"></script>
@@ -18,6 +22,8 @@
         {% endif %}
     </script>
 
+
+
 {% endblock %}
 
 {% block body_block %}
@@ -26,56 +32,66 @@
 
 
 
-    <div id="filters_box">
-        <p id="box_header">Filter my results</p>
+        <div id="filters_box">
+            <p id="box_header">Filter my results</p>
 
-        <div class="rating_box" id="vrating">
-            <div class= "slider_title" id="value"><p1>Value</p1></div>
-            <div class="slider-wrapper">
-                <div class="regular_slider"></div>
+            <div class="tag_filter">
+                {% for field in speciality_field_form.visible_fields %}
+                    <div class="tag-row">
+                        <div class="tag-label">{{ field.label }}</div>
+                        <div class="tag-values">{{ field }}</div>
+                    </div>
+                {% endfor %}
             </div>
-        </div>
 
-        <div class="rating_box" id="srating">
-            <div class= "slider_title" id="service"><p1>Service</p1></div>
-            <div class="slider-wrapper">
-                <div class="regular_slider"></div>
-            </div>
-        </div>
-
-        <div class="rating_box" id="arating">
-            <div class= "slider_title" id="atmosphere"><p1>Atmosphere</p1></div>
-            <div class="slider-wrapper">
-                <div class="regular_slider">
-                    <input type="text" id="amount" readonly>
+            <div class="rating_box" id="vrating">
+                <div class= "slider_title" id="value"><p1>Value</p1></div>
+                <div class="slider-wrapper">
+                    <div class="regular_slider"></div>
                 </div>
             </div>
-        </div>
 
-        <div class="rating_box" id="orating">
-            <div class= "slider_title" id="overall"><p1>Overall</p1></div>
-            <div class="slider-wrapper">
-                <div class="regular_slider"></div>
-            </div>
-        </div>
-        <!--sliders div-->
-
-
-
-        <div id="map_box">
-            {#            <div>#}
-                            <!--<input name="searchTxt" type="text" maxlength="512" id="searchTxt" class="searchField" data-link="{% url "ajax_search_results" %}" data-token="{% csrf_token %}"/>-->
-                            <!--<button onclick="searchFilter(document.getElementById('searchTxt').value)">Search</button>-->
-{#                            <button onclick="searchGeocode(document.getElementById('searchTxt').value)">Search</button>#}
-            {#                <button onclick="showMarkers()">Show Markers</button>#}
-            {#                <button onclick="hideMarkers()">Hide Markers</button>#}
-            {#                <button onclick="addRandomMarker()">Add Markers</button>#}
-            {#                <button onclick="clearMarkers()">Clear</button>#}
-            {#            </div>#}
-            <div class="container-map">
-                <div id="map"></div>
+            <div class="rating_box" id="srating">
+                <div class= "slider_title" id="service"><p1>Service</p1></div>
+                <div class="slider-wrapper">
+                    <div class="regular_slider"></div>
+                </div>
             </div>
 
+            <div class="rating_box" id="arating">
+                <div class= "slider_title" id="atmosphere"><p1>Atmosphere</p1></div>
+                <div class="slider-wrapper">
+                    <div class="regular_slider">
+                        <input type="text" id="amount" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rating_box" id="orating">
+                <div class= "slider_title" id="overall"><p1>Overall</p1></div>
+                <div class="slider-wrapper">
+                    <div class="regular_slider"></div>
+                </div>
+            </div>
+            <!--sliders div-->
+
+
+
+            <div id="map_box">
+                {#            <div>#}
+                <!--<input name="searchTxt" type="text" maxlength="512" id="searchTxt" class="searchField" data-link="{% url "ajax_search_results" %}" data-token="{% csrf_token %}"/>-->
+                <!--<button onclick="searchFilter(document.getElementById('searchTxt').value)">Search</button>-->
+                {#                            <button onclick="searchGeocode(document.getElementById('searchTxt').value)">Search</button>#}
+                {#                <button onclick="showMarkers()">Show Markers</button>#}
+                {#                <button onclick="hideMarkers()">Hide Markers</button>#}
+                {#                <button onclick="addRandomMarker()">Add Markers</button>#}
+                {#                <button onclick="clearMarkers()">Clear</button>#}
+                {#            </div>#}
+                <div class="container-map">
+                    <div id="map"></div>
+                </div>
+
+            </div>
         </div>
     </div>
 {% endblock %}
