@@ -2,11 +2,12 @@ $( function() {
     $( ".regular_slider" ).slider({
         orientation: "horizontal",
         range: "min",
-        min: 0,
-        max: 100,
-        value: 60,
+        min: 100,
+        max: 500,
+        value: 100,
         slide: function( event, ui ) {
-            $( "#amount" ).val( ui.value );
+            $( ".regular_slider input" ).val(ui.value/100)
+            //parent().parent().find("input").val( ui.value );
         }
     });
     $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
