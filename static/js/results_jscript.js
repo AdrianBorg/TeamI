@@ -1,26 +1,13 @@
 $( function() {
-    $( "#price_slider" ).slider({
-        range: true,
-        min: 0,
-        max: 500,
-        values: [ 75, 300 ],
-        slide: function( event, ui ) {
-            $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-        }
-    });
-    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-} );
-
-$( function() {
-    $( "#distance_slider" ).slider({
+    $( ".regular_slider" ).slider({
         orientation: "horizontal",
         range: "min",
-        min: 0,
-        max: 100,
-        value: 60,
+        min: 100,
+        max: 500,
+        value: 100,
         slide: function( event, ui ) {
-            $( "#amount" ).val( ui.value );
+            $( ".regular_slider input" ).val(ui.value/100)
+            //parent().parent().find("input").val( ui.value );
         }
     });
     $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );

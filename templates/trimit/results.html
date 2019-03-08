@@ -22,57 +22,58 @@
 
 {% block body_block %}
     <div id="box">
-        <div id="hairdressers_information_box">
-            {#            <div class="hairdresser">#}
-            {#                <div id="image_box">#}
-            {#                    <img src="//:0" width="30%" height="30%">#}
-            {#                </div>#}
-            {##}
-            {#                <div id="hairdresser_data">#}
-            {#                    <div id="name_and_distance">#}
-            {#                        <p3>Hairy's</p3><br></div>#}
-            {#                    <p4>0.4 miles</p4>#}
-            {#                </div>#}
-            {#                <div id="rating">#}
-            {#                    <p5>rating</p5>#}
-            {#                </div>#}
-            {#            </div>#}
-            {#            <hr>#}
+        <div id="hairdressers_information_box"></div>
 
+
+
+    <div id="filters_box">
+        <p id="box_header">Filter my results</p>
+
+        <div class="rating_box" id="vrating">
+            <div class= "slider_title" id="value"><p1>Value</p1></div>
+            <div class="slider-wrapper">
+                <div class="regular_slider"></div>
+            </div>
         </div>
 
-        {#    </div>#}
-
-        <div id="filters_box">
-            <p id="box_header">Filter my results</p>
-            <br></br>
-            <div id="filters">
-                <p1>Price</p1>
-                <p2><br>Distance</br></p2>
+        <div class="rating_box" id="srating">
+            <div class= "slider_title" id="service"><p1>Service</p1></div>
+            <div class="slider-wrapper">
+                <div class="regular_slider"></div>
             </div>
-            <!--sliders div-->
-            <div id="sliders">
+        </div>
 
-                <div id="price_slider">
+        <div class="rating_box" id="arating">
+            <div class= "slider_title" id="atmosphere"><p1>Atmosphere</p1></div>
+            <div class="slider-wrapper">
+                <div class="regular_slider">
+                    <input type="text" id="amount" readonly>
                 </div>
-
-                <div id="distance_slider"></div>
             </div>
+        </div>
 
-            <br></br>
-            <div id="map_box">
-                {#            <div>#}
-{#                <input name="searchTxt" type="text" maxlength="512" id="searchTxt" class="searchField" data-link="{% url "ajax_search_results" %}" data-token="{% csrf_token %}"/>#}
-{#                <button onclick="searchFilter(document.getElementById('searchTxt').value)">Search</button>#}
-                {#                            <button onclick="searchGeocode(document.getElementById('searchTxt').value)">Search</button>#}
-                {#                <button onclick="showMarkers()">Show Markers</button>#}
-                {#                <button onclick="hideMarkers()">Hide Markers</button>#}
-                {#                <button onclick="addRandomMarker()">Add Markers</button>#}
-                {#                <button onclick="clearMarkers()">Clear</button>#}
-                {#            </div>#}
-                <div class="container-map">
-                    <div id="map"></div>
-                </div>
+        <div class="rating_box" id="orating">
+            <div class= "slider_title" id="overall"><p1>Overall</p1></div>
+            <div class="slider-wrapper">
+                <div class="regular_slider"></div>
+            </div>
+        </div>
+        <!--sliders div-->
+
+
+
+        <div id="map_box">
+            {#            <div>#}
+                            <!--<input name="searchTxt" type="text" maxlength="512" id="searchTxt" class="searchField" data-link="{% url "ajax_search_results" %}" data-token="{% csrf_token %}"/>-->
+                            <!--<button onclick="searchFilter(document.getElementById('searchTxt').value)">Search</button>-->
+{#                            <button onclick="searchGeocode(document.getElementById('searchTxt').value)">Search</button>#}
+            {#                <button onclick="showMarkers()">Show Markers</button>#}
+            {#                <button onclick="hideMarkers()">Hide Markers</button>#}
+            {#                <button onclick="addRandomMarker()">Add Markers</button>#}
+            {#                <button onclick="clearMarkers()">Clear</button>#}
+            {#            </div>#}
+            <div class="container-map">
+                <div id="map"></div>
             </div>
 
         </div>
