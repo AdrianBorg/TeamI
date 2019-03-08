@@ -10,6 +10,7 @@ def deleted_user():
    
 class Page(models.Model):
      user = models.OneToOneField(User)
+     name = models.CharField(max_length=30, null=False, default="hairdresser")
      specialities = models.CharField(max_length=30, null = True)
      location = models.CharField(max_length=30, blank = False, default = "location")
      opening_times = models.CharField(max_length=200, null = True)
