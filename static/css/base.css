@@ -1,16 +1,21 @@
 body {
     background-color: #f1f1f1;
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
 }
 
-.h1 {
+h1 {
+    margin: 0;
     color: #a81d73;
     font-size: 30px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 
-.h2 {
+h2 {
     font-size: 22px;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -37,54 +42,126 @@ body {
 
 }
 
-.menu { 
+.menu {
+    /*position: fixed;*/
+    /*top: 0;*/
     overflow: hidden;
     background-color: #ffffff;
-    width: 100%
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navigate {
+    display: flex;
+    flex-flow: row wrap;
+
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+}
+
+.nav {
+    height: auto;
+}
+
+html, body {
+    height: 100%;
+}
+
+.head {
+    flex-grow: 0;
+}
+
+.content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.foot {
+    flex-grow: 0;
+}
+
+.row {
+    padding: 0.5em;
+}
+
+.page-content {
+    width: 85%;
+    margin: 0.5em auto;
+    background-color: white;
+    border-radius: 10px;
+    flex-grow: 1;
 }
 
 .menu a {
     text-transform: uppercase;
-    float: left;
-    display: block;
+    display: flex;
+    align-items: center;
+    /*float: left;*/
+    /*display: block;*/
     color: #000000;
-    text-align: center;
+    /*text-align: center;*/
     text-decoration: none;
-    padding: 10px 8px;
-    font-size: 17px; 
+    /*padding: 10px 8px;*/
+    font-size: 17px;
+    cursor: pointer;
+    height: 100%;
+    padding: 1em;
+    -webkit-box-shadow: -16px 0 0px -15px #a81d73;
+    box-shadow: -16px 0 0px -15px #a81d73;
+    border-top: none;
+}
+
+.menu a:first-child {
+    box-shadow: none;
+}
+
+.menu ul {
+    margin: 0;
+    padding: 0;
 }
 
 .logo{
     float: left;
-    vertical-align: right;
+    vertical-align: center;
     width: 200px;
     height: 45px;
-    margin-right: 600px;
+    /*margin-right: 600px;*/
+}
+
+img.logo {
+    cursor: pointer;
 }
 
 .menu a:hover {
     color: #a81d73;
+    /*background: #f4eaff;*/
 }
 
-.row-centered {
-    text-align: center;
+.contain {
+    display: flex;
+    justify-content: center;
 }
-.col-centered {
-    text-align: center;
-    display: inline-block;
-    float: none;
-}
+
+/*.row-centered {*/
+    /*text-align: center;*/
+/*}*/
 
 .footer {
-    width: 98.7%;
-    position: absolute;
-    bottom: 0;
+    width: 100%;
+    /*position: absolute;*/
+    /*bottom: 0;*/
     height: auto;
     background-color: #ffffff;
 }
 
 .footer .col {
-    width: 200px;
+    width: 49%;
     height: auto;
     float:left;
     box-sizing: border-box;
@@ -102,6 +179,7 @@ body {
     font-weight: normal;
     text-transform: uppercase;
     letter-spacing: 0.250em;
+    text-align: center;
   }
 
 .footer .col ul{
@@ -117,9 +195,78 @@ body {
     font-weight: bold;
     padding: 5px 0px 5px 0px;
     cursor: pointer;
+    text-align: center;
 }
 
 .footer .col ul li:hover {
     color: #a81d73;
 }
+
+.divider {
+    background-color: #a81d73;
+    min-height: 50%;
+    width: 1px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+@media all and (max-width: 789px) {
+    .menu {
+        justify-content: space-around;
+    }
+
+    .navigate a {
+        border-top: 1px solid rgba(0,0,0,0.1);
+        border-right: none;
+    }
+}
+
+@media all and (max-width: 600px) {
+    /*body {*/
+        /*flex-flow: row wrap;*/
+    /*}*/
+
+    /*#head, .content, .foot {*/
+        /*flex: 1 0 100%;*/
+        /*overflow: unset;*/
+    /*}*/
+
+    body {
+        display: block;
+    }
+
+    .menu {
+        flex-direction: column;
+    }
+
+    .navigate {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .navigate {
+        width: 100%;
+    }
+
+    .navigate a {
+        text-align: center;
+        padding: 10px;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        border-right: none;
+        width: 100%;
+        display: block;
+        box-shadow: none;
+    }
+
+    .nav {
+        width: 100%;
+    }
+
+}
+
+/*div {*/
+    /*border-style: solid;*/
+    /*border-width: 1px;*/
+    /*border-color: blue;*/
+/*}*/
 

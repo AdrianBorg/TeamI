@@ -1,0 +1,419 @@
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    /*display: block;*/
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    padding-right: 8px;
+    padding-left: 6px;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Header */
+.modal-header {
+    /*padding: 2px 16px;*/
+    background-color: #a81d73;/*#430a2e;*/
+    color: white;
+    min-height: 32px;
+    height: 32px;
+}
+
+/* Modal tabs */
+.popup-tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 100%;
+    border-top-right-radius: 10px;
+    background-color: #a81d73;
+}
+
+.tab-title {
+    flex-grow: 1;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+}
+
+.tab {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    height: 75%;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.tab-text {
+    text-align: center;
+}
+
+#signup-tab-title {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+#login-tab-title {
+    border-top-right-radius: 10px;
+    background-color: #f4eaff;
+    color: #a81d73;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;}
+
+/*forms*/
+#signup-form {
+    display: none;
+}
+
+#login-loading-img {
+    display: none;
+}
+
+
+/* Modal Footer */
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #a81d73;
+    color: white;
+}
+
+/* Modal Content */
+.modal-content {
+    border-radius: 10px;
+    position: relative;
+    background-color: white;
+    margin: auto;
+    padding: 0;
+    top: 10%;
+    /*margin: 10% auto;*/
+    border: none; /*1px solid #888;*/
+    width: 80%;
+    max-width: 500px;
+    overflow: auto;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Modal footer*/
+.modal-footer {
+    min-height: 1em;
+}
+
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 10%; opacity: 1}
+}
+
+/* spinner */
+.login-loader {
+    /*margin-top: -44px;*/
+    /*margin-bottom: 50px;*/
+    /*margin-left: 25%;*/
+    display: inline-block;
+    margin-top: -15px;
+    margin-bottom: 24px;
+    margin-left: 8%;
+}
+.loader,
+.loader:before,
+.loader:after,
+.loader span.before:before,
+.loader span.after:after {
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation: load7 1.8s infinite ease-in-out;
+    animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+    color: #a81d73;
+    font-size: 10px;
+    margin: 0 auto 0em auto;
+    position: relative;
+    /*text-indent: -9999em;*/
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+.loader:before,
+.loader:after,
+.loader span.before:before,
+.loader span.after:after {
+    content: '';
+    position: absolute;
+    top: 0;
+}
+.loader:before {
+    left: -1em;
+    -webkit-animation-delay: -0.48s;
+    animation-delay: -0.48s;
+}
+.loader span.before:before {
+    left: -2em;
+    -webkit-animation-delay: -0.64s;
+    animation-delay: -0.64s;
+}
+.loader:after {
+    left: 1em;
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s
+}
+.loader span.after:after {
+    left: 2em;
+}
+@-webkit-keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+@keyframes load7 {
+    0%,
+    80%,
+    100% {
+        box-shadow: 0 2.5em 0 -1.3em;
+    }
+    40% {
+        box-shadow: 0 2.5em 0 0;
+    }
+}
+
+/* modal forms css */
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    /*max-width: fit-content;*/
+}
+
+.field-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.field-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.field-value {
+    flex: 1 0 60%;
+}
+
+/*.field-error-row {*/
+/*padding-left: 40%;*/
+/*}*/
+
+.field-label {
+    flex: 1 0 35%;
+    text-align: right;
+    padding-right: 5%;
+}
+
+.field-help-text {
+    font-size: xx-small;
+    padding-left: 40%;
+}
+
+.field-errors {
+    color: red;
+    font-size: xx-small;
+}
+
+.field-errors > ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 40%;
+}
+
+.field-value > input,
+.field-value > div > select {
+    width: 70%;
+    max-width: 200px;
+}
+
+.field-value > textarea {
+    width: 70%;
+    height: 8em;
+    max-width: 325px;
+}
+
+.field-value > .country-widget {
+    width: 100%;
+    /*max-width: 174px;*/
+}
+
+#country-field {
+    width: 70%;
+    max-width: 192px;
+}
+
+.country-select-flag {
+    width: 20px;
+}
+
+#login-form, #signup-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-notif-text {
+    color: red;
+    font-size: xx-small;
+    padding: 0em 0 0em 42%;
+}
+
+@media all and (max-width: 420px) {
+    /*.field-value, .field-label {*/
+    /*flex: 1 0 100%;*/
+    /*}*/
+    .field-row {
+        flex-direction: column;
+    }
+
+    .field-row > * {
+        flex: 1 0 100%;
+    }
+
+    .field-label {
+        text-align: left;
+        padding-right: 0;
+    }
+
+    .field-error-row {
+        /*padding-left: 0;*/
+        order: 2;
+    }
+
+    .field-help-text, .field-errors > ul, #login-notif-text {
+        padding-left: 0;
+    }
+
+    input.form-btn {
+        margin-left: 20%;
+    }
+
+}
+
+input, select, textarea{
+    border-radius: 7px;
+    padding: 2px 0.5em;
+    border-color: #f4eaff;
+    border-style: solid;
+    border-width: 2px;
+    /*font-family: inherit;*/
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+    outine: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #a81d73;
+    outline: none;
+}
+
+input::placeholder, select::placeholder, textarea::placeholder{
+    opacity: 1;
+    color: #cacaca;
+}
+
+input::-ms-input-placeholder, select::-ms-input-placeholder, textarea::-ms-input-placeholder{
+    color: #cacaca;
+}
+
+textarea {
+    resize: none;
+}
+
+.field-label {
+    padding-top: 4px;
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-btn {
+    border-radius: 7px;
+    padding: 2px 0.5em;
+    border-color: #f4eaff;
+    border-style: solid;
+    border-width: 2px;
+    /*font-family: inherit;*/
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+    outine: none;
+    background-color: #f4eaff;
+    cursor: pointer;
+    margin-left: 40%;
+    margin-bottom: 0.5em;
+}
+
+.form-btn:focus {
+    border-color: #a81d73;
+    outline: none;
+}
+
+.register-title {
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+/* scroll bar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px lightgrey;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: darkgrey;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-corner {
+    background: #f1f1f1;
+}
