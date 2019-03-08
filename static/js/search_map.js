@@ -13,7 +13,7 @@ var markerIcons = {
     orange: { url: "../../../static/images/orange-dot-icon.png" },
     purple: { url: "../../../static/images/purple-dot-icon.png" },
 }
-var favouriteUsers = [3, 5, 7]; // CHANGE BACK TO EMPTY ##########################################
+var favouriteHairdressers = [];
 
 function initMap() {
     var noPoiLabels = [
@@ -31,6 +31,9 @@ function initMap() {
         disableDefaultUI: true, // hide all controls
         scaleControl: true, // make scale visible
         zoomControl: true, // make zoom controls visible
+        zoomControlOptions: {
+            position: google.maps.ControlPosition.TOP_RIGHT
+        },
         clickableIcons: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         styles: noPoiLabels,
@@ -132,7 +135,7 @@ function markerClicked(id) {
 // set favourite markers to yellow
 function setFavouriteMarkers() {
     for (var i=0;i<markers.length;i++) {
-        if (favouriteUsers.includes(markers[i].user)) {
+        if (favouriteHairdressers.includes(markers[i].user)) {
             markers[i].setIcon(markerIcons.yellow);
         }
 

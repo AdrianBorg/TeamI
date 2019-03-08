@@ -5,10 +5,19 @@
     <link rel="stylesheet" href="{% static "libraries/jquery-ui.min.css" %}">
     <link rel="stylesheet" href="{% static 'css/results_style.css' %}">
     <script src="{% static "libraries/jquery-ui.min.js" %}"></script>
+    <div id="csrf_token">{% csrf_token %}</div>
     <script>
         var resultset = {{ resultset }};
         var searchLocation = "{{ search_location }}";
+        var CSRFtoken = $('#csrf_token > input').val();
+        var AJAXlink = "{% url "ajax_search_results" %}";
+        {% if user.is_authenticated %}
+            var LOGGED_IN = true;
+        {% else %}
+            var LOGGED_IN = false;
+        {% endif %}
     </script>
+
 {% endblock %}
 
 {% block body_block %}
@@ -53,8 +62,8 @@
             <br></br>
             <div id="map_box">
                 {#            <div>#}
-                <input name="searchTxt" type="text" maxlength="512" id="searchTxt" class="searchField" data-link="{% url "ajax_search_results" %}" data-token="{% csrf_token %}"/>
-                <button onclick="searchFilter(document.getElementById('searchTxt').value)">Search</button>
+{#                <input name="searchTxt" type="text" maxlength="512" id="searchTxt" class="searchField" data-link="{% url "ajax_search_results" %}" data-token="{% csrf_token %}"/>#}
+{#                <button onclick="searchFilter(document.getElementById('searchTxt').value)">Search</button>#}
                 {#                            <button onclick="searchGeocode(document.getElementById('searchTxt').value)">Search</button>#}
                 {#                <button onclick="showMarkers()">Show Markers</button>#}
                 {#                <button onclick="hideMarkers()">Hide Markers</button>#}

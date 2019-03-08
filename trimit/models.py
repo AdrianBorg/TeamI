@@ -68,6 +68,7 @@ class Page(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
     profile_picture = models.ImageField(upload_to='user_profile_images', blank=True)
+    favourites = models.ManyToManyField(to='Page', related_name='favourited')
    # hairpicture = models.ImageField(upload_to='user_images', blank=True)
 
     def save(self, *args, **kwargs):

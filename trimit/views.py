@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from trimit.forms import UserRegisterForm, UserProfileForm, HairdresserPageForm
-from trimit.models import Page
+from trimit.models import Page, UserProfile
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse, resolve
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -34,14 +34,15 @@ def results(request, search):
     context_dict['number_of_results'] = resultset.count()
     context_dict['resultset'] = mark_safe(serializers.serialize('json', resultset))
 
-    print(context_dict['resultset'])
+    #print(context_dict['resultset'])
 
     return render(request, 'trimit/results.html', context_dict)
 
 
-@csrf_exempt
+# @csrf_exempt
 def ajax_search_filter(request):
     if request.method == 'POST':
+        favourites = None
         #Commented for testing ##################################
         # types = request.POST.get('types')
         # value = request.POST.get('value')
@@ -50,7 +51,7 @@ def ajax_search_filter(request):
         # atmosphere = request.POST.get('atmosphere')
         lat_bounds = [request.POST.get('latMin'), request.POST.get('latMax')]
         lng_bounds = [request.POST.get('lngMin'), request.POST.get('lngMax')]
-        city = request.POST.get('city')
+        # city = request.POST.get('city')
         #
         map_filtered_results = Page.objects.filter(latitude__gte=lat_bounds[0],
                                                    latitude__lte=lat_bounds[1],
@@ -67,10 +68,23 @@ def ajax_search_filter(request):
         #                                                    avgs__gte=service,
         #                                                    avga__gte=atmosphere)
 
-        rating_filtered_results = map_filtered_results.filter(city__iexact=city)
-
+        rating_filtered_results = map_filtered_results#.filter(city__iexact=city)
         resultset = mark_safe(serializers.serialize('json', rating_filtered_results))
-        return JsonResponse({'results': resultset})
+
+        if not request.user.is_anonymous():
+            user = request.user
+            # print(UserProfile.objects.filter(user=user).first().favourites.all())
+            favourites = UserProfile.objects.filter(user=user).first().favourites.all()
+            print(favourites, "111")
+            favourite_usernames = [fav.user.pk for fav in favourites]
+            print(favourite_usernames, "222")
+            favourites_json = str(favourite_usernames) #serializers.serialize('json', favourite_usernames)
+
+            return JsonResponse({'results': resultset,
+                                 'favourites': favourites_json})
+
+        else:
+            return JsonResponse({'results': resultset})
 
 
 def about(request):

@@ -94,14 +94,19 @@ function searchFilter() {
                'latMax': latitudeBounds[1],
                'lngMin': longitudeBounds[0],
                'lngMax': longitudeBounds[1],
-               'city': $('#searchTxt').val(),
+               // 'city': $('#searchTxt').val(),
+               csrfmiddlewaretoken: CSRFtoken,
+               'logged_in': LOGGED_IN,
             },
-               // 'csrfmiddlewaretoken': $('#searchTxt').attr('data-token')},
-        url: $('#searchTxt').attr('data-link'),
+
+        url: AJAXlink,
         success: function (response) {
             console.log("new lat bnds: " + latitudeBounds + "|lng bnds: " + longitudeBounds);
-            results = JSON.parse(response['results'])
+            results = JSON.parse(response['results']);
             setResults(results)
+            if (response['favourites']) {
+                favouriteHairdressers = JSON.parse(response['favourites']);
+            }
             //searchGeocode($('#searchTxt').val())
         }
     })
@@ -113,6 +118,17 @@ function highlightMarkerInList(selectedMarker) {
     }
     $('#hairdresser'+selectedMarker["user"]).addClass('selected-marker')
 }
+
+$(document).on('click', '.hairdresser', function() {
+    var user = $(this).attr('id').replace('hairdresser', '');
+    for (var i=0;i<markers.length;i++) {
+        if (markers[i].user == user) {
+            markerClicked(markers[i].id);
+            break;
+        }
+    }
+
+})
 
 function highlightMarkerOnMap(user) {
     debugger; //// ##########impement what happens when you clock on a menu item
