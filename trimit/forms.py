@@ -90,6 +90,10 @@ class HairPageSpecialityForm(forms.ModelForm):
         model = Page
         fields = ('specialities', )
 
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['specialities'].label = 'Hair Specialities'
+
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
