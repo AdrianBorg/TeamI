@@ -80,6 +80,7 @@ html, body {
     display: flex;
     flex-direction: column;
     overflow: auto;
+    flex: 1 1 100%;
 }
 
 .foot {
@@ -88,14 +89,23 @@ html, body {
 
 .row {
     padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
 }
+.contents{
+    display: flex;
+    flex-direction: column;
 
+    flex: 1 1 100%;}
 .page-content {
     width: 85%;
     margin: 0.5em auto;
     background-color: white;
     border-radius: 10px;
-    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 100%;
 }
 
 .menu a {

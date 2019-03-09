@@ -1,17 +1,90 @@
 $( function() {
-    $( ".regular_slider" ).slider({
+    var handle = $( "#vrating_handle" );
+    $( "#vrating_slider" ).slider({
         orientation: "horizontal",
         range: "min",
-        min: 100,
-        max: 500,
-        value: 100,
-        slide: function( event, ui ) {
-            $( ".regular_slider input" ).val(ui.value/100)
-            //parent().parent().find("input").val( ui.value );
-        }
+        min: 10,
+        max: 50,
+        value: 10,
+        create: function() {
+        handle.text( $( this ).slider( "value" ) );
+      },
+      create: function(  ) {
+        handle.text( 10/10 + '+' );
+      },
+      slide: function( event, ui ) {
+        handle.text( ui.value/10 + '+' );
+      }
     });
     $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
 } );
+
+$( function() {
+    var handle = $( "#srating_handle" );
+
+    $( "#srating_slider" ).slider({
+        orientation: "horizontal",
+        range: "min",
+        min: 10,
+        max: 50,
+        value: 10,
+        create: function() {
+        handle.text( $( this ).slider( "value" ) );
+      },
+      create: function(  ) {
+        handle.text( 10/10 + '+' );
+      },
+      slide: function( event, ui ) {
+        handle.text( ui.value/10 + '+' );
+      }
+    });
+    $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+} );
+
+$( function() {
+    var handle = $( "#arating_handle" );
+
+    $( "#arating_slider" ).slider({
+        orientation: "horizontal",
+        range: "min",
+        min: 10,
+        max: 50,
+        value: 10,
+        create: function() {
+        handle.text( $( this ).slider( "value" ) );
+      },
+      create: function(  ) {
+        handle.text( 10/10 + '+' );
+      },
+      slide: function( event, ui ) {
+        handle.text( ui.value/10 + '+' );
+      }
+    });
+    $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+} );
+
+$( function() {
+    var handle = $( "#orating_handle" );
+
+    $( "#orating_slider" ).slider({
+        orientation: "horizontal",
+        range: "min",
+        min: 10,
+        max: 50,
+        value: 10,
+        create: function() {
+        handle.text( $( this ).slider( "value" ) );
+      },
+      create: function(  ) {
+        handle.text( 10/10 + '+' );
+      },
+      slide: function( event, ui ) {
+        handle.text( ui.value/10 + '+' );
+      }
+    });
+    $( "#amount" ).val( $( "#slider-horizontal" ).slider( "value" ) );
+} );
+
 
 $('document').ready(function(){
     setResults(resultset);
