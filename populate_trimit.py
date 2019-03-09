@@ -81,16 +81,19 @@ def populate():
 
     hairdresser_pages = [
         {
+            "name": "Hanna",
             "str": "1 Argyle Str",
             "city": "Glasgow",
             "country": "GB",
         },
         {
+            "name": "BubbleBath",
             "str": "5 Bath Str",
             "city": "Glasgow",
             "country": "GB",
         },
         {
+            "name": "Clint Eastwood",
             "str": "50 Great Western Road",
             "city": "Glasgow",
             "country": "GB",

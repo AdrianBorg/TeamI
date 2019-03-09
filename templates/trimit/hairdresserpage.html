@@ -1,5 +1,37 @@
 {% extends 'trimit/base.html' %}
+{% load staticfiles %}
+
+{% block import_block %}
+<link rel="stylesheet" href="{% static 'css/hairdresserpage.css' %}"> />
+{% endblock %}
 
 {% block body_block %}
-{{Page.name }}
+<h1>{{hairdresser.name}}</h1>
+<div class = "leftContent">
+    
+    <div class = "hairProfile">
+        <div id = "profilePicture">
+            <img id = "userImage"  src = "{{ MEDIA_URL }}hairpage_images/page1.jpg" alt = "hairdresser image"/>
+        </div>
+
+        <div id = "rating">
+            <p> Price £££ <br/>
+                Service **** <br/>
+                Etc ******<br/>
+            </p>
+        </div>
+        <div id = "about">
+            <p>
+                {{media_url}}user_hair_images/page1.jpg
+                hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text
+                hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text
+            </p>
+        </div>
+        
+    </div>
+</div>
+
+<div class = rightContent>
+
+</div>
 {% endblock %}

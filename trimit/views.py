@@ -9,6 +9,8 @@ from django.core import serializers
 from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg
+from django.views.decorators.cache import never_cache
+
 
 
 # Create your views here.
@@ -138,6 +140,10 @@ def ajax_user_login(request):
         context_dict['action'] = 'login'
         return render(request, 'rango/index.html', context_dict)
 
+@never_cache
+def hairdresser_page(request, hairdresser_slug):
+    obj = Page.objects.get(slug=hairdresser_slug)
+    return render(request, 'trimit/hairdresserpage.html', context={'hairdresser':obj})
 
 def hairdresser_register(request):
     registered = False

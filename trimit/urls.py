@@ -8,6 +8,7 @@ urlpatterns = [
     # url(r'popup/$', views.popupTest, name='popup'),
     url(r'^user_register/$', views.user_register, name='user_register'),
     url(r'^hairdresser_register/$', views.hairdresser_register, name='hairdresser_register'),
+    url(r'^hairdresser/(?P<hairdresser_slug>[-\w]+)/$', views.hairdresser_page, name = 'hairdresser_page'),
     url(r'ajax/user_login/$', views.ajax_user_login, name='ajax_user_login'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^search/(?P<search>\w{0,50})/$', views.results, name='search_results'),

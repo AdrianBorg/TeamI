@@ -1,0 +1,47 @@
+.leftContent {
+    display:inline-flex;
+   flex-direction:row;
+    background-color: lightcoral;
+    float:left;
+   
+    width:60%;
+    height:100vh;
+}
+
+.rightContent {
+    display:inline-flex;
+    background-color:lightgreen;
+ 
+    width:40%;
+    height: 100vh;
+
+}
+
+#userImage {
+ size: 100%;
+   
+    
+}
+
+#profilePicture {
+    
+  height:30%;
+   width:40%;
+   background-color:red;
+}
+
+#rating {
+
+    width: 50%;
+    height: 40%;
+    background-color:brown;
+    
+   
+}
+
+#about p {
+    width:100%;
+    text-align:center;
+    background-color: yellow;
+    
+}
