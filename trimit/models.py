@@ -39,6 +39,8 @@ class Page(models.Model):
     instagram = models.URLField(blank=True)
     profile_picture = models.ImageField(upload_to='user_profile_images', blank=True)
     contact_number = models.CharField(max_length=15, blank=True)
+    overall_rating = models.DecimalField(max_digits=3, decimal_places=1, default=0)
+    number_of_reviews = models.DecimalField(max_digits=5, decimal_places=0, default=0)
 
     latitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, null=True, default=None)
     longitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, null=True, default=None)
@@ -60,6 +62,12 @@ class Page(models.Model):
                 if self.latitude is None:
                     self.latitude = location.latitude
         super(Page, self).save(*args, **kwargs)
+
+    def update_overall_rating(self):
+        own_reviews = Review.objects.filter(page__slug=self.slug)
+        self.number_of_reviews = len(own_reviews)
+        self.overall_rating = sum([i.average_rating for i in own_reviews]) / self.number_of_reviews 
+
 
     def __str__(self):
         return self.user.username
@@ -96,17 +104,20 @@ class Review(models.Model):
                              on_delete=models.SET_NULL,  # models.SET(deleted_userprofile),
                              null=True,
                              related_name='reviews')
-    overall_rating = models.DecimalField(max_digits=10, decimal_places=1, default=0)
-    atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
-    price_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
-    service_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
+    average_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    price_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    service_rating = models.DecimalField(max_digits=10, decimal_places=1)
     comment = models.CharField(max_length=500, null=True, blank=True)
     time = models.DateTimeField(null=True)#,default=datetime.datetime.now())
     picture = models.ImageField(upload_to='review_images', blank=True)
 
     def save(self, *args, **kwargs):
+        all_ratings = [self.atmosphere_rating, self.price_rating, self.service_rating]
+        self.average_rating = sum([i for i in all_ratings if i if not None])/3
         self.time = datetime.datetime.now()
         super(Review, self).save(*args, **kwargs)
+        self.page.update_overall_rating()
 
     def __str__(self):
         if self.user is not None:

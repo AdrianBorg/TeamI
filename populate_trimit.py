@@ -111,42 +111,42 @@ def populate():
         {
             "user": users[0]["username"],
             "page": stylists[0]["username"],
-            "rating": 5.0,
+            "rating": (5.0, 4.5, 7.2),
             "comment": "test1",
             "img": 'revpic.jpg',
         },
         {
             "user": users[1]["username"],
             "page": stylists[1]["username"],
-            "rating": 3.5,
+            "rating": (3.5, 2.2, 5.5),
             "comment": "test2",
             "img": None,
         },
         {
             "user": users[2]["username"],
             "page": stylists[0]["username"],
-            "rating": 4.5,
+            "rating": (4.5, 7.2, 6.2),
             "comment": "test3",
             "img": None,
         },
         {
             "user": users[0]["username"],
             "page": stylists[1]["username"],
-            "rating": 2.7,
+            "rating": (2.7, 5.2, 8.2),
             "comment": "test4",
             "img": None,
         },
         {
             "user": users[0]["username"],
             "page": stylists[2]["username"],
-            "rating": 1.5,
+            "rating": (7.6, 1.5, 8.2),
             "comment": "test5",
             "img": None,
         },
         {
             "user": users[3]["username"],
             "page": stylists[2]["username"],
-            "rating": 0.6,
+            "rating": (0.6, 4.4, 1.0),
             "comment": "deletedtest5",
             "img": None,
         },
@@ -222,10 +222,15 @@ def populate():
         page = Page.objects.get_or_create(user=user, street_address=street, city=city, country=cntry)[0]
         page.save()
 
-    def add_review(username, pagename, rating, comment, img):
+    def add_review(username, pagename, ratings, comment, img):
         user = UserProfile.objects.get(user=User.objects.get(username=username))
         page = Page.objects.get(user=User.objects.get(username=pagename))
-        review = Review.objects.get_or_create(page=page, user=user, overall_rating=rating, comment=comment)[0]
+        atmosphere_rating, price_rating, service_rating = ratings
+        review = Review.objects.get_or_create(
+            page=page, user=user, atmosphere_rating=atmosphere_rating, 
+            price_rating=price_rating, service_rating=service_rating,
+            comment=comment
+        )[0]
         if img is not None:
             filedir = os.path.join(review_pictures_dir, img)
             review.picture.save(img, File(open(filedir, 'rb')))
