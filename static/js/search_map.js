@@ -5,6 +5,7 @@ var markers = [];
 var selectedMarker = {id: -1};
 var latitudeBounds;
 var longitudeBounds;
+var mapLoaded = false;
 var markerIcons = {
     default: null,
     red: { url: "../../../static/images/red-dot-icon.png" }, //"http://maps.google.com/mapfiles/ms/icons/red-dot.png" },
@@ -27,7 +28,7 @@ function initMap() {
 
     var options = {
         zoom: 12,
-        center: { lat: 55.8642, lng: -4.2518 },
+        center: { lat: 0, lng: 0 },
         disableDefaultUI: true, // hide all controls
         scaleControl: true, // make scale visible
         zoomControl: true, // make zoom controls visible
@@ -44,18 +45,21 @@ function initMap() {
 
     //searchGeocode(''); // search location NEED TO ENTER
     google.maps.event.addListener(map, 'idle', function (ev) {
-        var bounds = map.getBounds();
-        var ne = bounds.getNorthEast();
-        var sw = bounds.getSouthWest();
-        latitudeBounds = [sw.lat(), ne.lat()];
-        longitudeBounds = [sw.lng(), ne.lng()];
-        searchFilter();
+        if (mapLoaded) {
+            var bounds = map.getBounds();
+            var ne = bounds.getNorthEast();
+            var sw = bounds.getSouthWest();
+            latitudeBounds = [sw.lat(), ne.lat()];
+            longitudeBounds = [sw.lng(), ne.lng()];
+            searchFilter();
+        }
     })
 
     // google.maps.event.addListener(map, 'bounds_changed', function(ev) {
     //     searchFilter();
     //     debugger;
     // })
+    mapLoaded = true;
 }
 
 // searches for the location passed (as a string)

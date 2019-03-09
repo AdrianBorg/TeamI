@@ -32,40 +32,48 @@ function setResults(results) {
     // debugger;
     var i;
     var searchResults = [];
+
+    // if (results.length == 0) {
+    //     alert('No results for that search found');
+    // }
+
+    clearMarkers();
+    $('#hairdressers_information_box').html('');
     if (results.length == 0) {
-        alert('No results for that search found');
-    } else {
-        clearMarkers();
-        $('#hairdressers_information_box').html('');
-        for (i = 0; i < results.length; i++) {
-            $('#hairdressers_information_box').append(
-                '<div class="hairdresser" id="hairdresser'+ results[i].fields['user'] +'">\n' +
-                '   <div id="image_box">\n' +
-                '       <img src="//:0" width="30%" height="30%">\n' +
-                '   </div>\n' +
-                '   <div id="hairdresser_data">\n' +
-                '       <div id="name_and_distance">\n' +
-                '           <p3>' + results[i].fields['name'] + '</p3>' +
-                '       </div>\n' +
-                '   </div>\n' +
-                '   <div id="rating">\n' +
-                '       <p5>' + results[i].fields['city'] + '</p5>\n' +
-                '   </div>\n' +
-                '<hr>\n' +
-                '</div>\n'
-            );
-            searchResults[i] = {
-                id: results[i]['pk'],
-                user: results[i].fields['user'],
-                LatLng: {
-                    lat: Number(results[i].fields['latitude']),
-                    lng: Number(results[i].fields['longitude'])
-                },
-                name: results[i].fields['name'],
-            }
-        };
-        loadMarkers(searchResults);
+        $('#hairdressers_information_box').html(
+            '<div class="hairdresser" id="no_results">\n' +
+            '    <p>Unfortunately, no results were found for your search!</p>\n' +
+            '</div>'
+        );
     }
+    for (i = 0; i < results.length; i++) {
+        $('#hairdressers_information_box').append(
+            '<div class="hairdresser" id="hairdresser'+ results[i].fields['user'] +'">\n' +
+            '   <div id="image_box">\n' +
+            '       <img src="//:0" width="30%" height="30%">\n' +
+            '   </div>\n' +
+            '   <div id="hairdresser_data">\n' +
+            '       <div id="name_and_distance">\n' +
+            '           <p3>' + results[i].fields['name'] + '</p3>' +
+            '       </div>\n' +
+            '   </div>\n' +
+            '   <div id="rating">\n' +
+            '       <p5>' + results[i].fields['city'] + '</p5>\n' +
+            '   </div>\n' +
+            '<hr>\n' +
+            '</div>\n'
+        );
+        searchResults[i] = {
+            id: results[i]['pk'],
+            user: results[i].fields['user'],
+            LatLng: {
+                lat: Number(results[i].fields['latitude']),
+                lng: Number(results[i].fields['longitude'])
+            },
+            name: results[i].fields['name'],
+        }
+    };
+    loadMarkers(searchResults);
 }
 
 function searchFilter() {
@@ -95,6 +103,7 @@ function searchFilter() {
             if (response['favourites']) {
                 favouriteHairdressers = JSON.parse(response['favourites']);
             }
+            highlightMarkerInList(selectedMarker);
             //searchGeocode($('#searchTxt').val())
         }
     })
