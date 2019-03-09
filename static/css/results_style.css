@@ -52,7 +52,7 @@
     top: 50%;
     margin-top: -.8em;
     text-align: center;
-    line-height: 1.6em;
+    /*line-height: 1.6em;*/
   }
 #vrating{
     display: flex;
@@ -66,9 +66,9 @@
     justify-content: space-evenly;
 }
 .ui-slider-horizontal div.ui-slider-handle {
-    top: 6.4px;
-    width: 2.5em;
-    height: 25.6px;
+    top: 9px;
+    width: 36px;
+    height: 17.6px;
 }
 
 #arating{
