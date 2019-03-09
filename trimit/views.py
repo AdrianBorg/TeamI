@@ -23,15 +23,17 @@ def index(request):
     return render(request, 'trimit/base.html', context=context_dict)
 
 
-def results(request, search):
+def results(request):
+    q = request.GET.get('q')
+    print(q)
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
 
-    resultset = Page.objects.filter(city__iexact=search)
+    resultset = Page.objects.filter(city__iexact=q)
 
-    context_dict['search_location'] = search
+    context_dict['search_location'] = q
     context_dict['number_of_results'] = resultset.count()
     context_dict['resultset'] = mark_safe(serializers.serialize('json', resultset))
     context_dict['speciality_field_form'] = HairPageSpecialityForm

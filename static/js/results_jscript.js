@@ -122,6 +122,5 @@ function getTagFilters() {
     $('.tag_filter .tag-row .tag-values div ul').children('.select2-search-choice').each(function () {
         specitalityTags.push($(this).children('div').text())
     })
-    debugger;
     return specitalityTags;
 }

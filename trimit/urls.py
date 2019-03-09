@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^hairdresser_register/$', views.hairdresser_register, name='hairdresser_register'),
     url(r'ajax/user_login/$', views.ajax_user_login, name='ajax_user_login'),
     url(r'^logout/$', views.user_logout, name='logout'),
-    url(r'^search/(?P<search>\w{0,50})/$', views.results, name='search_results'),
+    url(r'^search$', views.results, name='search_results'),
+    #url(r'^search(?P<q>\w{0,50})/$', views.results, name='search_results'),
     url(r'^ajax_search_results/$', views.ajax_search_filter, name='ajax_search_results'),
 ]
