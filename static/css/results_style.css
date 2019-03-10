@@ -32,6 +32,9 @@ html, body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border-radius: 10px;
+    background-color: #f4eaff;
+    padding: 4px;
 }
 
 #filters_box{
@@ -46,6 +49,7 @@ html, body {
     font-size: 25px;
     font-weight: bold;
     margin: 0px;
+    padding-bottom: 4px;
 }
 
 #s2id_id_specialities {
@@ -85,42 +89,21 @@ div.ui-widget-content {
     text-align: center;
     /*line-height: 1.6em;*/
   }
-#vrating{
+
+#vrating, #srating, #arating, #orating{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-#srating{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
 .ui-slider-horizontal div.ui-slider-handle {
     top: 9px;
     width: 36px;
     height: 17.6px;
 }
 
-#arating{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-#orating{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-#map_box{
-    width: 48%;
-}
-
 #hairdressers_information_box{
     overflow-y: scroll;
-    width: 48%;
     background-color: #f4eaff;
 }
 
@@ -129,6 +112,7 @@ div.ui-widget-content {
     border-width: 2px;
     border-radius: 10px;
     border-color: #a81d73;
+    width: 49%;
 }
 
 .container-map, #map {
@@ -207,6 +191,10 @@ div.ui-widget-content {
 .image_box img {
     width: 100%;
     height: auto;
+}
+
+.rating_box {
+    padding: 4px 0 2px 0;
 }
 
 err {

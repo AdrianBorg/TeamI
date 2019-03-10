@@ -56,7 +56,7 @@ def results(request):
     context_dict['ratings'] = overall_ratings
     # print(HairPageSpecialityForm)
 
-    print(type(context_dict['ratings']))
+    # print(type(context_dict['ratings']))
 
     return render(request, 'trimit/results.html', context_dict)
 
