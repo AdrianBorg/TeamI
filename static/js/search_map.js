@@ -129,7 +129,7 @@ function markerClicked(id) {
         setFavouriteMarkers();
         // markers[index].setIcon(markerIcons.blue);
         highlightMarkerInList(selectedMarker);
-        alert(id); // ######################### change this to what is necessary
+        // alert(id); // ######################### change this to what is necessary
     }
 }
 
