@@ -32,7 +32,9 @@ function sliderInit(handle) {
 
 function sliderSlide(handle, event, ui) {
     if (ui.value == 10) {
-        handle.text( 'all' );
+        handle.text('all');
+    } else if (ui.value == 50) {
+        handle.text('5');
     } else {
         handle.text(ui.value / 10 + '+');
     }
