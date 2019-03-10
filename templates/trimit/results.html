@@ -12,6 +12,7 @@
     <div id="csrf_token">{% csrf_token %}</div>
     <script>
         var resultset = {{ resultset }};
+        var picture_urls = {{ profile_picture_urls|safe }};
         var searchLocation = "{{ search_location }}";
         var CSRFtoken = $('#csrf_token > input').val();
         var AJAXlink = "{% url "ajax_search_results" %}";

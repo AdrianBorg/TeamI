@@ -33,10 +33,16 @@ def results(request):
 
     resultset = Page.objects.filter(city__iexact=q)
 
+    profile_picture_urls = {}
+
+    for page in resultset:
+        profile_picture_urls.update({page.user.id: page.profile_picture.url})
+
     context_dict['search_location'] = q
     context_dict['number_of_results'] = resultset.count()
     context_dict['resultset'] = mark_safe(serializers.serialize('json', resultset))
     context_dict['speciality_field_form'] = HairPageSpecialityForm
+    context_dict['profile_picture_urls'] = profile_picture_urls
     print(HairPageSpecialityForm)
 
     #print(context_dict['resultset'])
@@ -46,36 +52,70 @@ def results(request):
 
 def ajax_search_filter(request):
     if request.method == 'POST':
-        favourites = None
-        #Commented for testing ##################################
-        # types = request.POST.get('types')
-        # value = request.POST.get('value')
-        # rating = request.POST.get('rating')
-        # service = request.POST.get('service')
-        # atmosphere = request.POST.get('atmosphere')
+        newPages = []
+        profile_picture_urls = {}
+        price = float(request.POST.get('value'))
+        overall = float(request.POST.get('overall'))
+        service = float(request.POST.get('service'))
+        atmosphere = float(request.POST.get('atmosphere'))
         lat_bounds = [request.POST.get('latMin'), request.POST.get('latMax')]
         lng_bounds = [request.POST.get('lngMin'), request.POST.get('lngMax')]
-        # city = request.POST.get('city')
-        #
         specialities = json.loads(request.POST.get('specialityTags'))
-        # print(type(specialities))
+
+        # print(price, service, atmosphere, overall, specialities)
+        # city = request.POST.get('city')
+        print(specialities)
         map_filtered_results = Page.objects.filter(latitude__gte=lat_bounds[0],
                                                    latitude__lte=lat_bounds[1],
                                                    longitude__gte=lng_bounds[0],
                                                    longitude__lte=lng_bounds[1])
-        #
-        # annotated_results = map_filtered_results.reviews.annotate(avgv=Avg('price_rating'),
-        #                                                           avgr=Avg('overall_rating'),
-        #                                                           avgs=Avg('service_rating'),
-        #                                                           avga=Avg('atmosphere_rating'))
-        #
-        # rating_filtered_results = annotated_results.filter(avgv__gte=value,
-        #                                                    avgr__gte=rating,
-        #                                                    avgs__gte=service,
-        #                                                    avga__gte=atmosphere)
 
-        rating_filtered_results = map_filtered_results#.filter(city__iexact=city)
+        # filtering out based on average review score
+        for page in map_filtered_results:
+            # print(page.avgp, page.avgs, page.avga, page.avgo)
+            if page.avgp is not None:
+                if page.avgp < price:
+                    map_filtered_results = map_filtered_results.exclude(id=page.id)
+                    continue
+            else:
+                if price > 1:
+                    map_filtered_results = map_filtered_results.exclude(id=page.id)
+
+            if page.avgs is not None:
+                if page.avgs < service and page.avgs is not None:
+                    map_filtered_results = map_filtered_results.exclude(id=page.id)
+                    continue
+            else:
+                if service > 1:
+                    map_filtered_results = map_filtered_results.exclude(id=page.id)
+
+            if page.avga is not None:
+                if page.avga < atmosphere and page.avga is not None:
+                    map_filtered_results = map_filtered_results.exclude(id=page.id)
+                    continue
+            else:
+                if atmosphere > 1:
+                    map_filtered_results = map_filtered_results.exclude(id=page.id)
+
+            if page.avgo is not None:
+                if page.avgo < overall and page.avgo is not None:
+                    map_filtered_results = map_filtered_results.exclude(id=page.id)
+                    continue
+            else:
+                if overall > 1:
+                    map_filtered_results = map_filtered_results.exclude(id=page.id)
+                else:
+                    newPages.append(page)
+
+            # if page is not removed, save its image url
+            profile_picture_urls.update({page.user.id: page.profile_picture.url})
+
+        rating_filtered_results = map_filtered_results   #.filter(city__iexact=city)
+
         resultset = mark_safe(serializers.serialize('json', rating_filtered_results))
+        new_pages = mark_safe(serializers.serialize('json', newPages))
+
+        # print(profile_picture_urls)
 
         if not request.user.is_anonymous():
             user = request.user
@@ -87,10 +127,14 @@ def ajax_search_filter(request):
             favourites_json = str(favourite_usernames) #serializers.serialize('json', favourite_usernames)
 
             return JsonResponse({'results': resultset,
+                                 'profile_picture_urls': profile_picture_urls,
+                                 'new_pages': new_pages,
                                  'favourites': favourites_json})
 
         else:
-            return JsonResponse({'results': resultset})
+            return JsonResponse({'results': resultset,
+                                 'profile_picture_urls': profile_picture_urls,
+                                 'new_pages': new_pages})
 
 
 def about(request):

@@ -54,11 +54,6 @@ function initMap() {
             searchFilter();
         }
     })
-
-    // google.maps.event.addListener(map, 'bounds_changed', function(ev) {
-    //     searchFilter();
-    //     debugger;
-    // })
     mapLoaded = true;
 }
 
@@ -158,18 +153,6 @@ function addFavouriteIds(favArr) {
     for (var i=0;i<favArr.length;i++) {
         favouriteIds.push(faveArr[i].id);
     }
-}
-
-// format search results -> ensure search results have an id (name) and lat & long in latlng format
-function prepSearchResults() {
-    // if (!(markersArr[0].LatLng)) {
-    //     for (var i=0;i<markersArr.length;i++) {
-    //         markersArr[i] = {
-    //             LatLng: { lat: markersArr[i].lat, lng: markersArr[i].lng },
-    //             id: markersArr[i].id
-    //         };
-    //     }
-    // }
 }
 
 function getMinMaxBounds() {
