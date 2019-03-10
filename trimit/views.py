@@ -28,7 +28,12 @@ def index(request):
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
     return render(request, 'trimit/base.html', context=context_dict)
-
+def user_profile(request):
+    user_form = UserRegisterForm()
+    profile_form = UserProfileForm()
+    context_dict = {'user_form': user_form,
+                    'profile_form': profile_form,}
+    return render(request, 'trimit/user_profile.html', context_dict)
 
 def results(request):
     q = request.GET.get('q')

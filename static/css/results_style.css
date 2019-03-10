@@ -60,6 +60,14 @@ html, body {
     overflow-x: auto;
     max-height: 78px;
 }
+.ui-slider-horizontal div.ui-slider-range-min {
+    left: -1px;
+}
+div.ui-widget-content {
+
+    background: #a81d73;
+
+}
 /*box that contains the text being applied to each slider*/
 
 /*text contained for each slider*/
@@ -72,6 +80,7 @@ html, body {
     margin-top: 5%;
     font-size: 22px;
 }
+
 /*box that contains the sliders*/
 .custom-handle {
     width: 3em;

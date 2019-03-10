@@ -1,0 +1,61 @@
+#box{
+    display: flex;
+    flex-direction: row;
+    align-self: stretch;
+    justify-content: space-between;
+    height: 100%;
+}
+#user_data_and_reviews{
+    border-style: solid;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    }
+
+#user_data{
+    border-style: solid;
+    align-self:stretch;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    }
+#reviews_box{
+    border-style: solid;
+    align-self: stretch;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    }
+
+#user_picture, #review_picture{
+    border-style: solid;
+    width: 30%;
+   }
+
+
+#user_details, #user_review{
+    border-style: solid;
+    width: 70%;
+   }
+img > box{
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    }
+
+
+#favourites{
+    border-style: solid;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    }
+#favourites_header{
+    border-style: solid;
+    height: 30%;
+    }
+#p1{
+    text-align: center;
+    }
