@@ -7,7 +7,9 @@ from geopy.geocoders import GoogleV3
 import datetime
 from TeamI.settings import GoogleGeocodeKey
 from django.conf import settings
+from django.db.models import Avg
 import tagulous.models
+from TeamI.settings import STATIC_URL
 
 API_KEY = GoogleGeocodeKey
 HAIRDRESSER_GROUP = 'hairdressers'
@@ -37,7 +39,7 @@ class Page(models.Model):
     opening_times = models.CharField(max_length=200, blank=True, null=True)
     webpage = models.URLField(blank=True)
     instagram = models.URLField(blank=True)
-    profile_picture = models.ImageField(upload_to='user_profile_images', blank=True)
+    profile_picture = models.ImageField(upload_to='user_profile_images', default='DefaultPagePic.png', blank=True)
     contact_number = models.CharField(max_length=15, blank=True)
     overall_rating = models.DecimalField(max_digits=3, decimal_places=1, default=0)
     number_of_reviews = models.DecimalField(max_digits=5, decimal_places=0, default=0)
@@ -50,7 +52,7 @@ class Page(models.Model):
     def save(self, *args, **kwargs):
         group = Group.objects.get_or_create(name=HAIRDRESSER_GROUP)[0]
         self.user.groups.add(group)
-        spaced_name = self.user.username.replace('_', ' ')
+        spaced_name = self.user.username
         self.slug = slugify(spaced_name)
         if (self.latitude is None) or (self.longitude is None):
             geolocator = GoogleV3(api_key=API_KEY)  # Nominatim(user_agent='trimit')#, country_bias='GB')
@@ -72,10 +74,26 @@ class Page(models.Model):
     def __str__(self):
         return self.user.username
 
+    @property
+    def avgp(self):
+        return Review.objects.filter(page=self).aggregate(Avg('price_rating'))['price_rating__avg']
+
+    @property
+    def avgs(self):
+        return Review.objects.filter(page=self).aggregate(Avg('service_rating'))['service_rating__avg']
+
+    @property
+    def avga(self):
+        return Review.objects.filter(page=self).aggregate(Avg('atmosphere_rating'))['atmosphere_rating__avg']
+
+    @property
+    def avgo(self):
+        return Review.objects.filter(page=self).aggregate(Avg('overall_rating'))['overall_rating__avg']
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
-    profile_picture = models.ImageField(upload_to='user_profile_images', blank=True)
+    profile_picture = models.ImageField(upload_to='user_profile_images', default='DefaultUserPic.png', blank=True)
     favourites = models.ManyToManyField(to='Page', related_name='favourited')
    # hairpicture = models.ImageField(upload_to='user_images', blank=True)
 

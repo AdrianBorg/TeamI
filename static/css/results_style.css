@@ -1,81 +1,140 @@
-
-
-#filters_box, #hairdressers_information_box{
-    margin-top: 10%;
+html, body {
+    height: 100%;
 }
 
+/*div {*/
+    /*font-size: 17px;*/
+    /*font-family: Arial, Helvetica, sans-serif;*/
+/*}*/
 
-#hairdressers_information_box{
-    width: 40%;
-    height: 60%;
-    border-style: solid;
-    margin-left: 0.5%;
-    position: fixed;
-    overflow-y: scroll;
+#box{
+    display: flex;
+    flex-direction: column;
+    margin: 0.5em;
+    flex: 1 0 100%;
+    }
+#data_and_map{
+    display: flex;
+    flex-direction: row;
+    align-self: stretch;
+    justify-content: space-between;
+    flex: 1 0 50%;
+    margin: 0.7em 0 1em;
+    }
+
+#filters {
+    display: flex;
+    flex-direction: column;
+}
+
+#filters_content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 #filters_box{
-    border-style: none;
-    width: 40%;
-    margin-left: 85%;
-    float: right;
-    height: 50%;
-    margin-right: 5%;
+    /*width: 45%;*/
+    flex: 0 1 45%;
 }
 
+#tags_filters {
+    flex: 0 1 45%;
+    /*margin-left: 10%;*/
+}
 
 #box_header{
     font-size: 25px;
     font-weight: bold;
     margin: 0px;
+    /*padding-bottom: 8px;*/
+    /*flex: 1 0 100%;*/
+}
+
+#s2id_id_specialities {
+    min-width: 100%;
+}
+
+#s2id_id_specialities > ul {
+    overflow-y: auto;
+    overflow-x: auto;
+    max-height: 78px;
 }
 /*box that contains the text being applied to each slider*/
-#filters{
-    position:fixed;}
+
 /*text contained for each slider*/
 #p1{
     font-size: 22px;
     margin-top: 10%;
 }
+
 #p2{
     margin-top: 5%;
     font-size: 22px;
 }
-
 /*box that contains the sliders*/
-#sliders{
-    margin-left: 20%;
+.custom-handle {
+    width: 3em;
+    height: 1.6em;
+    top: 50%;
+    margin-top: -.8em;
+    text-align: center;
+    /*line-height: 1.6em;*/
+  }
+#vrating{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
-#price_slider{
-    vertical-align: 10px;
+#srating{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.ui-slider-horizontal div.ui-slider-handle {
+    top: 9px;
+    width: 36px;
+    height: 17.6px;
 }
 
-#distance_slider{
-    vertical-align:5%;
-    margin-top: 5%;}
+#arating{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#orating{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
 
 #map_box{
+    width: 48%;
+}
+
+#hairdressers_information_box{
+    overflow-y: scroll;
+    width: 48%;
+    background-color: #f4eaff;
+}
+
+#hairdressers_information_box, #map_box {
     border-style: solid;
-    height:40%;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: #a81d73;
 }
-/*formatting for hairdresser image*/
-#image_box{
-    position: fixed;
-}
-#hairdresser_data{
-    float: right;
-    margin-right: 40%;
-}
-#rating {
-    margin-left: 45%;
-    /*margin-top: 20%;}*/
+
+.container-map, #map {
+    border-radius: inherit;
 }
 
 /* Map */
 .container-map {
-    height: 400px;
-    width: 300px;
+    height: 100%;
+    width: 100%;
 }
 
 #map {
@@ -83,6 +142,80 @@
     width: 100%;
 }
 
-.selected-marker {
+.slider-wrapper{
+    width: 70%;
+}
+
+.slider_title{
+    width: 25%;
+}
+
+/*formatting for hairdresser image*/
+/*.hairdresser_data{*/
+    /*float: right;*/
+    /*margin-right: 40%;*/
+/*}*/
+.hairdresser {
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    height: 55px;
+    margin: 4px;
+}
+.image_box {
+    flex: 0 0 50px;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: #80bdff;
+    margin-left: 2.5px;
+}
+.data_box {
+    margin-left: 4px;
+    flex: 1 0;
+    height: 50px;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #80bdff;
+    margin-right: 2.5px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    padding-left: 4px;
+}
+.hairdresser_data {
+    color: #a81d73;
+    font-weight: bold;
+}
+
+.hairdresser_rating_box p4{
+    font-weight: bold;
+}
+
+.hairdresser_rating_box p5{
+    color: #dfb73b;
+}
+
+.image_box img {
+    width: 100%;
+    height: auto;
+}
+
+err {
+    margin-left: 4px;
+}
+
+.selected-marker{
+    border-style: solid;
+    border-width: 2px;
+    border-color: #a81d73;
+}
+
+.selected-marker .data_box {
     background-color: #f4eaff;
 }
+

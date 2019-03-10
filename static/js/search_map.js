@@ -2,9 +2,10 @@
 var map;
 var geocoder;
 var markers = [];
-var selectedMarker;
+var selectedMarker = {id: -1};
 var latitudeBounds;
 var longitudeBounds;
+var mapLoaded = false;
 var markerIcons = {
     default: null,
     red: { url: "../../../static/images/red-dot-icon.png" }, //"http://maps.google.com/mapfiles/ms/icons/red-dot.png" },
@@ -27,7 +28,7 @@ function initMap() {
 
     var options = {
         zoom: 12,
-        center: { lat: 55.8642, lng: -4.2518 },
+        center: { lat: 0, lng: 0 },
         disableDefaultUI: true, // hide all controls
         scaleControl: true, // make scale visible
         zoomControl: true, // make zoom controls visible
@@ -44,18 +45,16 @@ function initMap() {
 
     //searchGeocode(''); // search location NEED TO ENTER
     google.maps.event.addListener(map, 'idle', function (ev) {
-        var bounds = map.getBounds();
-        var ne = bounds.getNorthEast();
-        var sw = bounds.getSouthWest();
-        latitudeBounds = [sw.lat(), ne.lat()];
-        longitudeBounds = [sw.lng(), ne.lng()];
-        searchFilter();
+        if (mapLoaded) {
+            var bounds = map.getBounds();
+            var ne = bounds.getNorthEast();
+            var sw = bounds.getSouthWest();
+            latitudeBounds = [sw.lat(), ne.lat()];
+            longitudeBounds = [sw.lng(), ne.lng()];
+            searchFilter();
+        }
     })
-
-    // google.maps.event.addListener(map, 'bounds_changed', function(ev) {
-    //     searchFilter();
-    //     debugger;
-    // })
+    mapLoaded = true;
 }
 
 // searches for the location passed (as a string)
@@ -117,19 +116,21 @@ function clearMarkers() {
 
 // do this when a marker is clicked
 function markerClicked(id) {
-    var index;
-    for (var i=0;i<markers.length;i++) {
-        if (markers[i].id == id) {
-            index = i;
-        } else {
-            markers[i].setIcon(markerIcons.red); // set to null to go to default one
+    if (!(selectedMarker.id == id)) {
+        var index;
+        for (var i = 0; i < markers.length; i++) {
+            if (markers[i].id == id) {
+                index = i;
+            } else {
+                markers[i].setIcon(markerIcons.red); // set to null to go to default one
+            }
         }
+        selectedMarker = markers[index];
+        setFavouriteMarkers();
+        // markers[index].setIcon(markerIcons.blue);
+        highlightMarkerInList(selectedMarker);
+        // alert(id); // ######################### change this to what is necessary
     }
-    selectedMarker = markers[index];
-    setFavouriteMarkers();
-    // markers[index].setIcon(markerIcons.blue);
-    highlightMarkerInList(selectedMarker);
-    alert(id); // ######################### change this to what is necessary
 }
 
 // set favourite markers to yellow
@@ -152,18 +153,6 @@ function addFavouriteIds(favArr) {
     for (var i=0;i<favArr.length;i++) {
         favouriteIds.push(faveArr[i].id);
     }
-}
-
-// format search results -> ensure search results have an id (name) and lat & long in latlng format
-function prepSearchResults() {
-    // if (!(markersArr[0].LatLng)) {
-    //     for (var i=0;i<markersArr.length;i++) {
-    //         markersArr[i] = {
-    //             LatLng: { lat: markersArr[i].lat, lng: markersArr[i].lng },
-    //             id: markersArr[i].id
-    //         };
-    //     }
-    // }
 }
 
 function getMinMaxBounds() {
