@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.utils.safestring import mark_safe
 import json
-from django.db.models import Avg
+from django.db.models import Count
 import tagulous.forms
 
 
@@ -64,11 +64,19 @@ def ajax_search_filter(request):
 
         # print(price, service, atmosphere, overall, specialities)
         # city = request.POST.get('city')
-        print(specialities)
+        # print(type(specialities[0]))
         map_filtered_results = Page.objects.filter(latitude__gte=lat_bounds[0],
                                                    latitude__lte=lat_bounds[1],
                                                    longitude__gte=lng_bounds[0],
                                                    longitude__lte=lng_bounds[1])
+        # if len(specialities) > 0:
+        #     map_filtered_results = map_filtered_results.\
+        #                             filter(specialities__in=specialities).\
+        #                             annotate(num_specs=Count('specialities')).\
+        #                             filter(num_specs__gte=len(specialities))
+
+        for speciality in specialities:
+            map_filtered_results = map_filtered_results.filter(specialities=speciality)
 
         # filtering out based on average review score
         for page in map_filtered_results:

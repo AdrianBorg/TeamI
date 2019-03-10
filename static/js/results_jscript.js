@@ -77,6 +77,15 @@ $('div#tags_filters').on('select2-close', function(e) {
     }
 });
 
+$('div#tags_filters').on('select2-removed', function(e) {
+    var options = JSON.parse($('#id_specialities').attr('data-tag-list'));
+    var removed = e.val;
+    if (options.includes(removed)){
+        searchFilter();
+    }
+});
+
+
 function setResults(results, image_urls) {
     var i;
     var searchResults = [];
