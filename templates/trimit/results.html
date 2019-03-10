@@ -13,6 +13,7 @@
     <script>
         var resultset = {{ resultset }};
         var picture_urls = {{ profile_picture_urls|safe }};
+        var ratings = {{ ratings|safe }};
         var searchLocation = "{{ search_location }}";
         var CSRFtoken = $('#csrf_token > input').val();
         var AJAXlink = "{% url "ajax_search_results" %}";
@@ -30,7 +31,7 @@
 {% block body_block %}
     <div id="box">
         <div id="filters">
-            <p id="box_header">Filter my results</p>
+            <h1 id="box_header">Search Results</h1>
             <div id="filters_content">
                 <div id="filters_box">
 

@@ -25,7 +25,7 @@ def index(request):
 
 def results(request):
     q = request.GET.get('q')
-    print(q)
+    # print(q)
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
@@ -34,18 +34,24 @@ def results(request):
     resultset = Page.objects.filter(city__iexact=q)
 
     profile_picture_urls = {}
+    overall_ratings = {}
 
     for page in resultset:
         profile_picture_urls.update({page.user.id: page.profile_picture.url})
+        if page.avgo is None:
+            overall_ratings.update({page.user.id: 'none'})
+        else:
+            overall_ratings.update({page.user.id: round(page.avgo, 1)})
 
     context_dict['search_location'] = q
     context_dict['number_of_results'] = resultset.count()
     context_dict['resultset'] = mark_safe(serializers.serialize('json', resultset))
     context_dict['speciality_field_form'] = HairPageSpecialityForm
     context_dict['profile_picture_urls'] = profile_picture_urls
-    print(HairPageSpecialityForm)
+    context_dict['ratings'] = overall_ratings
+    # print(HairPageSpecialityForm)
 
-    #print(context_dict['resultset'])
+    print(type(context_dict['ratings']))
 
     return render(request, 'trimit/results.html', context_dict)
 
@@ -54,6 +60,7 @@ def ajax_search_filter(request):
     if request.method == 'POST':
         newPages = []
         profile_picture_urls = {}
+        overall_ratings = {}
         price = float(request.POST.get('value'))
         overall = float(request.POST.get('overall'))
         service = float(request.POST.get('service'))
@@ -118,6 +125,11 @@ def ajax_search_filter(request):
             # if page is not removed, save its image url
             profile_picture_urls.update({page.user.id: page.profile_picture.url})
 
+            if page.avgo is None:
+                overall_ratings.update({page.user.id: 'none'})
+            else:
+                overall_ratings.update({page.user.id: round(page.avgo, 1)})
+
         rating_filtered_results = map_filtered_results   #.filter(city__iexact=city)
 
         resultset = mark_safe(serializers.serialize('json', rating_filtered_results))
@@ -136,12 +148,14 @@ def ajax_search_filter(request):
 
             return JsonResponse({'results': resultset,
                                  'profile_picture_urls': profile_picture_urls,
+                                 'ratings': overall_ratings,
                                  'new_pages': new_pages,
                                  'favourites': favourites_json})
 
         else:
             return JsonResponse({'results': resultset,
                                  'profile_picture_urls': profile_picture_urls,
+                                 'ratings': overall_ratings,
                                  'new_pages': new_pages})
 
 

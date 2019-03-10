@@ -1,5 +1,5 @@
 $('document').ready(function(){
-    setResults(resultset, picture_urls);
+    setResults(resultset, picture_urls, ratings);
 });
 
 $('document').ready(function(){
@@ -86,39 +86,40 @@ $('div#tags_filters').on('select2-removed', function(e) {
 });
 
 
-function setResults(results, image_urls) {
+function setResults(results, image_urls, ratings) {
     var i;
     var searchResults = [];
 
     // if (results.length == 0) {
     //     alert('No results for that search found');
     // }
-
     clearMarkers();
     $('#hairdressers_information_box').html('');
     if (results.length == 0) {
         $('#hairdressers_information_box').html(
             '<div class="hairdresser" id="no_results">\n' +
-            '    <p>Unfortunately, no results were found for your search!</p>\n' +
+            '    <err>Unfortunately, no results were found for your search!</err>\n' +
             '</div>'
         );
     }
     for (i = 0; i < results.length; i++) {
         $('#hairdressers_information_box').append(
-            '<div class="hairdresser" id="hairdresser'+ results[i].fields['user'] +'">\n' +
-            '   <div id="image_box">\n' +
-            '       <img src="'+ image_urls[results[i].fields['user']] +'" width="30%" height="30%">\n' +
-            '   </div>\n' +
-            '   <div id="hairdresser_data">\n' +
-            '       <div id="name_and_distance">\n' +
-            '           <p3>' + results[i].fields['name'] + '</p3>' +
-            '       </div>\n' +
-            '   </div>\n' +
-            '   <div id="rating">\n' +
-            '       <p5>' + results[i].fields['city'] + '</p5>\n' +
-            '   </div>\n' +
-            '<hr>\n' +
-            '</div>\n'
+            '<div class="hairdresser" id="hairdresser'+ results[i].fields['user'] +'">' +
+            '   <div class="image_box">' +
+            '       <img src="'+ image_urls[results[i].fields['user']] +'" width="30%" height="30%">' +
+            '   </div>' +
+            '   <div class="data_box">' +
+            '       <div class="hairdresser_data">' +
+            '           <div class="name_and_distance">' +
+            '               <p3>' + results[i].fields['name'] + '</p3>' +
+            '           </div>' +
+            '       </div>' +
+            '       <div class="hairdresser_rating_box">' +
+            '           <p4>Overall: <p5>' + ratings[results[i].fields['user']] + '</p5></p4>' +
+            '       </div>' +
+            '   </div>' +
+            // '<hr>' +
+            '</div>'
         );
         searchResults[i] = {
             id: results[i]['pk'],
@@ -156,7 +157,8 @@ function searchFilter() {
             // console.log("new lat bnds: " + latitudeBounds + "|lng bnds: " + longitudeBounds);
             results = JSON.parse(response['results']);
             image_urls = response['profile_picture_urls'];
-            setResults(results, image_urls)
+            ratings = response['ratings'];
+            setResults(results, image_urls, ratings)
             if (response['favourites']) {
                 favouriteHairdressers = JSON.parse(response['favourites']);
             }
