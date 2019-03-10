@@ -1,47 +1,101 @@
-.leftContent {
-    display:inline-flex;
-   flex-direction:row;
-    background-color: lightcoral;
-    float:left;
+.hairPage {
+    background: linear-gradient(rgba(168,29,115,.4), rgba(168,29,115,.4)), url("/static/images/stock.jpg");
+    display:flex;
+    flex-direction: column;
    
-    width:60%;
+}
+
+h1{
+   
+    
+    text-align: center;
+    min-width: 33%;
+
+}
+
+.leftContent {
+   
+    width:70%;
     height:100vh;
+    
+   
 }
 
 .rightContent {
-    display:inline-flex;
-    background-color:lightgreen;
- 
-    width:40%;
-    height: 100vh;
+  
+   
+    height:60%;
+    margin-top:20px;
+    margin-right:20px;
+   
+    width:25%;
+    background-color:white;
+    border-radius:15px;
+   
+   
+}
 
+.hairProfile {
+   display:inline-flex;
+ flex-wrap:wrap;
+   background-color:white;
+   width:85%;
+   height:100%;
+   margin-left:20px;
+   margin-top:20px;
+   border-radius:15px;
+  
+   
+  
+   
+   
 }
 
 #userImage {
- size: 100%;
    
+ size: 50%;
+ border-radius:50%;
+ border: 1px solid #ddd;
+ border-radius: 4px;
+ padding: 10px; 
+
+ border
     
 }
 
 #profilePicture {
-    
-  height:30%;
-   width:40%;
-   background-color:red;
+    margin-left:20px;
+    margin-top:20px;
+  height:50%;
+   width:50%;
+   min-width:33%;
+  
+  
 }
 
 #rating {
 
-    width: 50%;
+    width: 100%;
     height: 40%;
-    background-color:brown;
+    
+    
     
    
+}
+
+#introduction {
+height:10%;
+}
+
+#about{
+    width:100%;
+    background-color:rgba(255,255,255,0.8);
 }
 
 #about p {
     width:100%;
     text-align:center;
-    background-color: yellow;
+    
+    
     
 }

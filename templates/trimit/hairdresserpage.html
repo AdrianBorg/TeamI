@@ -6,32 +6,62 @@
 {% endblock %}
 
 {% block body_block %}
-<h1>{{hairdresser.name}}</h1>
+<div class="hairPage">
+
 <div class = "leftContent">
-    
+       
     <div class = "hairProfile">
         <div id = "profilePicture">
             <img id = "userImage"  src = "{{ MEDIA_URL }}hairpage_images/page1.jpg" alt = "hairdresser image"/>
         </div>
-
+        <div id= "introduction">
+        <h1>{{hairdresser.name}}</h1>
         <div id = "rating">
-            <p> Price £££ <br/>
-                Service **** <br/>
-                Etc ******<br/>
-            </p>
+                <p> 
+                    Service **** <br/>
+                    Etc ******<br/>
+                </p>
+            </div>
         </div>
-        <div id = "about">
-            <p>
-                
-                hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text
-                hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text
-            </p>
-        </div>
+            <div id = "about">
+               
+                    <p>
+                        
+                        hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text
+                        hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text
+                    </p>
+                </div>
+        
+
         
     </div>
+    
+    
+    <div class = "reviews">
+      
+            <div id = "singleReview">
+                <h5 id = "ratings">
+                    Overall rating {{Review.average_rating}} </br>
+                    Atmoshere {{Review.atmosphere_rating}}</br>
+                    Price {{Review.price_rating}}</br>
+                    Service {{Review.service_rating}}</br>
+    
+                    </h5>
+        </div>
+    </div>
+    
+
 </div>
 
 <div class = rightContent>
+    <div id = "contact">
+        <p>Adress </br>
+            Adress </br>
+            Adress </br>
+       </p>
+        <h4>Opening times</h4>
+    </div>
 
+</div>
 </div>
 {% endblock %}
