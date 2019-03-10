@@ -4,6 +4,7 @@
     margin: 0.5em;
     flex: 1 0 100%;
     }
+
 #data_and_map{
     display: flex;
     flex-direction: row;
@@ -31,21 +32,17 @@
 }
 
 #filters_box{
-    /*width: 45%;*/
     flex: 0 1 45%;
 }
 
 #tags_filters {
     flex: 0 1 45%;
-    /*margin-left: 10%;*/
 }
 
 #box_header{
     font-size: 25px;
     font-weight: bold;
     margin: 0px;
-    /*padding-bottom: 8px;*/
-    /*flex: 1 0 100%;*/
 }
 
 #s2id_id_specialities {
@@ -65,9 +62,7 @@ div.ui-widget-content {
     background: #a81d73;
 
 }
-/*box that contains the text being applied to each slider*/
 
-/*text contained for each slider*/
 #p1{
     font-size: 22px;
     margin-top: 10%;
