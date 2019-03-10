@@ -1,0 +1,90 @@
+#box{
+    display: flex;
+    flex-direction: row;
+    align-self: stretch;
+    justify-content: space-between;
+    height: 100%;
+}
+#user_data_and_reviews{
+
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    }
+
+#user_data{
+
+    align-self:stretch;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    }
+#reviews_box{
+
+    align-self: stretch;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    }
+
+#user_picture, #review_picture{
+
+    width: 30%;
+   }
+
+
+#user_details{
+
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 70%;
+   }
+
+ #user_review{
+    margin-top: 3%;
+    display:flex;
+    width: 70%;
+ }
+
+img > box{
+    display: block;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    }
+
+
+#favourites{
+    border-style: solid;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+
+    }
+#favourites_header{
+    border-style: solid;
+    height: 30%;
+
+    }
+
+#user_favourites{
+    font-size: 25px;
+    font-weight: bold;
+
+    }
+
+#p1{
+   margin-top: 20%;
+    }
+#details_header{
+    text-indent: 6%;
+    font-size: 25px;
+    font-weight: bold;
+    }
+#user_name, #user_email{
+    text-indent: 2%;
+    }

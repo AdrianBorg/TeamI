@@ -13,6 +13,7 @@ html, body {
     margin: 0.5em;
     flex: 1 0 100%;
     }
+
 #data_and_map{
     display: flex;
     flex-direction: row;
@@ -34,21 +35,17 @@ html, body {
 }
 
 #filters_box{
-    /*width: 45%;*/
     flex: 0 1 45%;
 }
 
 #tags_filters {
     flex: 0 1 45%;
-    /*margin-left: 10%;*/
 }
 
 #box_header{
     font-size: 25px;
     font-weight: bold;
     margin: 0px;
-    /*padding-bottom: 8px;*/
-    /*flex: 1 0 100%;*/
 }
 
 #s2id_id_specialities {
@@ -60,9 +57,15 @@ html, body {
     overflow-x: auto;
     max-height: 78px;
 }
-/*box that contains the text being applied to each slider*/
+.ui-slider-horizontal div.ui-slider-range-min {
+    left: -1px;
+}
+div.ui-widget-content {
 
-/*text contained for each slider*/
+    background: #a81d73;
+
+}
+
 #p1{
     font-size: 22px;
     margin-top: 10%;
@@ -72,6 +75,7 @@ html, body {
     margin-top: 5%;
     font-size: 22px;
 }
+
 /*box that contains the sliders*/
 .custom-handle {
     width: 3em;

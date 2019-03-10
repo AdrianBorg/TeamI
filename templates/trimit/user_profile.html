@@ -1,0 +1,65 @@
+{% extends 'trimit/base.html' %}
+{% load staticfiles %}
+
+{% block import_block %}
+    {{ speciality_field_form.media.css }}
+    {{ speciality_field_form.media.js }}
+    <link rel="stylesheet" href="{% static "css/tagfield_override.css" %}">
+
+    <link rel="stylesheet" href="{% static "libraries/jquery-ui.min.css" %}">
+    <link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
+    <script src="{% static "libraries/jquery-ui.min.js" %}"></script>
+    <div id="csrf_token">{% csrf_token %}</div>
+    <script>
+        var resultset = {{ resultset }};
+        var searchLocation = "{{ search_location }}";
+        var CSRFtoken = $('#csrf_token > input').val();
+        var AJAXlink = "{% url "ajax_search_results" %}";
+        {% if user.is_authenticated %}
+            var LOGGED_IN = true;
+        {% else %}
+            var LOGGED_IN = false;
+        {% endif %}
+    </script>
+{% endblock %}
+{% block body_block %}
+<div id="box">
+    <div id="user_data_and_reviews">
+        <div id="user_data">
+            <div id="user_picture">
+                <img src="//:0" width="100%" height="100%">
+            </div>
+            <div id="user_details">
+                <p2 id="details_header">My Details</p2>
+                <div id="user_name">
+                    name: Margaret Thatcher
+                </div>
+                <div id="user_email">
+                    email: mthatcher@gmail.com
+                </div>
+            </div>
+        </div>
+        <div id="reviews_box">
+            <div id="user_review">
+                This is the best hairdresser in the world!!
+            </div>
+            <div id="review_picture">
+                <img src="//:0" width="100%" height="30%">
+            </div>
+
+        </div>
+    </div>
+    <div id="favourites">
+        <div id="favourites_header">
+            <br></br>
+            <p1 id="user_favourites">My Favourites</p1>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block end_block %}
+    <script src="{% static 'js/user_profile.js'%}"></script>
+{% endblock %}
