@@ -99,6 +99,7 @@ def populate():
             "country": "GB",
         },
         {
+            "name": "fuckup",
             "str": "90 triq il-kbira",
             "city": "Siggiewi",
             "country": "MT",
@@ -212,14 +213,29 @@ def populate():
         profile = UserProfile.objects.get_or_create(user=user)[0]
         profile.save()
 
-    def add_page(username, street, city, country):
-        user = User.objects.get(username=username)
-        print(country)
+    def get_standardized_country(country):
         for c in list(countries):
             if country.lower() == c[1].lower() or country.lower == c[0].lower:
-                cntry = country
+                matched_country = country
+        return matched_country
 
-        page = Page.objects.get_or_create(user=user, street_address=street, city=city, country=cntry)[0]
+    def add_page(username, hairdresser):
+        user = User.objects.get(username=username)
+
+        standardized_country = get_standardized_country(hairdresser['country'])
+
+        page_info = dict(
+            name=hairdresser['name'],
+            street_address=hairdresser['str'], 
+            city=hairdresser['city'], 
+            country=standardized_country
+        )
+
+        page = Page.objects.update_or_create(
+            user=user, 
+            defaults=page_info,
+        )[0]
+
         page.save()
 
     def add_review(username, pagename, ratings, comment, img):
@@ -284,7 +300,7 @@ def populate():
         add_user(hs['username'], hs['password'], hs['email'])
         hairdresser = hairdresser_pages[i]
         u = User.objects.get(username=hs['username'])
-        add_page(u, hairdresser['str'], hairdresser['city'], hairdresser['country'])
+        add_page(u, hairdresser)
         i += 1
 
     for rev in reviews:

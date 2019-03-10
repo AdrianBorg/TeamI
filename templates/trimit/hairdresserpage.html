@@ -2,66 +2,98 @@
 {% load staticfiles %}
 
 {% block import_block %}
-<link rel="stylesheet" href="{% static 'css/hairdresserpage.css' %}"> />
+<link rel="stylesheet" href="{% static 'css/hairdresserpage.css' %}">
 {% endblock %}
 
 {% block body_block %}
 <div class="hairPage">
 
 <div class = "leftContent">
+    <div class = "reviews">
+        {% for review in review_list %}
+        <div id = "singleReview">
+            <h3>{{review.user.username}} - {{time.date}}</h3>
+            <h5 id = "ratings">
+                Overall rating {{review.average_rating}} </br>
+                Atmoshere {{review.atmosphere_rating}}</br>
+                Price {{review.price_rating}}</br>
+                Service {{review.service_rating}}</br>
+            </h5>
+            <p>{{review.comment}}</p>
+            <img src="{{ MEDIA_URL }}{{review.picture}}">
+        </div>
+        {% endfor %}
+    </div>
        
     <div class = "hairProfile">
         <div id = "profilePicture">
-            <img id = "userImage"  src = "{{ MEDIA_URL }}hairpage_images/page1.jpg" alt = "hairdresser image"/>
+            <img id = "userImage"  src = "{{ MEDIA_URL }}{{hairdresser.profile_picture}}" alt = "hairdresser image"/>
         </div>
         <div id= "introduction">
-        <h1>{{hairdresser.name}}</h1>
-        <div id = "rating">
+            <h1>{{hairdresser.name}}</h1>
+            <div id = "rating">
                 <p> 
-                    Service **** <br/>
-                    Etc ******<br/>
+                    Atmosphere: {{hairdresser.mean_atmosphere_rating}} <br/>
+                    Price     : {{hairdresser.mean_price_rating}} <br/>
+                    Service   : {{hairdresser.mean_service_rating}} <br/>
+                    <br/>
+                    Overall   : {{hairdresser.overall_rating}} <br/>
                 </p>
             </div>
         </div>
-            <div id = "about">
-               
-                    <p>
-                        
-                        hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text
-                        hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text hairdresser about-text
-                    </p>
-                </div>
-        
 
-        
-    </div>
-    
-    
-    <div class = "reviews">
-      
-            <div id = "singleReview">
-                <h5 id = "ratings">
-                    Overall rating {{Review.average_rating}} </br>
-                    Atmoshere {{Review.atmosphere_rating}}</br>
-                    Price {{Review.price_rating}}</br>
-                    Service {{Review.service_rating}}</br>
-    
-                    </h5>
+        <div id = "about">
+            Specialties: <i>{{hairdresser.specialities}}</i>
+            <p>{{hairdresser.description}}</p>
+        </div> 
+
+        <div id="map_box">
+            <div class="container-map">
+                <div id="map"></div>
+            </div>
         </div>
+
     </div>
     
-
+    
+    
+    
 </div>
 
 <div class = rightContent>
-    <div id = "contact">
-        <p>Adress </br>
-            Adress </br>
-            Adress </br>
+    <div id="contact">
+        <p>
+            <h4>Address</h4>
+            {{hairdresser.flat_number}}</br>
+            {{hairdresser.street_address}}</br>
+            {{hairdresser.city}}</br>
+            {{hairdresser.postcode}}</br>
+            {{hairdresser.country}}</br>
+            <br>
+            <h4>Opening times</h4>
+            {{hairdresser.opening_times}}</br>
+            <br>
+            <h4>Get in touch</h4>
+            {{hairdresser.webpage}}</br>
+            {{hairdresser.instagram}}</br>
+            {{hairdresser.contact_number}}</br>
        </p>
-        <h4>Opening times</h4>
     </div>
+</div>
+</div>
+{% endblock %}
 
-</div>
-</div>
+
+{% block end_block %}
+    {#    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBh1c6xCPIo3PNhfUGmTJhKwU76AuIaJ8o&callback=initMap"></script>#}
+    <script src="{% static "js/search_map.js" %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBh1c6xCPIo3PNhfUGmTJhKwU76AuIaJ8o&callback=initMap"></script>
+    
+    <script>
+        var searchLoc = [{{hairdresser.latitude}}, {{hairdresser.longitude}}];
+        $('document').ready(function(){
+            searchGeocode(searchLoc);
+        });
+    </script>
+    <!-- <script src="{% static 'js/results_jscript.js'%}"></script> -->
 {% endblock %}

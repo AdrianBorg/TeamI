@@ -22,8 +22,6 @@ h1{
 }
 
 .rightContent {
-  
-   
     height:60%;
     margin-top:20px;
     margin-right:20px;
@@ -44,11 +42,6 @@ h1{
    margin-left:20px;
    margin-top:20px;
    border-radius:15px;
-  
-   
-  
-   
-   
 }
 
 #userImage {
@@ -64,23 +57,17 @@ h1{
 }
 
 #profilePicture {
-    margin-left:20px;
-    margin-top:20px;
-  height:50%;
+   margin-left:20px;
+   margin-top:20px;
+   height:50%;
    width:50%;
    min-width:33%;
-  
-  
 }
 
 #rating {
-
     width: 100%;
     height: 40%;
-    
-    
-    
-   
+
 }
 
 #introduction {
@@ -95,7 +82,30 @@ height:10%;
 #about p {
     width:100%;
     text-align:center;
-    
-    
-    
+}
+
+/* Map */
+#map_box{
+    width: 48%;
+}
+
+#map_box {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: #a81d73;
+}
+
+.container-map, #map {
+    border-radius: inherit;
+}
+
+.container-map {
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
 }

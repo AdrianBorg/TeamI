@@ -31,6 +31,10 @@ class Page(models.Model):
     name = models.CharField(max_length=30, blank=True, null=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='Page')
     specialities = tagulous.models.TagField(to=Specialities, blank=True)
+    profile_picture = models.ImageField(upload_to='user_profile_images', default='DefaultPagePic.png', blank=True)
+    description = models.CharField(max_length=200, blank=True, null=True)
+
+    # Contact Info
     flat_number = models.CharField(max_length=15, blank=True)
     street_address = models.CharField(max_length=30, blank=False)
     city = models.CharField(max_length=30, blank=False)
@@ -39,11 +43,16 @@ class Page(models.Model):
     opening_times = models.CharField(max_length=200, blank=True, null=True)
     webpage = models.URLField(blank=True)
     instagram = models.URLField(blank=True)
-    profile_picture = models.ImageField(upload_to='user_profile_images', default='DefaultPagePic.png', blank=True)
     contact_number = models.CharField(max_length=15, blank=True)
+
+    # Ratings
     overall_rating = models.DecimalField(max_digits=3, decimal_places=1, default=0)
+    mean_atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    mean_price_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    mean_service_rating = models.DecimalField(max_digits=10, decimal_places=1)
     number_of_reviews = models.DecimalField(max_digits=5, decimal_places=0, default=0)
 
+    # Map Location
     latitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, null=True, default=None)
     longitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, null=True, default=None)
 
@@ -66,10 +75,26 @@ class Page(models.Model):
         super(Page, self).save(*args, **kwargs)
 
     def update_overall_rating(self):
+        print("Updating {} reviews by adding new one..".format(self.name))
         own_reviews = Review.objects.filter(page__slug=self.slug)
         self.number_of_reviews = len(own_reviews)
-        self.overall_rating = sum([i.average_rating for i in own_reviews]) / self.number_of_reviews 
 
+        sum_atmosphere_rating = 0
+        sum_price_rating = 0
+        sum_service_rating = 0
+        for i in own_reviews:
+            sum_atmosphere_rating += i.atmosphere_rating
+            sum_price_rating += i.price_rating
+            sum_service_rating += i.service_rating
+
+        self.mean_atmosphere_rating = sum_atmosphere_rating / self.number_of_reviews 
+        self.mean_price_rating = sum_price_rating / self.number_of_reviews 
+        self.mean_service_rating = sum_service_rating / self.number_of_reviews
+        self.overall_rating = (self.mean_atmosphere_rating + self.mean_price_rating + 
+                               self.mean_service_rating) / 3 
+
+        super(Page, self).save()
+        
 
     def __str__(self):
         return self.user.username
@@ -122,7 +147,7 @@ class Review(models.Model):
                              on_delete=models.SET_NULL,  # models.SET(deleted_userprofile),
                              null=True,
                              related_name='reviews')
-    average_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    average_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
     atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1)
     price_rating = models.DecimalField(max_digits=10, decimal_places=1)
     service_rating = models.DecimalField(max_digits=10, decimal_places=1)

@@ -1,33 +1,31 @@
 from django.shortcuts import render
 from trimit.forms import UserRegisterForm, UserProfileForm, HairdresserPageForm, HairPageSpecialityForm
-from trimit.models import Page, UserProfile, Specialities
+from trimit.models import Page, UserProfile, Specialities, Review
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse, resolve
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.utils.safestring import mark_safe
-<<<<<<< HEAD
+
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg
 from django.views.decorators.cache import never_cache
 
-=======
 import json
 from django.db.models import Count
 import tagulous.forms
->>>>>>> origin/amdga
+
 
 
 # Create your views here.
-
-
 def index(request):
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
     return render(request, 'trimit/base.html', context=context_dict)
+
 def user_profile(request):
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
@@ -35,6 +33,7 @@ def user_profile(request):
                     'profile_form': profile_form,}
     return render(request, 'trimit/user_profile.html', context_dict)
 
+@never_cache
 def results(request):
     q = request.GET.get('q')
     # print(q)
@@ -224,8 +223,16 @@ def ajax_user_login(request):
 
 @never_cache
 def hairdresser_page(request, hairdresser_slug):
-    obj = Page.objects.get(slug=hairdresser_slug)
-    return render(request, 'trimit/hairdresserpage.html', context={'hairdresser':obj})
+    hairdresser = Page.objects.get(slug=hairdresser_slug)
+    review_list = Review.objects.filter(page__slug=hairdresser.slug)
+
+    return render(request, 
+        'trimit/hairdresserpage.html', 
+        context={
+            'hairdresser': hairdresser, 
+            'review_list': review_list,
+        }
+    )
 
 def hairdresser_register(request):
     registered = False
