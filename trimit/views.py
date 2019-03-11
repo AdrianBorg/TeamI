@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from trimit.forms import UserRegisterForm, UserProfileForm, HairdresserPageForm, HairPageSpecialityForm
-from trimit.models import Page, UserProfile, Specialities, Review
+from trimit.forms import ReviewForm, UserRegisterForm, UserProfileForm, HairdresserPageForm, HairPageSpecialityForm
+from trimit.models import Page, UserProfile, Specialities, Review, Treatment
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, resolve
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -225,13 +226,43 @@ def ajax_user_login(request):
 def hairdresser_page(request, hairdresser_slug):
     hairdresser = Page.objects.get(slug=hairdresser_slug)
     review_list = Review.objects.filter(page__slug=hairdresser.slug)
+    treatment_list = Treatment.objects.filter(page__slug=hairdresser.slug)
 
     return render(request, 
         'trimit/hairdresserpage.html', 
         context={
             'hairdresser': hairdresser, 
             'review_list': review_list,
+            'treatment_list': treatment_list,
         }
+    )
+
+
+
+@login_required(login_url='ajax_user_login')
+def write_review(request, hairdresser_slug):
+    hairdresser = Page.objects.get(slug=hairdresser_slug)
+    if request.method == 'POST':
+        review_form = ReviewForm(
+            data={
+                'page': hairdresser, 
+                'user': request.user,
+                **request.POST
+            }, 
+        )
+
+        if review_form.is_valid():
+            review_form.save()
+        else:
+            print(request.user.errors)
+    else:
+        review_form = ReviewForm()
+        # review_form.hairdresser
+
+    return render(
+        request,
+        'trimit/review_hairdresser.html',
+        context={'form': review_form, 'hairdresser': hairdresser}
     )
 
 def hairdresser_register(request):

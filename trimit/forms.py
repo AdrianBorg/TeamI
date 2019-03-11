@@ -1,9 +1,14 @@
 from django import forms
 from django.contrib.auth.models import User
-from trimit.models import UserProfile, Page
+from trimit.models import UserProfile, Page, Review
 from django_countries.widgets import CountrySelectWidget
 from django.core.validators import RegexValidator
 
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        exclude = ('page', 'user', 'average_rating', 'time')
 
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

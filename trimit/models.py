@@ -115,6 +115,12 @@ class Page(models.Model):
     def avgo(self):
         return Review.objects.filter(page=self).aggregate(Avg('overall_rating'))['overall_rating__avg']
 
+class Treatment(models.Model):
+    page = models.ForeignKey('Page',
+                             on_delete=models.CASCADE,
+                             related_name='page')
+    description = models.CharField(max_length=50)
+    price = models.CharField(max_length=150)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')

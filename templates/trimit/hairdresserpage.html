@@ -9,25 +9,10 @@
 <div class="hairPage">
 
 <div class = "leftContent">
-    <div class = "reviews">
-        {% for review in review_list %}
-        <div id = "singleReview">
-            <h3>{{review.user.username}} - {{time.date}}</h3>
-            <h5 id = "ratings">
-                Overall rating {{review.average_rating}} </br>
-                Atmoshere {{review.atmosphere_rating}}</br>
-                Price {{review.price_rating}}</br>
-                Service {{review.service_rating}}</br>
-            </h5>
-            <p>{{review.comment}}</p>
-            <img src="{{ MEDIA_URL }}{{review.picture}}">
-        </div>
-        {% endfor %}
-    </div>
-       
+    
     <div class = "hairProfile">
         <div id = "profilePicture">
-            <img id = "userImage"  src = "{{ MEDIA_URL }}{{hairdresser.profile_picture}}" alt = "hairdresser image"/>
+            <img id = "userImage"  src = "{{MEDIA_URL}}{{hairdresser.profile_picture}}" alt = "hairdresser image"/>
         </div>
         <div id= "introduction">
             <h1>{{hairdresser.name}}</h1>
@@ -45,15 +30,38 @@
         <div id = "about">
             Specialties: <i>{{hairdresser.specialities}}</i>
             <p>{{hairdresser.description}}</p>
-        </div> 
-
-        <div id="map_box">
-            <div class="container-map">
-                <div id="map"></div>
+        </div>
+        
+        <div class = "treatment">
+            {% for treatment in treatment_list %}
+            <div id = "singleTreatment">
+                <h5>{{treatment.description}}  {{treatment.price}}</h5>
             </div>
+            {% endfor %}
         </div>
 
-    </div>
+        <div class = "reviews">
+            <h1> Reviews</h1>
+            {% for review in review_list %}
+            <div id = "singleReview">
+                <h3>{{review.user.username}} {{time.date}}</h3>
+                <div class = "userImgContainer">
+                <img id = "userPic" src = "{{ MEDIA_URL }}{{review.user.profile_picture}}" >
+                </div>
+                <p id = "reviewRatings">
+                    Overall rating {{review.average_rating}} </br>
+                    Atmoshere {{review.atmosphere_rating}}</br>
+                    Price {{review.price_rating}}</br>
+                    Service {{review.service_rating}}
+                </p>
+                <p id = "comment">"{{review.comment}}"</p>
+              <!--  <img id = "reviewPic" src="{{ MEDIA_URL }}{{review.picture}}">-->
+            </div>
+            {% endfor %}
+        </div>
+               
+
+       
     
     
     
@@ -78,6 +86,13 @@
             {{hairdresser.instagram}}</br>
             {{hairdresser.contact_number}}</br>
        </p>
+    </div>
+    <div id="map_box">
+            <div class="container-map">
+                <div id="map"></div>
+            </div>
+        </div>
+
     </div>
 </div>
 </div>

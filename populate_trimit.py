@@ -3,7 +3,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'TeamI.settings')
 import django
 django.setup()
-from trimit.models import Page, UserProfile, Review, UserHairImage, PageImage
+from trimit.models import Page, UserProfile, Review, UserHairImage, PageImage, Treatment
 # from trimit.models import EUser as User
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -153,6 +153,25 @@ def populate():
         },
     ]
 
+    hairdresser_treatments = [
+        {
+            "hairdresser_slug": "stylist4",
+            "description": "hair dye",
+            "price": "25£",
+        },
+        {
+            "hairdresser_slug": "stylist4",
+            "description": "head massage",
+            "price": "35£/h",
+        },
+        {
+            "hairdresser_slug": "stylist1",
+            "description": "hair dye",
+            "price": "30£",
+        },
+    ]
+
+
     profile_pictures = {
         "dir": os.path.join(POPULATE_DIR, 'profile_pictures'),
         "pic": [
@@ -293,6 +312,15 @@ def populate():
     for us in users:
         add_user(us['username'], us['password'], us['email'])
         add_userprofile(us['username'])
+
+    for treatment in hairdresser_treatments:
+        slug = treatment.pop('hairdresser_slug')
+        page = Page.objects.get(slug=slug)
+
+        Treatment.objects.get_or_create(
+            page=page,
+            **treatment
+        )[0].save()
 
     i = 0
 
