@@ -9,10 +9,10 @@
 <div class="hairPage">
 
 <div class = "leftContent">
-    
+ 
     <div class = "hairProfile">
-        <div id = "profilePicture">
-            <img id = "userImage"  src = "{{MEDIA_URL}}{{hairdresser.profile_picture}}" alt = "hairdresser image"/>
+        <div class = "container-profile-pic">
+            <img id = "profile-pic"  src = "{{MEDIA_URL}}{{hairdresser.profile_picture}}" alt = "hairdresser image"/>
         </div>
         <div id= "introduction">
             <h1>{{hairdresser.name}}</h1>
@@ -59,17 +59,14 @@
             </div>
             {% endfor %}
         </div>
-               
+           
+        </div>   
+    </div>
 
-       
-    
-    
-    
-    
-</div>
+   
 
-<div class = rightContent>
-    <div id="contact">
+<div class = "rightContent">
+    <div id="adress">
         <p>
             <h4>Address</h4>
             {{hairdresser.flat_number}}</br>
@@ -78,10 +75,18 @@
             {{hairdresser.postcode}}</br>
             {{hairdresser.country}}</br>
             <br>
+        </p>
+    </div>
+    <div id ="opening-times">
             <h4>Opening times</h4>
+        <p>
             {{hairdresser.opening_times}}</br>
             <br>
+        </p>
+    </div>
+    <div id ="contact">
             <h4>Get in touch</h4>
+        <p>
             {{hairdresser.webpage}}</br>
             {{hairdresser.instagram}}</br>
             {{hairdresser.contact_number}}</br>
@@ -94,7 +99,7 @@
         </div>
 
     </div>
-</div>
+
 </div>
 {% endblock %}
 
@@ -111,4 +116,4 @@
         });
     </script>
     <!-- <script src="{% static 'js/results_jscript.js'%}"></script> -->
-{% endblock %}
+{% endblock %}*/

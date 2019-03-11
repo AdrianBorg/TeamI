@@ -1,19 +1,29 @@
+
+
+
+
+
 .hairPage {
   background: linear-gradient(rgba(168,29,115,.6), rgba(168,29,115,.6)), url("/static/images/stock.jpg");
-    display:inline-flex;
-
+   display:flex;
+   flex-direction:row;
    
+   
+    
+  
 }
 
 h1 {
-   
-    
+
+
     text-align: center;
     width: 100%;
     height:10%;
     
-   
 
+}
+h4 {
+    color: rgb(168,29,115);
 }
 
 .leftContent {
@@ -21,55 +31,111 @@ h1 {
     width:60%;
     height:100%;
     
+ 
+    
    
 }
 
 .rightContent {
-    position:fixed;
-    top:10p%;
-    right:10%;
-    
-    height:75%;
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:row;
+    color:black;
+    margin-left:auto;
+    height:10%;
     width:29%;
     background-color: white;
-    border-radius:15px;
-    margin-top:20px;
+  
+    margin-top:50px;
+    margin-right:50px;
+   
    
    
 }
+#adress {
+    width:50%;
+    
+    text-align:center;
+}
+#opening-times {
+    width:50%;
+    
+    text-align:center;
+}
+#contact {
+    
+    text-align:center;
+    width:100%;
+}
+
+/* Map */
+#map_box{
+    width: 48%;
+}
+
+#map_box {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: #a81d73;
+}
+
+.container-map, #map {
+    border-radius: inherit;
+}
+
+.container-map {
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+
 
 .hairProfile {
    display:inline-flex;
  flex-wrap:wrap;
    background-color:white;
-   width:100%;
-   height:100%;
+   width:90%;
+   
   
   /* box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.3);*/
 }
 
-#userImage {
-   
- size: 50%;
- border-radius:50%;
- border: 1px solid #a81d73 ;
- border-radius: 4px;
- padding: 10px; 
+
+#profile-pic {
+ 
+ max-width:100%;
+ max-height:auto;
+ 
+ 
+
 
     
 }
 
-#profilePicture {
+.container-profile-pic {
+   overflow:hidden;
    margin-left:20px;
    margin-top:20px;
-   height:50%;
-   width:50%;
-   min-width:33%;
+   height:20%;
+   width:40%;
+   justify-content: center;
+   border-radius:10px;
+   border: 5px solid #a81d73 ;
+   
+
 }
 
 #rating {
+    
     width: 100%;
     height: 40%;
+    margin-left:40px;
 
 }
 
@@ -93,11 +159,12 @@ height:10%;
    flex-wrap:wrap;
    
     width:100%;
+    background-color:rgba(255,255,255,0.5);
    
     
 }
 #singleReview {
-    display:flex;
+    display:inline-flex;
     flex-direction:column;
     align-items: center;
     width: 50%;
@@ -154,28 +221,3 @@ width:auto;
     display:none;
 }
 
-/* Map */
-#map_box{
-    width: 48%;
-}
-
-#map_box {
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px;
-    border-color: #a81d73;
-}
-
-.container-map, #map {
-    border-radius: inherit;
-}
-
-.container-map {
-    height: 100%;
-    width: 100%;
-}
-
-#map {
-    height: 100%;
-    width: 100%;
-}
