@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^user_register/$', views.user_register, name='user_register'),
     url(r'^hairdresser_register/$', views.hairdresser_register, name='hairdresser_register'),
     url(r'^hairdresser/(?P<hairdresser_slug>[-\w]+)/review$', views.write_review, name='review_hairdresser'),
+     url(r'^hairdresser/(?P<hairdresser_slug>[-\w]+)/loadtest$', views.hairdresser_load, name='hairdresser_load_content'),
     url(r'^hairdresser/(?P<hairdresser_slug>[-\w]+)/$', views.hairdresser_page, name='hairdresser_page'),
     url(r'ajax/user_login/$', views.ajax_user_login, name='ajax_user_login'),
     url(r'^logout/$', views.user_logout, name='logout'),

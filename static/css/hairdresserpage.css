@@ -31,6 +31,7 @@ h4 {
     width:60%;
     height:100%;
     
+    
  
     
    
@@ -43,7 +44,7 @@ h4 {
     color:black;
     margin-left:auto;
     height:10%;
-    width:29%;
+    width:30%;
     background-color: white;
   
     margin-top:50px;
@@ -59,7 +60,7 @@ h4 {
 }
 #opening-times {
     width:50%;
-    
+   
     text-align:center;
 }
 #contact {
@@ -100,7 +101,8 @@ h4 {
    display:inline-flex;
  flex-wrap:wrap;
    background-color:white;
-   width:90%;
+   width:100%;
+   
    
   
   /* box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.3);*/
@@ -140,26 +142,23 @@ h4 {
 }
 
 
-#introduction {
-height:10%;
-}
 
 #about{
-    margin-top: 10%;
+   margin-top:10px;
   
   width:100%;
   text-align:center; 
 }
 
 
-
-.reviews {
+.changing-content {
    display:flex;
    flex-direction:row;
    flex-wrap:wrap;
    
     width:100%;
-    background-color:rgba(255,255,255,0.5);
+    min-height:500px;
+   
    
     
 }
@@ -212,12 +211,12 @@ width:auto;
    height:auto;
    border-radius: 50%;
    
-  
 
-  
 }
-
 .treatment {
-    display:none;
+
+    width:100%;
 }
+
+
 

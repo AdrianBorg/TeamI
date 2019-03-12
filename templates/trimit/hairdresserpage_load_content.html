@@ -1,3 +1,4 @@
+
 {% extends 'trimit/base.html' %}
 {% load staticfiles %}
 
@@ -32,60 +33,29 @@
             <p>{{hairdresser.description}}</p>
         </div>
         
-        <div class = "treatment">
-            {% for treatment in treatment_list %}
-            <div id = "singleTreatment">
-                <h5>{{treatment.description}}  {{treatment.price}}</h5>
-            </div>
-            {% endfor %}
-        </div>
+       
 
         
-            <div class ="pagelinks"> 
+            <div class = "pagelinks"> 
                 <button id = "review-button">Reviews </button>
-                <button id = "treatment-button" onclick=update();>Treatment </button>
+                <button id = "treatment-button" onclick = treatment();>Treatment </button>
                 <button id = "gallery-button">Gallery </button>
                 <button id = "make-review-button">Make a review </button>
             
             </div>
 
-
-            <!--Changing content-->
             <div class ="changing-content">
                     <div class ="treatment">
-                            <h1>Treatments</h1>
-                                Blalalalalalalalal
-                                <div id ="singleTreatment">
-                                   <span id = "product">dfdsfsdfsdfsdfsdf</span> 
-                                    <span id = "price">sdfsdfsdfsdf</span>
-                                </div>
-                              
+                        <h1>Treatments</h1>
+                            {% for treatment in treatment_list %}
+                            <div id ="singleTreatment">
+                               <span id = "product">{{treatment.description}} </span> 
+                                <span id = "price"> {{treatment.price}}</span>
                             </div>
-
-            </div>
-
-
-
-           <!--- {% for review in review_list %}
-            <div id ="singleReview">
-                <h3>{{review.user.username}} {{time.date}}</h3>
-                <div class = "userImgContainer">
-                <img id = "userPic" src = "{{ MEDIA_URL }}{{review.user.profile_picture}}" >
-                </div>
-                <p id ="reviewRatings">
-                    Overall rating {{review.average_rating}} </br>
-                    Atmoshere {{review.atmosphere_rating}}</br>
-                    Price {{review.price_rating}}</br>
-                    Service {{review.service_rating}}
-                </p>
-                <p id ="comment">"{{review.comment}}"</p>
-              <img id = "reviewPic" src="{{ MEDIA_URL }}{{review.picture}}">
-            </div>
-            {% endfor %}
+                            {% endfor %}
+                        </div>
+             
         </div>
-        End of changing content-->
-
-
            
         </div>   
     </div>

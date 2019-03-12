@@ -226,17 +226,25 @@ def ajax_user_login(request):
 def hairdresser_page(request, hairdresser_slug):
     hairdresser = Page.objects.get(slug=hairdresser_slug)
     review_list = Review.objects.filter(page__slug=hairdresser.slug)
-    treatment_list = Treatment.objects.filter(page__slug=hairdresser.slug)
-
+    
     return render(request, 
         'trimit/hairdresserpage.html', 
         context={
             'hairdresser': hairdresser, 
             'review_list': review_list,
+           
+        }
+    )
+@never_cache
+def hairdresser_load(request, hairdresser_slug):
+    treatment_list = Treatment.objects.filter(page__slug=hairdresser_slug)
+
+    return render(request,
+        'trimit/hairdresserpage_load_content.html',
+        context={
             'treatment_list': treatment_list,
         }
     )
-
 
 
 @login_required(login_url='ajax_user_login')
