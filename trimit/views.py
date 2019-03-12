@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.utils.safestring import mark_safe
 import json
+import TeamI.settings
 from django.db.models import Count
 import tagulous.forms
 
@@ -54,6 +55,7 @@ def results(request):
     context_dict['speciality_field_form'] = HairPageSpecialityForm
     context_dict['profile_picture_urls'] = profile_picture_urls
     context_dict['ratings'] = overall_ratings
+    context_dict['page_link_image_url'] = TeamI.settings.MEDIA_URL + "PageLink.png"
     # print(HairPageSpecialityForm)
 
     # print(type(context_dict['ratings']))
@@ -141,10 +143,11 @@ def ajax_search_filter(request):
         new_pages = mark_safe(serializers.serialize('json', newPages))
 
         # print(profile_picture_urls)
+        user = request.user
+        if UserProfile.objects.filter(user=user).exists(): #not request.user.is_anonymous():
 
-        if not request.user.is_anonymous():
-            user = request.user
             # print(UserProfile.objects.filter(user=user).first().favourites.all())
+
             favourites = UserProfile.objects.filter(user=user).first().favourites.all()
             # print(favourites, "111")
             favourite_usernames = [fav.user.pk for fav in favourites]
@@ -310,7 +313,7 @@ def user_register(request):
                   context_dict)
 
 
-@login_required
+#@login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))

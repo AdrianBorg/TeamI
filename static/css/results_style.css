@@ -171,9 +171,16 @@ div.ui-widget-content {
     border-color: #80bdff;
     margin-right: 2.5px;
     display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding-left: 4px;
+    align-items: center;
+}
+.hairdresser_content {
+    display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
-    padding-left: 4px;
+    flex: 1 0;
 }
 .hairdresser_data {
     color: #a81d73;
@@ -211,3 +218,8 @@ err {
     background-color: #f4eaff;
 }
 
+.data_box img{
+    width: 20px;
+    height: 20px;
+    padding-right: 4px;
+}
