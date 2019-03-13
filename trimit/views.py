@@ -14,6 +14,7 @@ from django.db.models import Avg
 from django.views.decorators.cache import never_cache
 
 import json
+import TeamI.settings
 from django.db.models import Count
 import tagulous.forms
 
@@ -61,9 +62,10 @@ def results(request):
     context_dict['speciality_field_form'] = HairPageSpecialityForm
     context_dict['profile_picture_urls'] = profile_picture_urls
     context_dict['ratings'] = overall_ratings
+    context_dict['page_link_image_url'] = TeamI.settings.MEDIA_URL + "PageLink.png"
     # print(HairPageSpecialityForm)
 
-    print(type(context_dict['ratings']))
+    # print(type(context_dict['ratings']))
 
     return render(request, 'trimit/results.html', context_dict)
 
@@ -148,21 +150,23 @@ def ajax_search_filter(request):
         new_pages = mark_safe(serializers.serialize('json', newPages))
 
         # print(profile_picture_urls)
-
+        user = request.user
         if not request.user.is_anonymous():
-            user = request.user
-            # print(UserProfile.objects.filter(user=user).first().favourites.all())
-            favourites = UserProfile.objects.filter(user=user).first().favourites.all()
-            # print(favourites, "111")
-            favourite_usernames = [fav.user.pk for fav in favourites]
-            # print(favourite_usernames, "222")
-            favourites_json = str(favourite_usernames) #serializers.serialize('json', favourite_usernames)
+            if UserProfile.objects.filter(user=user).exists():
 
-            return JsonResponse({'results': resultset,
-                                 'profile_picture_urls': profile_picture_urls,
-                                 'ratings': overall_ratings,
-                                 'new_pages': new_pages,
-                                 'favourites': favourites_json})
+                # print(UserProfile.objects.filter(user=user).first().favourites.all())
+
+                favourites = UserProfile.objects.filter(user=user).first().favourites.all()
+                # print(favourites, "111")
+                favourite_usernames = [fav.user.pk for fav in favourites]
+                # print(favourite_usernames, "222")
+                favourites_json = str(favourite_usernames) #serializers.serialize('json', favourite_usernames)
+
+                return JsonResponse({'results': resultset,
+                                     'profile_picture_urls': profile_picture_urls,
+                                     'ratings': overall_ratings,
+                                     'new_pages': new_pages,
+                                     'favourites': favourites_json})
 
         else:
             return JsonResponse({'results': resultset,
@@ -226,32 +230,56 @@ def ajax_user_login(request):
 def hairdresser_page(request, hairdresser_slug):
     hairdresser = Page.objects.get(slug=hairdresser_slug)
     review_list = Review.objects.filter(page__slug=hairdresser.slug)
-    
+
     a = (hairdresser.user==request.user)
 
 
-    return render(request, 
-        'trimit/hairdresserpage.html', 
-        context={
-            'hairdresser': hairdresser, 
-            'review_list': review_list,
-            'is_users_page': a,
-        }
-    )
+    return render(request,
+                  'trimit/hairdresserpage.html',
+                  context={
+                      'hairdresser': hairdresser,
+                      'review_list': review_list,
+                      'is_users_page': a,
+                  }
+                  )
 
 @never_cache
 def hairdresser_load(request, hairdresser_slug):
     treatment_list = Treatment.objects.filter(page__slug=hairdresser_slug)
 
     return render(request,
-        'trimit/hairdresserpage_load_content.html',
-        context={
-            'treatment_list': treatment_list,
-        }
+                  'trimit/hairdresserpage_load_content.html',
+                  context={
+                      'treatment_list': treatment_list,
+                  }
+                  )
+
+
+    #@login_required(login_url='ajax_user_login')
+    #def write_review(request, hairdresser_slug):
+    hairdresser = Page.objects.get(slug=hairdresser_slug)
+    if request.method == 'POST':
+        review_form = ReviewForm(
+            data={
+                'page': hairdresser,
+                'user': request.user,
+                **request.POST
+            },
+        )
+
+        if review_form.is_valid():
+            review_form.save()
+    #  else:
+    #     print(request.user.errors)
+    else:
+        review_form = ReviewForm()
+        # review_form.hairdresser
+
+    return render(
+        request,
+        'trimit/review_hairdresser.html',
+        context={'form': review_form, 'hairdresser': hairdresser}
     )
-
-
-
 
 @login_required(login_url='ajax_user_login')
 def write_review(request, hairdresser_slug):
@@ -262,7 +290,7 @@ def write_review(request, hairdresser_slug):
             review = review_form.save(commit=False)
             review.page = hairdresser
             review.user = UserProfile.objects.get(id=request.user.id)
-           
+
             review.save()
         else:
             print(review_form.errors)
@@ -275,44 +303,47 @@ def write_review(request, hairdresser_slug):
         context={'form': review_form, 'hairdresser': hairdresser}
     )
 
+
 def edit_hairdresserpage(request):
     current_user = request.user
 
-
     current_hairdresser = Page.objects.get(user=current_user)
 
-
-    hairdresserpage_form = HairdresserPageForm(instance=current_hairdresser)
-    #user_form = UserEditForm(instance=request.user)
-
     if request.method == 'POST':
-       # user_form = UserEditForm(data=request.POST)
-        hairdresserpage_form = HairdresserPageForm(data=request.POST)
+
+        hairdresserpage_form = HairdresserPageForm(request.POST, instance=current_hairdresser)
+        # user_form = UserEditForm(request.POST, instance=request.user)
+
         if hairdresserpage_form.is_valid():#and hairdresserpage_form.is_valid():
             # user = user_form.save()
-
+            #
             # user.set_password(user.password)
             # user.save()
 
             profile = hairdresserpage_form.save(commit=False)
-            profile.user = current_user #user
+            profile.user = request.user
 
             if 'profile_picture' in request.FILES:
                 profile.profile_picture = request.FILES['profile_picture']
 
             profile.save()
-            profile.save_m2m()
-        
-            
-    
+            # page_form.save()
+            hairdresserpage_form.save_m2m()
+            print("SAVED CHANGED TO HAIRPAGE")
+        else:
+            print("HAIRPAGE EDIT ERRORS")
+    else:
+        hairdresserpage_form = HairdresserPageForm(instance=current_hairdresser)
+        # user_form = UserEditForm(instance=request.user)
+
+
     return render(request,
-         'trimit/edit_hairdresserpage.html',   
-         context={
-             'hairdresserpage_form': hairdresserpage_form,
-            #'page_form_media': hairdresserpage_form.media,
-             #'hairdresser_form': user_form,
-             }
-        )
+                  'trimit/edit_hairdresserpage.html',
+                  context={
+                      'hairdresserpage_form': hairdresserpage_form,
+                      'page_form_media': hairdresserpage_form.media,
+                      #'hairdresser_form': user_form,
+                  })
 
 
 def hairdresser_register(request):
@@ -409,7 +440,7 @@ def user_register(request):
                   context_dict)
 
 
-@login_required
+#@login_required
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))

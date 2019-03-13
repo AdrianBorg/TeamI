@@ -111,14 +111,17 @@ function setResults(results, image_urls, ratings) {
             '       <img src="'+ image_urls[results[i].fields['user']] +'" width="30%" height="30%">' +
             '   </div>' +
             '   <div class="data_box">' +
-            '       <div class="hairdresser_data">' +
-            '           <div class="name_and_distance">' +
-            '               <p3>' + results[i].fields['name'] + '</p3>' +
+            '       <div class="hairdresser_content">' +
+            '           <div class="hairdresser_data">' +
+            '               <div class="name_and_distance">' +
+            '                   <p3>' + results[i].fields['name'] + '</p3>' +
+            '               </div>' +
+            '           </div>' +
+            '           <div class="hairdresser_rating_box">' +
+            '               <p4>Overall: <p5>' + ratings[results[i].fields['user']] + '</p5></p4>' +
             '           </div>' +
             '       </div>' +
-            '       <div class="hairdresser_rating_box">' +
-            '           <p4>Overall: <p5>' + ratings[results[i].fields['user']] + '</p5></p4>' +
-            '       </div>' +
+            '       <a href="hairdresser(results_jscrupt.js)/' + results[i].fields['slug'] + '"><img src="' + page_link_image_url + '"></a>' +
             '   </div>' +
             // '<hr>' +
             '</div>'

@@ -13,6 +13,7 @@
     <script>
         var resultset = {{ resultset }};
         var picture_urls = {{ profile_picture_urls|safe }};
+        var page_link_image_url = "{{ page_link_image_url }}";
         var ratings = {{ ratings|safe }};
         var searchLocation = "{{ search_location }}";
         var CSRFtoken = $('#csrf_token > input').val();

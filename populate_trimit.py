@@ -99,7 +99,7 @@ def populate():
             "country": "GB",
         },
         {
-            "name": "fuckup",
+            "name": "fortune",
             "str": "90 triq il-kbira",
             "city": "Siggiewi",
             "country": "MT",
@@ -112,35 +112,35 @@ def populate():
         {
             "user": users[0]["username"],
             "page": stylists[0]["username"],
-            "rating": (5.0, 4.5, 7.2),
+            "rating": (5.0, 4.5, 3.2),
             "comment": "test1",
             "img": 'revpic.jpg',
         },
         {
             "user": users[1]["username"],
             "page": stylists[1]["username"],
-            "rating": (3.5, 2.2, 5.5),
+            "rating": (3.5, 2.2, 5),
             "comment": "test2",
             "img": None,
         },
         {
             "user": users[2]["username"],
             "page": stylists[0]["username"],
-            "rating": (4.5, 7.2, 6.2),
+            "rating": (4.5, 4.6, 4),
             "comment": "test3",
             "img": None,
         },
         {
             "user": users[0]["username"],
             "page": stylists[1]["username"],
-            "rating": (2.7, 5.2, 8.2),
+            "rating": (2.7, 3.5, 4.8),
             "comment": "test4",
             "img": None,
         },
         {
             "user": users[0]["username"],
             "page": stylists[2]["username"],
-            "rating": (7.6, 1.5, 8.2),
+            "rating": (3.2, 1.5, 1),
             "comment": "test5",
             "img": None,
         },
@@ -313,15 +313,6 @@ def populate():
         add_user(us['username'], us['password'], us['email'])
         add_userprofile(us['username'])
 
-    for treatment in hairdresser_treatments:
-        slug = treatment.pop('hairdresser_slug')
-        page = Page.objects.get(slug=slug)
-
-        Treatment.objects.get_or_create(
-            page=page,
-            **treatment
-        )[0].save()
-
     i = 0
 
     for hs in stylists:
@@ -358,6 +349,14 @@ def populate():
     for pp in page_pictures['pic']:
         add_page_picture(page_pictures['dir'], pp['user'], pp['img'])
 
+    for treatment in hairdresser_treatments:
+        slug = treatment.pop('hairdresser_slug')
+        page = Page.objects.get(slug=slug)
+
+        Treatment.objects.get_or_create(
+            page=page,
+            **treatment
+        )[0].save()
 
 if __name__ == '__main__':
     print("Starting trimit population script...")

@@ -6,7 +6,7 @@
     height: 100%;
 }
 #user_data_and_reviews{
-    border-style: solid;
+
     width: 70%;
     display: flex;
     flex-direction: column;
@@ -14,14 +14,14 @@
     }
 
 #user_data{
-    border-style: solid;
+
     align-self:stretch;
     height: 100%;
     display: flex;
     flex-direction: row;
     }
 #reviews_box{
-    border-style: solid;
+
     align-self: stretch;
     height: 100%;
     display: flex;
@@ -29,15 +29,25 @@
     }
 
 #user_picture, #review_picture{
-    border-style: solid;
+
     width: 30%;
    }
 
 
-#user_details, #user_review{
-    border-style: solid;
+#user_details{
+
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
     width: 70%;
    }
+
+ #user_review{
+    margin-top: 3%;
+    display:flex;
+    width: 70%;
+ }
+
 img > box{
     display: block;
     margin: auto;
@@ -51,11 +61,30 @@ img > box{
     width: 30%;
     display: flex;
     flex-direction: column;
+    text-align: center;
+
+
     }
 #favourites_header{
     border-style: solid;
     height: 30%;
+
     }
+
+#user_favourites{
+    font-size: 25px;
+    font-weight: bold;
+
+    }
+
 #p1{
-    text-align: center;
+   margin-top: 20%;
+    }
+#details_header{
+    text-indent: 6%;
+    font-size: 25px;
+    font-weight: bold;
+    }
+#user_name, #user_email{
+    text-indent: 2%;
     }

@@ -13,6 +13,7 @@ html, body {
     margin: 0.5em;
     flex: 1 0 100%;
     }
+
 #data_and_map{
     display: flex;
     flex-direction: row;
@@ -31,24 +32,24 @@ html, body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    border-radius: 10px;
+    background-color: #f4eaff;
+    padding: 4px;
 }
 
 #filters_box{
-    /*width: 45%;*/
     flex: 0 1 45%;
 }
 
 #tags_filters {
     flex: 0 1 45%;
-    /*margin-left: 10%;*/
 }
 
 #box_header{
     font-size: 25px;
     font-weight: bold;
     margin: 0px;
-    /*padding-bottom: 8px;*/
-    /*flex: 1 0 100%;*/
+    padding-bottom: 4px;
 }
 
 #s2id_id_specialities {
@@ -68,9 +69,7 @@ div.ui-widget-content {
     background: #a81d73;
 
 }
-/*box that contains the text being applied to each slider*/
 
-/*text contained for each slider*/
 #p1{
     font-size: 22px;
     margin-top: 10%;
@@ -90,42 +89,21 @@ div.ui-widget-content {
     text-align: center;
     /*line-height: 1.6em;*/
   }
-#vrating{
+
+#vrating, #srating, #arating, #orating{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-#srating{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
 .ui-slider-horizontal div.ui-slider-handle {
     top: 9px;
     width: 36px;
     height: 17.6px;
 }
 
-#arating{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-#orating{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-#map_box{
-    width: 48%;
-}
-
 #hairdressers_information_box{
     overflow-y: scroll;
-    width: 48%;
     background-color: #f4eaff;
 }
 
@@ -134,6 +112,7 @@ div.ui-widget-content {
     border-width: 2px;
     border-radius: 10px;
     border-color: #a81d73;
+    width: 49%;
 }
 
 .container-map, #map {
@@ -192,9 +171,16 @@ div.ui-widget-content {
     border-color: #80bdff;
     margin-right: 2.5px;
     display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    padding-left: 4px;
+    align-items: center;
+}
+.hairdresser_content {
+    display: flex;
     flex-flow: column nowrap;
     justify-content: space-evenly;
-    padding-left: 4px;
+    flex: 1 0;
 }
 .hairdresser_data {
     color: #a81d73;
@@ -214,6 +200,10 @@ div.ui-widget-content {
     height: auto;
 }
 
+.rating_box {
+    padding: 4px 0 2px 0;
+}
+
 err {
     margin-left: 4px;
 }
@@ -228,3 +218,8 @@ err {
     background-color: #f4eaff;
 }
 
+.data_box img{
+    width: 20px;
+    height: 20px;
+    padding-right: 4px;
+}
