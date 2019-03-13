@@ -121,7 +121,7 @@ function setResults(results, image_urls, ratings) {
             '               <p4>Overall: <p5>' + ratings[results[i].fields['user']] + '</p5></p4>' +
             '           </div>' +
             '       </div>' +
-            '       <a href="hairdresser(results_jscrupt.js)/' + results[i].fields['slug'] + '"><img src="' + page_link_image_url + '"></a>' +
+            '       <a href="hairdresser/' + results[i].fields['slug'] + '/"><img src="' + page_link_image_url + '"></a>' +
             '   </div>' +
             // '<hr>' +
             '</div>'
