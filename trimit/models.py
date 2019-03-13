@@ -48,11 +48,11 @@ class Page(models.Model):
     contact_number = models.CharField(max_length=15, blank=True)
 
     # Ratings
-    overall_rating = models.DecimalField(max_digits=3, decimal_places=1, default=0)
-    mean_atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1)
-    mean_price_rating = models.DecimalField(max_digits=10, decimal_places=1)
-    mean_service_rating = models.DecimalField(max_digits=10, decimal_places=1)
-    number_of_reviews = models.DecimalField(max_digits=5, decimal_places=0, default=0)
+    overall_rating = models.DecimalField(max_digits=3, decimal_places=1, default=0, null=True)
+    mean_atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    mean_price_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    mean_service_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    number_of_reviews = models.DecimalField(max_digits=5, decimal_places=0, default=0, null=True)
 
     # Map Location
     latitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, null=True, default=None)

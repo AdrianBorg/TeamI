@@ -251,31 +251,7 @@ def hairdresser_load(request, hairdresser_slug):
     )
 
 
-#@login_required(login_url='ajax_user_login')
-#def write_review(request, hairdresser_slug):
-    hairdresser = Page.objects.get(slug=hairdresser_slug)
-    if request.method == 'POST':
-        review_form = ReviewForm(
-            data={
-                'page': hairdresser, 
-                'user': request.user,
-                **request.POST
-            }, 
-        )
 
-        if review_form.is_valid():
-            review_form.save()
-      #  else:
-       #     print(request.user.errors)
-    else:
-        review_form = ReviewForm()
-        # review_form.hairdresser
-
-    return render(
-        request,
-        'trimit/review_hairdresser.html',
-        context={'form': review_form, 'hairdresser': hairdresser}
-    )
 
 @login_required(login_url='ajax_user_login')
 def write_review(request, hairdresser_slug):
@@ -307,33 +283,33 @@ def edit_hairdresserpage(request):
 
 
     hairdresserpage_form = HairdresserPageForm(instance=current_hairdresser)
-    user_form = UserEditForm(instance=request.user)
+    #user_form = UserEditForm(instance=request.user)
 
     if request.method == 'POST':
-        user_form = UserEditForm(request.POST)
-        hairdresserpage_form = HairdresserPageForm(request.POST)
-        if user_form.is_valid() and hairdresserpage_form.is_valid():#and hairdresserpage_form.is_valid():
-            user = user_form.save()
+       # user_form = UserEditForm(data=request.POST)
+        hairdresserpage_form = HairdresserPageForm(data=request.POST)
+        if hairdresserpage_form.is_valid():#and hairdresserpage_form.is_valid():
+            # user = user_form.save()
 
-            user.set_password(user.password)
-            user.save()
+            # user.set_password(user.password)
+            # user.save()
 
             profile = hairdresserpage_form.save(commit=False)
-            profile.user = user
+            profile.user = current_user #user
 
             if 'profile_picture' in request.FILES:
                 profile.profile_picture = request.FILES['profile_picture']
 
             profile.save()
-            page_form.save()
-            page_form.save_m2m()
+            profile.save_m2m()
+        
             
     
     return render(request,
          'trimit/edit_hairdresserpage.html',   
          context={
              'hairdresserpage_form': hairdresserpage_form,
-            'page_form_media': hairdresserpage_form.media,
+            #'page_form_media': hairdresserpage_form.media,
              #'hairdresser_form': user_form,
              }
         )
