@@ -28,11 +28,28 @@ def index(request):
                     'profile_form': profile_form, }
     return render(request, 'trimit/base.html', context=context_dict)
 
+
+@login_required()
 def user_profile(request):
+
     user_form = UserRegisterForm()
+
     profile_form = UserProfileForm()
+
+    profile = UserProfile.objects.filter(user=request.user)[0]
+    # sends information for reviews
+    reviews = Review.objects.filter(user=profile)
+    # sends information of a users favourite hairdressers
+    hairdressers = profile.favourites.all()
+    print(hairdressers[0].profile_picture)
+
+
     context_dict = {'user_form': user_form,
-                    'profile_form': profile_form,}
+                    'profile_form': profile_form,
+                    'reviews': reviews,
+                    'user_profile': profile,
+                    'hairdressers': hairdressers,
+                    }
     return render(request, 'trimit/user_profile.html', context_dict)
 
 @never_cache
@@ -64,8 +81,6 @@ def results(request):
     context_dict['ratings'] = overall_ratings
     context_dict['page_link_image_url'] = TeamI.settings.MEDIA_URL + "PageLink.png"
     # print(HairPageSpecialityForm)
-
-    # print(type(context_dict['ratings']))
 
     return render(request, 'trimit/results.html', context_dict)
 
