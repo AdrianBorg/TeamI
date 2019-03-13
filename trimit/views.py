@@ -195,3 +195,10 @@ def user_register(request):
 def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
+
+def contact_us(request):
+    user_form = UserRegisterForm()
+    profile_form = UserProfileForm()
+    context_dict = {'user_form': user_form,
+                    'profile_form': profile_form, }
+    return render(request, 'trimit/contact_us.html', context=context_dict)

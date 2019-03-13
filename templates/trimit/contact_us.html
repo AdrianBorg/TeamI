@@ -1,1 +1,38 @@
 {% extends 'trimit/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Contact us
+{% endblock %}
+
+{% block import_block %}
+
+ <link rel="stylesheet" type="text/css" href="{% static "css/contact.css" %}" /> 
+ <!-- <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />  -->
+{% endblock %}
+
+{% block custom_content %}
+<div class="content">
+<div class="container">  
+        <form id="contact" action="" method="post">
+          <h3>Leave us a message before you leave.</h3>
+          <fieldset>
+            <input placeholder="Your name" type="text" tabindex="1" required autofocus>
+          </fieldset>
+          <fieldset>
+            <input placeholder="Your Email Address" type="email" tabindex="2" required>
+          </fieldset>
+          <fieldset>
+            <textarea placeholder="Type your message here...." tabindex="5" required></textarea>
+          </fieldset>
+          <fieldset>
+            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+<img class="image" src="{% static 'images/home.jpg' %}"></div>
+</div>
+
+{% endblock %}
+{% block end_block %}
+{% endblock %}
