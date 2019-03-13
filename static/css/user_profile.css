@@ -24,21 +24,23 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
     overflow-x: auto;
     overflow-y: auto;
     }
 
 .review_section{
     display: flex;
-    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 3px;
+
 
 }
-
 .review_picture{
-    width: 30%;
-    margin: auto;
-    height: auto;
+    width: 200px;
+    }
+.review_picture img{
+    height: 100%;
+    max-width: 200px;
    }
 
 
@@ -49,17 +51,14 @@
     width: 70%;
    }
 
-.user_review{
-    margin-top: 3%;
-    display:flex;
-    width: 70%;
- }
+
 
 #user_picture img{
 
     margin: auto;
     width: 100%;
     height: auto;
+
     }
 
 #favourites{
@@ -93,6 +92,7 @@
 p4{
     font-size: 500%;
     color: red;
+
     }
 
 #p1{
@@ -115,4 +115,12 @@ p4{
  .favourite_top_box{
     display: flex;
     flex-direction: row;
+    }
+#favourites_picture img{
+    width: 80%;
+    height: auto;
+    max-width: 200px;
+    }
+#favourites_name{
+    padding: 16px;
     }

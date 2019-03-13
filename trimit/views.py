@@ -25,12 +25,17 @@ def index(request):
 
 @login_required()
 def user_profile(request):
+
     user_form = UserRegisterForm()
+
     profile_form = UserProfileForm()
 
     profile = UserProfile.objects.filter(user=request.user)[0]
+    # sends information for reviews
     reviews = Review.objects.filter(user=profile)
+    # sends information of a users favourite hairdressers
     hairdressers = profile.favourites.all()
+    print(hairdressers[0].profile_picture)
 
 
     context_dict = {'user_form': user_form,
@@ -38,7 +43,6 @@ def user_profile(request):
                     'reviews': reviews,
                     'user_profile': profile,
                     'hairdressers': hairdressers,
-
                     }
     return render(request, 'trimit/user_profile.html', context_dict)
 

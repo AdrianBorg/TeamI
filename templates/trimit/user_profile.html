@@ -57,12 +57,14 @@
                         <li>{{h.name}}</li>
                     </div>
                     <div id="favourites_picture">
-                        <img src="{{h.picture.url}}">
+                        {% if h.profile_picture %}
+                        <img src="{{h.profile_picture.url}}">
+                        {% endif %}
                     </div>
                 </div>
 
                 <div class="heart_picture">
-                    <p4>&hearts;</p4>
+                    <p4>&#10084;</p4>
                 </div>
                 </div>
                 {% endfor %}
