@@ -1,0 +1,68 @@
+
+  .index-content{
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-flow: row wrap;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: url(/static/images/home.jpg);
+    background-size: cover;
+    /* Photo credit: College Girl Free Photo —By Ryan McGuire (Royalty Free)*/
+  }
+  div.container{
+    display: flex;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    background: rgb(242,242,242,.7);
+    max-width: 400px;
+    max-height: 250px;
+    width: 100%;
+    height: 100%;
+    margin: 50px;
+    position: flex-start;
+    /* opacity: 0.5; */
+  }
+
+  div.container h1{
+    display: block;
+    font-size: 30px;
+    font-weight: 300;
+    margin: 5px;
+    padding: 10px 10px 10px 10px;
+    color: #a81d73;
+    text-align: left;
+  }
+
+  .container input#search{
+    width: 300px;
+    height: 50px;
+    background: #ffffff;
+    border: none;
+    font-size: 10pt;
+    float: center;
+    color: #63717f;
+    padding-left: 45px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  }
+
+  .container .icon{
+    position: absolute;
+    top: 50%;
+    margin-left: 17px;
+    margin-top: 17px;
+    z-index: 1;
+    color: white;
+  }
+
+ 

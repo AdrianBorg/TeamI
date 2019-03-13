@@ -1,1 +1,32 @@
 {% extends 'trimit/base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}
+    Contact us
+{% endblock %}
+
+{% block import_block %}
+
+ <link rel="stylesheet" type="text/css" href="{% static "css/contact.css" %}" /> 
+{% endblock %}
+
+{% block custom_content %}
+<div class="content">
+  {% csrf_token %}
+<div class="container">  
+        <form id="contact" action="mailto:1104159h@student.gla.ac.uk" method="post" >
+          <h3>You can find us here</h3><br/>
+          <h5>Level 6</h5>
+          <h5>Boyd Orr Building</h5>
+          <h5>Glasgow, G12 8QR</h5>
+          <br/>
+          <h5> 0141 330 54 96</h5>
+          <br/>
+          <fieldset>
+            <button type="submit" id="contact-submit" data-submit="...Sending">or email us</button>
+          </fieldset>
+        </form>
+      </div>
+</div>
+
+{% endblock %}
