@@ -8,18 +8,25 @@
 {% block import_block %}
 
  <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}" /> 
-{% endblock %}
+ <link rel="stylesheet" type="text/css" href="{% static "libraries/jquery-ui.min.css" %}" />
+ <script src="{% static "libraries/jquery-3.3.1.min.js" %}"></script>
+ <script src="{% static "libraries/jquery-ui.min.js" %}"></script>
+ {% endblock %}
 
 {% block custom_content %}
 <div class="index-content">
-    {% csrf_token %}
+    
         <div class="container">
             <h1>Search for your perfect hairdresser by name or location:</h1>
-            <span class="icon"><i class="fa fa-search"></i></span>
-            <input type="search" id="search" placeholder="Search..." />
+            <form id="search" method="POST" action="ajax_search_input.html">
+            <input type="text" class="form-control" id="txtSearch" name="txtSearch" placeholder="Search..." />
+            <button type="submit" class="btn btn-defult btn-submit">Search</button>
+        </form>
         </div>
     </div>
 
 {% endblock %}
+
 {% block end_block %}
+<script src="{% static "js/index.js" %}"></script>
 {% endblock %}

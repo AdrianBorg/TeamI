@@ -8,17 +8,14 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.utils.safestring import mark_safe
-
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg
 from django.views.decorators.cache import never_cache
-
+# from django.core.context_processors import csrf
 import json
 import TeamI.settings
 from django.db.models import Count
 import tagulous.forms
-
-
 
 # Create your views here.
 def index(request):
@@ -26,8 +23,39 @@ def index(request):
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
+
+    # context_dict.update(csrf(request))
+    
     return render(request, 'trimit/index.html', context=context_dict)
 
+@csrf_exempt
+def autocompleteModel(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '').capitalize()
+        search_qs = Page.objects.filter(name__contains=q)
+        results = []
+        
+        print(q)
+        for page in search_qs:
+            page_json = {}
+            page_json['name'] = page.name
+            page_json['slug'] = page.slug
+            results.append(page_json)
+
+        data_json = json.dumps(results)
+    else:
+        data_json: 'fail'
+    mimetype = 'application/json'
+
+    return HttpResponse(data_json, mimetype,'trimit/ajax_search_input.html')
+
+    # if request.method == "POST":
+    #     search_text = request.POST['search_text']
+    # else:
+    #     search_text = ""
+
+    # search_results = Page.objects.filter(name__contains=search_text) # might be title__contains if it doesn't work.
+    # return render('ajax_search_input.html', {'search_results': search_results}) #!
 
 @login_required()
 def user_profile(request):
@@ -51,17 +79,6 @@ def user_profile(request):
                     'hairdressers': hairdressers,
                     }
     return render(request, 'trimit/user_profile.html', context_dict)
-
-
-def search_input(request):
-    if request.method == "POST":
-        search_text = request.POST['search_text']
-    else:
-        search_text = ""
-
-    search_results = Page.objects.filter(name__contains=search_text) # might be title__contains if it doesn't work.
-    return render_to_response('ajax_search_input.html', {'search_results': search_results}) #!
-
 
 @never_cache
 def results(request):
