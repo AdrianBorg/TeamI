@@ -120,7 +120,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False # to ignore the RuntimeWarning: 
+               # DateTimeField PageImage.upload_time received a naive datetime (2019-03-10 14:45:11.703927) while time zone support is active.
 
 
 # Static files (CSS, JavaScript, Images)

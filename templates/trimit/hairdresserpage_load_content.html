@@ -1,0 +1,18 @@
+
+
+
+            <div class ="treatment-content">
+                    <h1>Treatments</h1>
+                    <div class ="treatment">
+                        
+                            {% for treatment in treatment_list %}
+                            
+                               <div id = "product">{{treatment.description}} </div> 
+                                <div id = "price"> {{treatment.price}}</div>
+                            
+                            {% endfor %}
+                        </div>
+             
+        </div>
+           
+       

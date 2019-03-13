@@ -15,9 +15,11 @@ API_KEY = GoogleGeocodeKey
 HAIRDRESSER_GROUP = 'hairdressers'
 USER_GROUP = 'users'
 
+User = settings.AUTH_USER_MODEL
 
 # class EUser(AbstractUser):
 #     email = models.EmailField(unique=True, blank=False)
+
 class Specialities(tagulous.models.TagModel):
     class TagMeta:
         space_delimiter = False
@@ -31,6 +33,10 @@ class Page(models.Model):
     name = models.CharField(max_length=30, blank=True, null=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='Page')
     specialities = tagulous.models.TagField(to=Specialities, blank=True)
+    profile_picture = models.ImageField(upload_to='user_profile_images', default='DefaultPagePic.png', blank=True)
+    description = models.CharField(max_length=200, blank=True, null=True)
+
+    # Contact Info
     flat_number = models.CharField(max_length=15, blank=True)
     street_address = models.CharField(max_length=30, blank=False)
     city = models.CharField(max_length=30, blank=False)
@@ -39,9 +45,16 @@ class Page(models.Model):
     opening_times = models.CharField(max_length=200, blank=True, null=True)
     webpage = models.URLField(blank=True)
     instagram = models.URLField(blank=True)
-    profile_picture = models.ImageField(upload_to='user_profile_images', default='DefaultPagePic.png', blank=True)
     contact_number = models.CharField(max_length=15, blank=True)
 
+    # Ratings
+    overall_rating = models.DecimalField(max_digits=3, decimal_places=1, default=0)
+    mean_atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    mean_price_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    mean_service_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    number_of_reviews = models.DecimalField(max_digits=5, decimal_places=0, default=0)
+
+    # Map Location
     latitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, null=True, default=None)
     longitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, null=True, default=None)
 
@@ -63,6 +76,28 @@ class Page(models.Model):
                     self.latitude = location.latitude
         super(Page, self).save(*args, **kwargs)
 
+    def update_overall_rating(self):
+        print("Updating {} reviews by adding new one..".format(self.name))
+        own_reviews = Review.objects.filter(page__slug=self.slug)
+        self.number_of_reviews = len(own_reviews)
+
+        sum_atmosphere_rating = 0
+        sum_price_rating = 0
+        sum_service_rating = 0
+        for i in own_reviews:
+            sum_atmosphere_rating += i.atmosphere_rating
+            sum_price_rating += i.price_rating
+            sum_service_rating += i.service_rating
+
+        self.mean_atmosphere_rating = sum_atmosphere_rating / self.number_of_reviews 
+        self.mean_price_rating = sum_price_rating / self.number_of_reviews 
+        self.mean_service_rating = sum_service_rating / self.number_of_reviews
+        self.overall_rating = (self.mean_atmosphere_rating + self.mean_price_rating + 
+                               self.mean_service_rating) / 3 
+
+        super(Page, self).save()
+        
+
     def __str__(self):
         return self.user.username
 
@@ -82,6 +117,12 @@ class Page(models.Model):
     def avgo(self):
         return Review.objects.filter(page=self).aggregate(Avg('overall_rating'))['overall_rating__avg']
 
+class Treatment(models.Model):
+    page = models.ForeignKey('Page',
+                             on_delete=models.CASCADE,
+                             related_name='page')
+    description = models.CharField(max_length=50)
+    price = models.CharField(max_length=150)
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
@@ -114,17 +155,20 @@ class Review(models.Model):
                              on_delete=models.SET_NULL,  # models.SET(deleted_userprofile),
                              null=True,
                              related_name='reviews')
-    overall_rating = models.DecimalField(max_digits=10, decimal_places=1, default=0)
-    atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
-    price_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
-    service_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
+    average_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True, blank=True)
+    atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    price_rating = models.DecimalField(max_digits=10, decimal_places=1)
+    service_rating = models.DecimalField(max_digits=10, decimal_places=1)
     comment = models.CharField(max_length=500, null=True, blank=True)
     time = models.DateTimeField(null=True)#,default=datetime.datetime.now())
     picture = models.ImageField(upload_to='review_images', blank=True)
 
     def save(self, *args, **kwargs):
+        all_ratings = [self.atmosphere_rating, self.price_rating, self.service_rating]
+        self.average_rating = sum([i for i in all_ratings if i if not None])/3
         self.time = datetime.datetime.now()
         super(Review, self).save(*args, **kwargs)
+        self.page.update_overall_rating()
 
     def __str__(self):
         if self.user is not None:

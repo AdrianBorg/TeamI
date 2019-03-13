@@ -1,0 +1,260 @@
+
+
+
+
+
+.hairPage {
+  background: linear-gradient(rgba(168,29,115,.6), rgba(168,29,115,.6)), url("/static/images/stock.jpg");
+   display:flex;
+   flex-direction:row;
+   
+   
+    
+  
+}
+
+
+h1 {
+
+
+    text-align: center;
+    width: 100%;
+    height:10%;
+    
+
+}
+h4 {
+    color: rgb(168,29,115);
+}
+
+.leftContent {
+   
+    width:60%;
+    height:100%;
+    
+    
+ 
+    
+   
+}
+
+.rightContent {
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:row;
+    color:black;
+    margin-left:auto;
+    height:10%;
+    width:30%;
+    background-color: white;
+    border-radius:15px;
+  
+    margin-top:50px;
+    margin-right:50px;
+   
+   
+   
+}
+#adress {
+    width:50%;
+    
+    text-align:center;
+}
+#opening-times {
+    width:50%;
+   
+    text-align:center;
+}
+#contact {
+    
+    text-align:center;
+    width:100%;
+}
+
+/* Map */
+#map_box{
+    width: 48%;
+}
+
+#map_box {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: #a81d73;
+}
+
+.container-map, #map {
+    border-radius: inherit;
+}
+
+.container-map {
+    height: 100%;
+    width: 100%;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.hairProfile {
+   display:inline-flex;
+ flex-wrap:wrap;
+   background-color:white;
+   width:100%;
+   
+   
+  
+  /* box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.3);*/
+}
+
+
+#profile-pic {
+ 
+ max-width:100%;
+ max-height:auto;
+ 
+ 
+
+
+    
+}
+
+.container-profile-pic {
+   overflow:hidden;
+   margin-left:20px;
+   margin-top:20px;
+   height:20%;
+   width:40%;
+   justify-content: center;
+   border-radius:10px;
+   border: 5px solid #a81d73 ;
+   
+
+}
+
+#rating {
+    
+    width: 100%;
+    height: 40%;
+    margin-left:40px;
+
+}
+
+
+
+#about{
+   margin-top:10px;
+  
+  width:100%;
+  text-align:center; 
+}
+
+
+.changing-content {
+   display:flex;
+   flex-direction:row;
+   flex-wrap:wrap;
+   
+    width:100%;
+    min-height:500px;
+   
+   
+    
+}
+#singleReview {
+    display:inline-flex;
+    flex-direction:column;
+    align-items: center;
+    width: 50%;
+    height:300px;
+    border-radius:15px;
+    overflow:hidden;
+  
+    box-shadow:1px 1px 1px 1px rgba(0,0,0,0.2);
+  
+    
+}
+
+#singleReview p{
+ margin-top: -5px;
+}
+
+#time {
+    
+    font-size: 12px;
+}
+
+#reviewRatings{
+    margin-left:10%;
+   
+   width:50%;
+  
+}
+
+#comment {
+    font-style:italic;
+    
+    width:100%;
+    text-align:center;
+}
+
+
+#reviewPic {
+
+max-height:20%;
+width:auto;  
+ 
+  
+  
+
+}
+.userImgContainer {
+    width:30%;
+    height:40%;
+    
+ 
+   
+}
+#userPic {
+    max-width:100%;
+   height:auto;
+   border-radius: 50%;
+   
+
+}
+.treatment-content {
+display:flex;
+flex-direction:column;
+
+ width:100%;
+
+}   
+.treatment {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    margin-top:20px;
+}
+
+#product {
+    margin-top:20px;
+    
+    width:40%;
+   
+    
+}
+
+#price{
+    margin-top:20px;
+   
+    width:40%;
+    
+}
+
+
+
+

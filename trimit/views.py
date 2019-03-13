@@ -1,27 +1,33 @@
 from django.shortcuts import render
-from trimit.forms import UserRegisterForm, UserProfileForm, HairdresserPageForm, HairPageSpecialityForm
-from trimit.models import Page, UserProfile, Specialities
+from trimit.forms import ReviewForm, UserRegisterForm, UserProfileForm, HairdresserPageForm, HairPageSpecialityForm, UserEditForm
+from trimit.models import Page, UserProfile, Specialities, Review, Treatment, User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, resolve
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.utils.safestring import mark_safe
+
+from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Avg
+from django.views.decorators.cache import never_cache
+
 import json
 import TeamI.settings
 from django.db.models import Count
 import tagulous.forms
 
 
+
 # Create your views here.
-
-
 def index(request):
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
     return render(request, 'trimit/base.html', context=context_dict)
+
 def user_profile(request):
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
@@ -29,6 +35,7 @@ def user_profile(request):
                     'profile_form': profile_form,}
     return render(request, 'trimit/user_profile.html', context_dict)
 
+@never_cache
 def results(request):
     q = request.GET.get('q')
     # print(q)
@@ -217,6 +224,122 @@ def ajax_user_login(request):
     else:
         context_dict['action'] = 'login'
         return render(request, 'rango/index.html', context_dict)
+
+@never_cache
+def hairdresser_page(request, hairdresser_slug):
+    hairdresser = Page.objects.get(slug=hairdresser_slug)
+    review_list = Review.objects.filter(page__slug=hairdresser.slug)
+    
+    a = (hairdresser.user==request.user)
+
+
+    return render(request, 
+        'trimit/hairdresserpage.html', 
+        context={
+            'hairdresser': hairdresser, 
+            'review_list': review_list,
+            'is_users_page': a,
+        }
+    )
+
+@never_cache
+def hairdresser_load(request, hairdresser_slug):
+    treatment_list = Treatment.objects.filter(page__slug=hairdresser_slug)
+
+    return render(request,
+        'trimit/hairdresserpage_load_content.html',
+        context={
+            'treatment_list': treatment_list,
+        }
+    )
+
+
+#@login_required(login_url='ajax_user_login')
+#def write_review(request, hairdresser_slug):
+    hairdresser = Page.objects.get(slug=hairdresser_slug)
+    if request.method == 'POST':
+        review_form = ReviewForm(
+            data={
+                'page': hairdresser, 
+                'user': request.user,
+                **request.POST
+            }, 
+        )
+
+        if review_form.is_valid():
+            review_form.save()
+      #  else:
+       #     print(request.user.errors)
+    else:
+        review_form = ReviewForm()
+        # review_form.hairdresser
+
+    return render(
+        request,
+        'trimit/review_hairdresser.html',
+        context={'form': review_form, 'hairdresser': hairdresser}
+    )
+
+@login_required(login_url='ajax_user_login')
+def write_review(request, hairdresser_slug):
+    hairdresser = Page.objects.get(slug=hairdresser_slug)
+    if request.method == 'POST':
+        review_form = ReviewForm(data=request.POST)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.page = hairdresser
+            review.user = UserProfile.objects.get(id=request.user.id)
+           
+            review.save()
+        else:
+            print(review_form.errors)
+    else:
+        review_form = ReviewForm()
+
+    return render(
+        request,
+        'trimit/review_hairdresser.html',
+        context={'form': review_form, 'hairdresser': hairdresser}
+    )
+
+def edit_hairdresserpage(request):
+    current_user = request.user
+
+
+    current_hairdresser = Page.objects.get(user=current_user)
+
+
+    hairdresserpage_form = HairdresserPageForm(instance=current_hairdresser)
+    user_form = UserEditForm(instance=request.user)
+
+    if request.method == 'POST':
+        user_form = UserEditForm(request.POST)
+        hairdresserpage_form = HairdresserPageForm(request.POST)
+        if user_form.is_valid() and hairdresserpage_form.is_valid():#and hairdresserpage_form.is_valid():
+            user = user_form.save()
+
+            user.set_password(user.password)
+            user.save()
+
+            profile = hairdresserpage_form.save(commit=False)
+            profile.user = user
+
+            if 'profile_picture' in request.FILES:
+                profile.profile_picture = request.FILES['profile_picture']
+
+            profile.save()
+            page_form.save()
+            page_form.save_m2m()
+            
+    
+    return render(request,
+         'trimit/edit_hairdresserpage.html',   
+         context={
+             'hairdresserpage_form': hairdresserpage_form,
+            'page_form_media': hairdresserpage_form.media,
+             #'hairdresser_form': user_form,
+             }
+        )
 
 
 def hairdresser_register(request):
