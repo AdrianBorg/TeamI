@@ -131,7 +131,8 @@ div.ui-widget-content {
 }
 
 .slider-wrapper{
-    width: 70%;
+    width: 60%;
+    margin-left: 10%;
 }
 
 .slider_title{
@@ -222,4 +223,29 @@ err {
     width: 20px;
     height: 20px;
     padding-right: 4px;
+}
+
+@media all and (max-width: 789px) {
+    #filters_content {
+        flex-direction: column;
+    }
+    #data_and_map {
+        flex-direction: column;
+        justify-content: unset;
+        margin-bottom: 0;
+    }
+    #map_box {
+        order: -1;
+        height: 200px;
+    }
+    #map_box, #hairdressers_information_box {
+        width: 100%;
+        z-index: 10;
+    }
+    #hairdressers_information_box {
+        margin-top: 10px;
+    }
+    body {
+        display: block;
+    }
 }
