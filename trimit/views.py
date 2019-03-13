@@ -152,7 +152,7 @@ def ajax_search_filter(request):
         # print(profile_picture_urls)
         user = request.user
         if not request.user.is_anonymous():
-            if UserProfile.objects.filter(user=user).exists(): 
+            if UserProfile.objects.filter(user=user).exists():
 
                 # print(UserProfile.objects.filter(user=user).first().favourites.all())
 
@@ -230,47 +230,47 @@ def ajax_user_login(request):
 def hairdresser_page(request, hairdresser_slug):
     hairdresser = Page.objects.get(slug=hairdresser_slug)
     review_list = Review.objects.filter(page__slug=hairdresser.slug)
-    
+
     a = (hairdresser.user==request.user)
 
 
-    return render(request, 
-        'trimit/hairdresserpage.html', 
-        context={
-            'hairdresser': hairdresser, 
-            'review_list': review_list,
-            'is_users_page': a,
-        }
-    )
+    return render(request,
+                  'trimit/hairdresserpage.html',
+                  context={
+                      'hairdresser': hairdresser,
+                      'review_list': review_list,
+                      'is_users_page': a,
+                  }
+                  )
 
 @never_cache
 def hairdresser_load(request, hairdresser_slug):
     treatment_list = Treatment.objects.filter(page__slug=hairdresser_slug)
 
     return render(request,
-        'trimit/hairdresserpage_load_content.html',
-        context={
-            'treatment_list': treatment_list,
-        }
-    )
+                  'trimit/hairdresserpage_load_content.html',
+                  context={
+                      'treatment_list': treatment_list,
+                  }
+                  )
 
 
-#@login_required(login_url='ajax_user_login')
-#def write_review(request, hairdresser_slug):
+    #@login_required(login_url='ajax_user_login')
+    #def write_review(request, hairdresser_slug):
     hairdresser = Page.objects.get(slug=hairdresser_slug)
     if request.method == 'POST':
         review_form = ReviewForm(
             data={
-                'page': hairdresser, 
+                'page': hairdresser,
                 'user': request.user,
                 **request.POST
-            }, 
+            },
         )
 
         if review_form.is_valid():
             review_form.save()
-      #  else:
-       #     print(request.user.errors)
+    #  else:
+    #     print(request.user.errors)
     else:
         review_form = ReviewForm()
         # review_form.hairdresser
@@ -290,7 +290,7 @@ def write_review(request, hairdresser_slug):
             review = review_form.save(commit=False)
             review.page = hairdresser
             review.user = UserProfile.objects.get(id=request.user.id)
-           
+
             review.save()
         else:
             print(review_form.errors)
@@ -303,44 +303,47 @@ def write_review(request, hairdresser_slug):
         context={'form': review_form, 'hairdresser': hairdresser}
     )
 
+
 def edit_hairdresserpage(request):
     current_user = request.user
 
-
     current_hairdresser = Page.objects.get(user=current_user)
 
-
-    hairdresserpage_form = HairdresserPageForm(instance=current_hairdresser)
-    user_form = UserEditForm(instance=request.user)
-
     if request.method == 'POST':
-        user_form = UserEditForm(request.POST)
-        hairdresserpage_form = HairdresserPageForm(request.POST)
-        if user_form.is_valid() and hairdresserpage_form.is_valid():#and hairdresserpage_form.is_valid():
-            user = user_form.save()
 
-            user.set_password(user.password)
-            user.save()
+        hairdresserpage_form = HairdresserPageForm(request.POST, instance=current_hairdresser)
+        # user_form = UserEditForm(request.POST, instance=request.user)
+
+        if hairdresserpage_form.is_valid():#and hairdresserpage_form.is_valid():
+            # user = user_form.save()
+            #
+            # user.set_password(user.password)
+            # user.save()
 
             profile = hairdresserpage_form.save(commit=False)
-            profile.user = user
+            profile.user = request.user
 
             if 'profile_picture' in request.FILES:
                 profile.profile_picture = request.FILES['profile_picture']
 
             profile.save()
-            page_form.save()
-            page_form.save_m2m()
-            
-    
+            # page_form.save()
+            hairdresserpage_form.save_m2m()
+            print("SAVED CHANGED TO HAIRPAGE")
+        else:
+            print("HAIRPAGE EDIT ERRORS")
+    else:
+        hairdresserpage_form = HairdresserPageForm(instance=current_hairdresser)
+        # user_form = UserEditForm(instance=request.user)
+
+
     return render(request,
-         'trimit/edit_hairdresserpage.html',   
-         context={
-             'hairdresserpage_form': hairdresserpage_form,
-            'page_form_media': hairdresserpage_form.media,
-             #'hairdresser_form': user_form,
-             }
-        )
+                  'trimit/edit_hairdresserpage.html',
+                  context={
+                      'hairdresserpage_form': hairdresserpage_form,
+                      'page_form_media': hairdresserpage_form.media,
+                      #'hairdresser_form': user_form,
+                  })
 
 
 def hairdresser_register(request):
