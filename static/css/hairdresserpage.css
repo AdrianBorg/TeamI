@@ -13,6 +13,7 @@
   
 }
 
+
 h1 {
 
 
@@ -46,6 +47,7 @@ h4 {
     height:10%;
     width:30%;
     background-color: white;
+    border-radius:15px;
   
     margin-top:50px;
     margin-right:50px;
@@ -169,10 +171,20 @@ h4 {
     width: 50%;
     height:300px;
     border-radius:15px;
+    overflow:hidden;
   
     box-shadow:1px 1px 1px 1px rgba(0,0,0,0.2);
   
     
+}
+
+#singleReview p{
+ margin-top: -5px;
+}
+
+#time {
+    
+    font-size: 12px;
 }
 
 #reviewRatings{
@@ -191,7 +203,7 @@ h4 {
 
 
 #reviewPic {
- 
+
 max-height:20%;
 width:auto;  
  
@@ -202,7 +214,7 @@ width:auto;
 .userImgContainer {
     width:30%;
     height:40%;
-    margin-top:10px;
+    
  
    
 }
@@ -213,10 +225,36 @@ width:auto;
    
 
 }
-.treatment {
+.treatment-content {
+display:flex;
+flex-direction:column;
 
-    width:100%;
+ width:100%;
+
+}   
+.treatment {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+    margin-top:20px;
 }
+
+#product {
+    margin-top:20px;
+    
+    width:40%;
+   
+    
+}
+
+#price{
+    margin-top:20px;
+   
+    width:40%;
+    
+}
+
 
 
 

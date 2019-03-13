@@ -15,9 +15,11 @@ API_KEY = GoogleGeocodeKey
 HAIRDRESSER_GROUP = 'hairdressers'
 USER_GROUP = 'users'
 
+User = settings.AUTH_USER_MODEL
 
 # class EUser(AbstractUser):
 #     email = models.EmailField(unique=True, blank=False)
+
 class Specialities(tagulous.models.TagModel):
     class TagMeta:
         space_delimiter = False

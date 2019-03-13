@@ -6,9 +6,17 @@ from django.core.validators import RegexValidator
 
 
 class ReviewForm(forms.ModelForm):
+    atmosphere_rating=forms.FloatField(min_value=0, max_value=5)
+    price_rating=forms.FloatField(min_value=0, max_value=5)
+    service_rating=forms.FloatField(min_value=0, max_value=5)
+    picture=forms.ImageField(required=False)
+    comment=forms.CharField(required=False)
+
     class Meta:
         model = Review
         exclude = ('page', 'user', 'average_rating', 'time')
+
+
 
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -34,6 +42,13 @@ class UserRegisterForm(forms.ModelForm):
             raise forms.ValidationError("Email already exists")
         return email
 
+class UserEditForm(UserRegisterForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget = forms.HiddenInput()
+    
+
+        
 
 class HairdresserPageForm(forms.ModelForm):
     opening_times = forms.CharField(max_length=300,
@@ -88,7 +103,7 @@ class HairdresserPageForm(forms.ModelForm):
         # self.fields['specialities'].help_text = "Separate individual specialities with commas."
         # self.fields['specialities'].widget.attrs.update({'id': 'specialities-fiels',
         #                                                  'placeholder': 'e.g. Blonde, Curly, Straightening'})
-
+   
 
 class HairPageSpecialityForm(forms.ModelForm):
     class Meta:
