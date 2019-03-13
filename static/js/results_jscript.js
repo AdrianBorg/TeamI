@@ -1,12 +1,16 @@
+
+// set the results of the search on the map when loaded
 $('document').ready(function(){
     setResults(resultset, picture_urls, ratings);
 });
 
+// search the location of the query when loaded
 $('document').ready(function(){
     // debugger;
     searchGeocode(searchLocation);
 });
 
+// helper functions to return slider settings for the sliders
 function sliderSettings(handle) {
     return {
         orientation: "horizontal",
@@ -40,6 +44,7 @@ function sliderSlide(handle, event, ui) {
     }
 }
 
+// setting up the sliders
 $( function() {
     var handle = $( "#vrating_handle" );
     $( "#vrating_slider" ).slider(sliderSettings(handle));
@@ -63,48 +68,42 @@ $( function() {
     $( "#orating_slider" ).slider(sliderSettings(handle));
 } );
 
-function setMapOnSearchLoc(searchLoc) {
-    $('document').ready(function(){
-        searchGeocode(searchLoc);
-    });
-}
-
-$('div#tags_filters').on('select2-close', function(e) {
-    var options = JSON.parse($('#id_specialities').attr('data-tag-list'));
-    var input = $('li.select2-search-choice:last div').text();
-    if (!options.includes(input)){
-        $('li.select2-search-choice:last').remove();
+// action listener on selecting a specialities
+$('div#tags_filters').on('select2-close', function(e) { // when the suggestion window is closed
+    var options = JSON.parse($('#id_specialities').attr('data-tag-list')); // get all the specialities options
+    var input = $('li.select2-search-choice:last div').text(); // get the value input by the user
+    if (!options.includes(input)){ // if the input is not an option
+        $('li.select2-search-choice:last').remove(); // remove the tag created
     } else {
-        searchFilter();
+        searchFilter(); // otherwise update the search results with the new options
     }
 });
 
+// action listener on removing a speciality
 $('div#tags_filters').on('select2-removed', function(e) {
-    var options = JSON.parse($('#id_specialities').attr('data-tag-list'));
-    var removed = e.val;
-    if (options.includes(removed)){
-        searchFilter();
+    var options = JSON.parse($('#id_specialities').attr('data-tag-list')); // get all the speciality options
+    var removed = e.val; // get the removed tag value
+    if (options.includes(removed)){ // if the removed tag was one of the options
+        searchFilter(); // update the search results with new options
     }
 });
 
-
+// create the menu items for the search results
 function setResults(results, image_urls, ratings) {
     var i;
     var searchResults = [];
 
-    // if (results.length == 0) {
-    //     alert('No results for that search found');
-    // }
+
     clearMarkers();
-    $('#hairdressers_information_box').html('');
-    if (results.length == 0) {
+    $('#hairdressers_information_box').html(''); // reset all menu items
+    if (results.length == 0) { // if no search results show the appropriate message
         $('#hairdressers_information_box').html(
             '<div class="hairdresser" id="no_results">\n' +
             '    <err>Unfortunately, no results were found for your search!</err>\n' +
             '</div>'
         );
     }
-    for (i = 0; i < results.length; i++) {
+    for (i = 0; i < results.length; i++) { // for each search result add a menu item with the appropriate information
         $('#hairdressers_information_box').append(
             '<div class="hairdresser" id="hairdresser'+ results[i].fields['user'] +'">' +
             '   <div class="image_box">' +
@@ -126,7 +125,7 @@ function setResults(results, image_urls, ratings) {
             // '<hr>' +
             '</div>'
         );
-        searchResults[i] = {
+        searchResults[i] = { // save a reference of info required for markers
             id: results[i]['pk'],
             user: results[i].fields['user'],
             LatLng: {
@@ -136,13 +135,14 @@ function setResults(results, image_urls, ratings) {
             name: results[i].fields['name'],
         }
     };
-    loadMarkers(searchResults);
+    loadMarkers(searchResults); // load markers
 }
 
+// ajax method to request results of the searching parameters
 function searchFilter() {
     $.ajax({
         type: 'POST',
-        data: {
+        data: { // get the filtering terms
             'value': $('#vrating_slider').slider("option", "value")/10,
             'overall': $('#orating_slider').slider("option", "value")/10,
             'service': $('#srating_slider').slider("option", "value")/10,
@@ -158,8 +158,7 @@ function searchFilter() {
         },
 
         url: AJAXlink,
-        success: function (response) {
-            // console.log("new lat bnds: " + latitudeBounds + "|lng bnds: " + longitudeBounds);
+        success: function (response) { // once the request is returned, update the map and info box as necessary
             results = JSON.parse(response['results']);
             image_urls = response['profile_picture_urls'];
             ratings = response['ratings'];
@@ -168,11 +167,11 @@ function searchFilter() {
                 favouriteHairdressers = JSON.parse(response['favourites']);
             }
             highlightMarkerInList(selectedMarker);
-            //searchGeocode($('#searchTxt').val())
         }
     })
 }
 
+// highlight the menu item relevant to the marker passed into the function
 function highlightMarkerInList(selectedMarker) {
     for (var i =0;i<markers.length;i++) {
         $('#hairdresser'+markers[i]["user"]).removeClass('selected-marker')
@@ -180,6 +179,7 @@ function highlightMarkerInList(selectedMarker) {
     $('#hairdresser'+selectedMarker["user"]).addClass('selected-marker')
 }
 
+// highlight the relevant marker to the menu item that is clicked
 $(document).on('click', '.hairdresser', function() {
     var user = $(this).attr('id').replace('hairdresser', '');
     for (var i=0;i<markers.length;i++) {
@@ -190,6 +190,7 @@ $(document).on('click', '.hairdresser', function() {
     }
 })
 
+// retrieve all the tags in the specialities filter box
 function getTagFilters() {
     var specitalityTags = [];
     $('.tag_filter .tag-row .tag-values div ul').children('.select2-search-choice').each(function () {
@@ -198,4 +199,9 @@ function getTagFilters() {
     return specitalityTags;
 }
 
-
+// testing function
+function setMapOnSearchLoc(searchLoc) {
+    $('document').ready(function(){
+        searchGeocode(searchLoc);
+    });
+}

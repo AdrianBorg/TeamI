@@ -19,6 +19,7 @@ if (btn) {
     }
 }
 
+// Functions to change the view shown in the modal to different tabs
 $(".login-btn").on('click', function(){
     switch2login();
     modal.style.display = "block";
@@ -47,6 +48,7 @@ signupTab.onclick = function() {
     }
 }
 
+// Methods which switch the tabs
 function switch2login() {
     $('#login-tab-title').css("background-color", '#f4eaff');
     $('#login-tab-title').css("color", '#a81d73');
@@ -67,6 +69,7 @@ function switch2signup() {
     $('#signup-form').css("display", "block");
 }
 
+// If the page has the optional context variable, opens the modal automatically
 $(document).ready(function() {
     var popup = $("#loginModal").attr("data-popup");
     if (popup.toLowerCase() == 'login') {
@@ -79,9 +82,10 @@ $(document).ready(function() {
 
 })
 
+// Ajax method to log in without being taken to another page
 $('#login_form').submit(function (e) {
-    e.preventDefault();
-    var form = $(this).closest('form');
+    e.preventDefault(); // stops the form from changing the page
+    var form = $(this).closest('form'); // get a reference to the form
     $('#login-notif-text').text('');
     $.ajax({
         type: $(this).attr('method'), //'POST',
@@ -89,26 +93,26 @@ $('#login_form').submit(function (e) {
         url: form.attr("action"),
         success: function (response) {
             setTimeout(function(){
-                $('#login-load').removeClass('loader')
+                $('#login-load').removeClass('loader') // hide the loader
                 if (response['login']) {
-                    $("input").prop('disabled', false);
+                    $("input").prop('disabled', false); // enable inputs after the request is complete
                     location.reload();
                 } else {
-                    $('#login-notif-text').text(response['error']);
+                    $('#login-notif-text').text(response['error']); // show error text
                     $("input").prop('disabled', false);
                 }
-            }, 700);
+            }, 700); // delay they success by a bit
         },
         error: function (response) {
-            $('.loader').css("color", "white");
+            $('#login-load').removeClass('loader') // hide the loader
             $('#login-notif-text').text(response.status + ': ' + response.statusText);
             $("input").prop('disabled', false);
 
         }
     })
     // $('.loader').css("color", "#a81d73");
-    $('#login-load').addClass('loader')
-    $("input").prop('disabled', true);
+    $('#login-load').addClass('loader') // show the loader
+    $("input").prop('disabled', true); // disable the inputs while the request is processing
 })
 
 

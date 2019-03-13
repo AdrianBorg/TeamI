@@ -21,6 +21,7 @@ import tagulous.forms
 
 
 # Create your views here.
+
 def index(request):
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
@@ -41,7 +42,7 @@ def user_profile(request):
     reviews = Review.objects.filter(user=profile)
     # sends information of a users favourite hairdressers
     hairdressers = profile.favourites.all()
-    print(hairdressers[0].profile_picture)
+    #print(hairdressers[0].profile_picture)
 
 
     context_dict = {'user_form': user_form,
@@ -66,18 +67,19 @@ def search_input(request):
 @never_cache
 def results(request):
     q = request.GET.get('q')
-    # print(q)
+    # create the forms for the modals
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
 
+    # get all hairdressers in the city searched
     resultset = Page.objects.filter(city__iexact=q)
 
     profile_picture_urls = {}
     overall_ratings = {}
 
-    for page in resultset:
+    for page in resultset: # for each hairdresser in the resultset, add the relevant info to be sent to the page
         profile_picture_urls.update({page.user.id: page.profile_picture.url})
         if page.avgo is None:
             overall_ratings.update({page.user.id: 'none'})
@@ -97,10 +99,13 @@ def results(request):
 
 
 def ajax_search_filter(request):
+    # ajax function to provide search updates on the search results page
     if request.method == 'POST':
         newPages = []
         profile_picture_urls = {}
         overall_ratings = {}
+
+        # get all the filter parameters from the request
         price = float(request.POST.get('value'))
         overall = float(request.POST.get('overall'))
         service = float(request.POST.get('service'))
@@ -109,27 +114,20 @@ def ajax_search_filter(request):
         lng_bounds = [request.POST.get('lngMin'), request.POST.get('lngMax')]
         specialities = json.loads(request.POST.get('specialityTags'))
 
-        # print(price, service, atmosphere, overall, specialities)
-        # city = request.POST.get('city')
-        # print(type(specialities[0]))
+        # filter based on map bounds
         map_filtered_results = Page.objects.filter(latitude__gte=lat_bounds[0],
                                                    latitude__lte=lat_bounds[1],
                                                    longitude__gte=lng_bounds[0],
                                                    longitude__lte=lng_bounds[1])
-        # if len(specialities) > 0:
-        #     map_filtered_results = map_filtered_results.\
-        #                             filter(specialities__in=specialities).\
-        #                             annotate(num_specs=Count('specialities')).\
-        #                             filter(num_specs__gte=len(specialities))
 
+        # filter based on each speciality
         for speciality in specialities:
             map_filtered_results = map_filtered_results.filter(specialities=speciality)
 
-        # filtering out based on average review score
+        # filtering out based on average review score for each rating type
         for page in map_filtered_results:
-            # print(page.avgp, page.avgs, page.avga, page.avgo)
             if page.avgp is not None:
-                if page.avgp < price:
+                if page.avgp < price:  # if hairdresser is excluded continue to filter next page
                     map_filtered_results = map_filtered_results.exclude(id=page.id)
                     continue
             else:
@@ -165,29 +163,31 @@ def ajax_search_filter(request):
             # if page is not removed, save its image url
             profile_picture_urls.update({page.user.id: page.profile_picture.url})
 
+            # if hairdresser has no reviews yet, save the rating value as none
             if page.avgo is None:
                 overall_ratings.update({page.user.id: 'none'})
-            else:
+            else:  # otherwise round the average overall rating to 1 decimal place
                 overall_ratings.update({page.user.id: round(page.avgo, 1)})
 
-        rating_filtered_results = map_filtered_results   #.filter(city__iexact=city)
+        rating_filtered_results = map_filtered_results
 
+        # serialise the results to json
         resultset = mark_safe(serializers.serialize('json', rating_filtered_results))
         new_pages = mark_safe(serializers.serialize('json', newPages))
 
-        # print(profile_picture_urls)
+        # check if user is logged in to find their favourites
         user = request.user
-        if not request.user.is_anonymous():
-            if UserProfile.objects.filter(user=user).exists():
+        if not request.user.is_anonymous():  # if user is logged in
+            if UserProfile.objects.filter(user=user).exists():  # if user is not a hairdresser
 
-                # print(UserProfile.objects.filter(user=user).first().favourites.all())
-
+                # get the user's favourite pages
                 favourites = UserProfile.objects.filter(user=user).first().favourites.all()
-                # print(favourites, "111")
-                favourite_usernames = [fav.user.pk for fav in favourites]
-                # print(favourite_usernames, "222")
-                favourites_json = str(favourite_usernames) #serializers.serialize('json', favourite_usernames)
+                favourite_usernames = [fav.user.pk for fav in favourites]  # create a list of the page pks
 
+                # save the list of favourite pages as a string ready to send to the client
+                favourites_json = str(favourite_usernames)
+
+                # return a json response with all the required information
                 return JsonResponse({'results': resultset,
                                      'profile_picture_urls': profile_picture_urls,
                                      'ratings': overall_ratings,
@@ -195,6 +195,7 @@ def ajax_search_filter(request):
                                      'favourites': favourites_json})
 
         else:
+            # if user is not logged in return a json response without the favourites
             return JsonResponse({'results': resultset,
                                  'profile_picture_urls': profile_picture_urls,
                                  'ratings': overall_ratings,
@@ -217,22 +218,18 @@ def contact_us(request):
     return render(request, 'trimit/contact_us.html', context=context_dict)
 
 
-def popupTest(request):
-    user_form = UserRegisterForm()
-    profile_form = UserProfileForm()
-    context_dict = {'user_form': user_form,
-                    'profile_form': profile_form, }
-    return render(request, 'trimit/popup.html', context_dict)
-
-
 def ajax_user_login(request):
+    # ajax function to let user log in wihtout going to a new page
     context_dict = {}
     if request.method == 'POST':
+        # get credentials from request
         username = request.POST.get('username')
         password = request.POST.get('password')
 
+        # user info validation
         user = authenticate(username=username, password=password)
 
+        # return the appropriate response to the user
         if user:
             if user.is_active:
                 login(request, user)
@@ -251,6 +248,7 @@ def ajax_user_login(request):
     else:
         context_dict['action'] = 'login'
         return render(request, 'rango/index.html', context_dict)
+
 
 @never_cache
 def hairdresser_page(request, hairdresser_slug):
@@ -375,32 +373,39 @@ def edit_hairdresserpage(request):
 
 
 def hairdresser_register(request):
+    # function to register a hairdresser user
     registered = False
     context_dict = {}
     profile_form = UserProfileForm()
     user_form = UserRegisterForm()
     if request.method == 'POST':
+        # get form data from the response
         hairdresser_form = UserRegisterForm(data=request.POST)
         page_form = HairdresserPageForm(data=request.POST)
 
+        # if user came from a specific webpage, keep sending this through to be able to redirect back to it
         if request.POST.get('redir') != '':
             context_dict['redir'] = request.POST.get('redir')
             context_dict['redir_name'] = resolve(context_dict['redir']).url_name
 
-        if hairdresser_form.is_valid() and page_form.is_valid():
+        if hairdresser_form.is_valid() and page_form.is_valid():  # if everything is valid
 
             user = hairdresser_form.save()
 
+            # set the password and save the form
             user.set_password(user.password)
             user.save()
 
             profile = page_form.save(commit=False)
             profile.user = user
 
+            # saving the picture
             if 'profile_picture' in request.FILES:
                 profile.profile_picture = request.FILES['profile_picture']
 
+            # save the page info
             profile.save()
+            # need to save the m2m fields (the specialities)
             page_form.save_m2m()
 
             registered = True
@@ -425,12 +430,14 @@ def hairdresser_register(request):
 
 
 def user_register(request):
+    # function to register a user
     registered = False
     context_dict = {}
     if request.method == 'POST':
         user_form = UserRegisterForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
 
+        # if user came from a specific webpage, keep sending this through to be able to redirect back to it
         if request.POST.get('redir') != '':
             context_dict['redir'] = request.POST.get('redir')
             context_dict['redir_name'] = resolve(context_dict['redir']).url_name
@@ -439,15 +446,18 @@ def user_register(request):
 
             user = user_form.save()
 
+            # set the password and save the form
             user.set_password(user.password)
             user.save()
 
             profile = profile_form.save(commit=False)
             profile.user = user
 
+            # saving the picture
             if 'profile_picture' in request.FILES:
                 profile.profile_picture = request.FILES['profile_picture']
 
+            # save the profile info
             profile.save()
 
             registered = True
@@ -468,8 +478,9 @@ def user_register(request):
                   context_dict)
 
 
-#@login_required
+@login_required
 def user_logout(request):
+    # logs out the user
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 

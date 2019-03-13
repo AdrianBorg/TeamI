@@ -6,7 +6,7 @@ var selectedMarker = {id: -1};
 var latitudeBounds;
 var longitudeBounds;
 var mapLoaded = false;
-var markerIcons = {
+var markerIcons = { // the locations of the different coloured icons
     default: null,
     red: { url: "../../../static/images/red-dot-icon.png" }, //"http://maps.google.com/mapfiles/ms/icons/red-dot.png" },
     blue: { url: "../../../static/images/blue-dot-icon.png" }, //"http://maps.google.com/mapfiles/ms/icons/blue-dot.png" }
@@ -16,8 +16,8 @@ var markerIcons = {
 }
 var favouriteHairdressers = [];
 
-function initMap() {
-    var noPoiLabels = [
+function initMap() { // function called once Gmaps API is loaded. Creates the map
+    var noPoiLabels = [ // remove poi labels
         {
             featureType: "poi",
             elementType: "labels",
@@ -26,7 +26,7 @@ function initMap() {
             ],
         }]
 
-    var options = {
+    var options = { // set up map settings
         zoom: 12,
         center: { lat: 0, lng: 0 },
         disableDefaultUI: true, // hide all controls
@@ -40,11 +40,11 @@ function initMap() {
         styles: noPoiLabels,
     };
 
-    map = new google.maps.Map(document.getElementById('map'), options);
-    geocoder = new google.maps.Geocoder;
+    map = new google.maps.Map(document.getElementById('map'), options); // set the map to a DOM element
+    geocoder = new google.maps.Geocoder; // create a geocoder to get lat-lng position
 
     //searchGeocode(''); // search location NEED TO ENTER
-    google.maps.event.addListener(map, 'idle', function (ev) {
+    google.maps.event.addListener(map, 'idle', function (ev) { // add a listener to update view when map is idle
         if (mapLoaded) {
             var bounds = map.getBounds();
             var ne = bounds.getNorthEast();
@@ -61,7 +61,7 @@ function initMap() {
 function searchGeocode(location) {
     geocoder.geocode({ 'address': location }, function (results, status) {
         if (status == 'OK') {
-            map.setCenter(results[0].geometry.location);
+            map.setCenter(results[0].geometry.location); // center on the location found, if successful
             map.set
         } else {
              console.log('Geocode was not successful for the following reason: ' + status);
@@ -99,10 +99,10 @@ function addMarker(marker) {
         icon: markerIcons.red,
         user: marker.user,
     });
-    newMarker.addListener('click', function() {
+    newMarker.addListener('click', function() { // add a listener to each marker on click
         markerClicked(newMarker.id)
     });
-    markers.push(newMarker); //add newMarker to markers array
+    markers.push(newMarker); // add newMarker to markers array
     setFavouriteMarkers();
 }
 
@@ -127,13 +127,11 @@ function markerClicked(id) {
         }
         selectedMarker = markers[index];
         setFavouriteMarkers();
-        // markers[index].setIcon(markerIcons.blue);
         highlightMarkerInList(selectedMarker);
-        // alert(id); // ######################### change this to what is necessary
     }
 }
 
-// set favourite markers to yellow
+// set favourite markers to yellow and selected marker to blue
 function setFavouriteMarkers() {
     for (var i=0;i<markers.length;i++) {
         if (favouriteHairdressers.includes(markers[i].user)) {
@@ -155,6 +153,7 @@ function addFavouriteIds(favArr) {
     }
 }
 
+// get lat and lng minimum and maximum bounds of the map
 function getMinMaxBounds() {
     var bounds = map.getBounds();
     var left = bounds.getSouthWest().lng();

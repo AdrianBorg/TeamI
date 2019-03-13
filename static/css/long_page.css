@@ -1,0 +1,6 @@
+div.content {
+    display: block;
+    flex-direction: unset;
+    flex: unset;
+    overflow: auto;
+}
