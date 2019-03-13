@@ -1,1 +1,11 @@
-{% if %}
+{% if Page.count > 0 %}
+
+{% for Page in search_results %} 
+<!-- Maybe search_results in Page -->
+    <li><a href="/hairdresser/{{Page.slug}}/">{{Page.name}}</a></li>
+{% endfor %}
+
+{% else %}
+<li>No results</li>
+
+{% endif %}

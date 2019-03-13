@@ -12,6 +12,7 @@
 
 {% block custom_content %}
 <div class="index-content">
+    {% csrf_token %}
         <div class="container">
             <h1>Search for your perfect hairdresser by name or location:</h1>
             <span class="icon"><i class="fa fa-search"></i></span>
