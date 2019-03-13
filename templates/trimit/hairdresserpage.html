@@ -117,11 +117,15 @@
                 {{hairdresser.contact_number}}</br>
             </p>
         </div>
-        <!--<div id="map_box">
+        <div id="map_box">
            <div class="container-map">
-                <div id="map"></div>
+                <img id="map" src="https://maps.googleapis.com/maps/api/staticmap?
+                                   center={{ hairdresser.latitude }},{{ hairdresser.longitude }}
+                                   &zoom=14&size=400x400&scale=2
+                                   &markers=color:red%7C{{ hairdresser.latitude }},{{ hairdresser.longitude }}
+                                   &key=AIzaSyBh1c6xCPIo3PNhfUGmTJhKwU76AuIaJ8o">
             </div>
-        </div>-->
+        </div>
 
     </div>
 
