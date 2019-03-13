@@ -2,19 +2,10 @@
 {% load staticfiles %}
 
 {% block import_block %}
-    {{ speciality_field_form.media.css }}
-    {{ speciality_field_form.media.js }}
-    <link rel="stylesheet" href="{% static "css/tagfield_override.css" %}">
-
-    <link rel="stylesheet" href="{% static "libraries/jquery-ui.min.css" %}">
     <link rel="stylesheet" href="{% static 'css/user_profile.css' %}">
-    <script src="{% static "libraries/jquery-ui.min.js" %}"></script>
     <div id="csrf_token">{% csrf_token %}</div>
     <script>
-        var resultset = {{ resultset }};
-        var searchLocation = "{{ search_location }}";
         var CSRFtoken = $('#csrf_token > input').val();
-        var AJAXlink = "{% url "ajax_search_results" %}";
         {% if user.is_authenticated %}
             var LOGGED_IN = true;
         {% else %}
@@ -27,26 +18,29 @@
     <div id="user_data_and_reviews">
         <div id="user_data">
             <div id="user_picture">
-                <img src="//:0" width="100%" height="100%">
+                <img src="{{ user_profile.profile_picture.url }}">
             </div>
-            <div id="user_details">
+            <div class="user_details">
                 <p2 id="details_header">My Details</p2>
-                <div id="user_name">
-                    name: Margaret Thatcher
+                <div class="user_name">
+                    name: {{ user.username}}
                 </div>
-                <div id="user_email">
-                    email: mthatcher@gmail.com
+                <div class="user_email">
+                    email: {{ user.email}}
                 </div>
             </div>
         </div>
         <div id="reviews_box">
-            <div id="user_review">
-                This is the best hairdresser in the world!!
+            {% for r in reviews %}
+            <div class="review_section">
+                <div class="user_review">
+                    <li>{{ r.comment }}</li>
+                </div>
+                <div class="review_picture">
+                    <img src="{{ r.picture.url }}">
+                </div>
             </div>
-            <div id="review_picture">
-                <img src="//:0" width="100%" height="30%">
-            </div>
-
+            {% endfor %}
         </div>
     </div>
     <div id="favourites">
@@ -54,6 +48,26 @@
             <br></br>
             <p1 id="user_favourites">My Favourites</p1>
         </div>
+
+            <div class="favourites_info">
+                {% for h in hairdressers %}
+                <div class="favourite_top_box">
+                <div class="favourites_name_picture">
+                    <div id="favourites_name">
+                        <li>{{h.name}}</li>
+                    </div>
+                    <div id="favourites_picture">
+                        <img src="{{h.picture.url}}">
+                    </div>
+                </div>
+
+                <div class="heart_picture">
+                    <p4>&hearts;</p4>
+                </div>
+                </div>
+                {% endfor %}
+            </div>
+
 
     </div>
 </div>

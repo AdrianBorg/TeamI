@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from trimit.forms import UserRegisterForm, UserProfileForm, HairdresserPageForm, HairPageSpecialityForm
-from trimit.models import Page, UserProfile, Specialities
+from trimit.models import Page, UserProfile, Specialities, Review
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse, resolve
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -21,11 +21,25 @@ def index(request):
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
     return render(request, 'trimit/base.html', context=context_dict)
+
+
+@login_required()
 def user_profile(request):
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
+
+    profile = UserProfile.objects.filter(user=request.user)[0]
+    reviews = Review.objects.filter(user=profile)
+    hairdressers = profile.favourites.all()
+
+
     context_dict = {'user_form': user_form,
-                    'profile_form': profile_form,}
+                    'profile_form': profile_form,
+                    'reviews': reviews,
+                    'user_profile': profile,
+                    'hairdressers': hairdressers,
+
+                    }
     return render(request, 'trimit/user_profile.html', context_dict)
 
 def results(request):
@@ -43,8 +57,6 @@ def results(request):
     context_dict['resultset'] = mark_safe(serializers.serialize('json', resultset))
     context_dict['speciality_field_form'] = HairPageSpecialityForm
     print(HairPageSpecialityForm)
-
-    #print(context_dict['resultset'])
 
     return render(request, 'trimit/results.html', context_dict)
 

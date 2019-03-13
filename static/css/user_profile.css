@@ -6,7 +6,6 @@
     height: 100%;
 }
 #user_data_and_reviews{
-
     width: 70%;
     display: flex;
     flex-direction: column;
@@ -14,77 +13,106 @@
     }
 
 #user_data{
-
     align-self:stretch;
     height: 100%;
     display: flex;
     flex-direction: row;
     }
-#reviews_box{
 
+#reviews_box{
     align-self: stretch;
     height: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow-x: auto;
+    overflow-y: auto;
     }
 
-#user_picture, #review_picture{
+.review_section{
+    display: flex;
+    flex-direction: row;
 
+}
+
+.review_picture{
     width: 30%;
+    margin: auto;
+    height: auto;
    }
 
 
-#user_details{
-
+.user_details{
     display:flex;
     flex-direction: column;
     justify-content: space-evenly;
     width: 70%;
    }
 
- #user_review{
+.user_review{
     margin-top: 3%;
     display:flex;
     width: 70%;
  }
 
-img > box{
-    display: block;
+#user_picture img{
+
     margin: auto;
     width: 100%;
-    height: 100%;
+    height: auto;
     }
 
-
 #favourites{
-    border-style: solid;
+
     width: 30%;
     display: flex;
     flex-direction: column;
     text-align: center;
-
-
     }
-#favourites_header{
-    border-style: solid;
-    height: 30%;
 
+#favourites_header{
+
+    height: 30%;
     }
 
 #user_favourites{
     font-size: 25px;
     font-weight: bold;
-
+    }
+.favourites_info{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    }
+.favourites_name_picture{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    }
+p4{
+    font-size: 500%;
+    color: red;
     }
 
 #p1{
    margin-top: 20%;
     }
+
 #details_header{
     text-indent: 6%;
     font-size: 25px;
     font-weight: bold;
     }
-#user_name, #user_email{
+
+.user_name, .user_email{
     text-indent: 2%;
+    }
+.favourites_box{
+    display: flex;
+    flex-direction:column;
+    }
+ .favourite_top_box{
+    display: flex;
+    flex-direction: row;
     }
