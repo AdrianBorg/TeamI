@@ -329,13 +329,15 @@ def edit_hairdresserpage(request):
             profile.save()
             # page_form.save()
             hairdresserpage_form.save_m2m()
-            print("SAVED CHANGED TO HAIRPAGE")
+
+            slug = current_hairdresser.slug
+
+            return HttpResponseRedirect(reverse('hairdresser_page', args=[slug]))
         else:
-            print("HAIRPAGE EDIT ERRORS")
+            print(hairdresserpage_form.errors)
     else:
         hairdresserpage_form = HairdresserPageForm(instance=current_hairdresser)
         # user_form = UserEditForm(instance=request.user)
-
 
     return render(request,
                   'trimit/edit_hairdresserpage.html',
