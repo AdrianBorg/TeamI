@@ -8,31 +8,25 @@
 {% block import_block %}
 
  <link rel="stylesheet" type="text/css" href="{% static "css/contact.css" %}" /> 
- <!-- <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />  -->
 {% endblock %}
 
 {% block custom_content %}
 <div class="content">
+  {% csrf_token %}
 <div class="container">  
-        <form id="contact" action="" method="post">
-          <h3>Leave us a message before you leave.</h3>
+        <form id="contact" action="mailto:1104159h@student.gla.ac.uk" method="post" >
+          <h3>You can find us here</h3><br/>
+          <h5>Level 6</h5>
+          <h5>Boyd Orr Building</h5>
+          <h5>Glasgow, G12 8QR</h5>
+          <br/>
+          <h5> 0141 330 54 96</h5>
+          <br/>
           <fieldset>
-            <input placeholder="Your name" type="text" tabindex="1" required autofocus>
-          </fieldset>
-          <fieldset>
-            <input placeholder="Your Email Address" type="email" tabindex="2" required>
-          </fieldset>
-          <fieldset>
-            <textarea placeholder="Type your message here...." tabindex="5" required></textarea>
-          </fieldset>
-          <fieldset>
-            <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+            <button type="submit" id="contact-submit" data-submit="...Sending">or email us</button>
           </fieldset>
         </form>
       </div>
-<img class="image" src="{% static 'images/home.jpg' %}"></div>
 </div>
 
-{% endblock %}
-{% block end_block %}
 {% endblock %}

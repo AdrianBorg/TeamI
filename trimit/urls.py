@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^search/(?P<search>\w{0,50})/$', views.results, name='search_results'),
     url(r'^ajax_search_results/$', views.ajax_search_filter, name='ajax_search_results'),
+    url(r'^search_input/$', views.search_input, name='search_input'),
 ]

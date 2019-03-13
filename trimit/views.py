@@ -21,6 +21,15 @@ def index(request):
     return render(request, 'trimit/index.html', context=context_dict)
 
 
+def search_input(request):
+    if request.method == "POST":
+        search_text = request.POST['search_text']
+    else:
+        search_text = ""
+
+    search_results = Page.objects.filter(name__contains=search_text) # might be title__contains if it doesn't work.
+    return render_to_response('ajax_search_input.html', {'search_results': search_results}) #!
+
 def results(request, search):
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
@@ -52,7 +61,7 @@ def about(request):
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
-    return render(request, 'trimit/base.html', context=context_dict)
+    return render(request, 'trimit/about.html', context=context_dict)
 
 
 def contact_us(request):
@@ -60,7 +69,7 @@ def contact_us(request):
     profile_form = UserProfileForm()
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form, }
-    return render(request, 'trimit/base.html', context=context_dict)
+    return render(request, 'trimit/contact_us.html', context=context_dict)
 
 
 def popupTest(request):
@@ -196,9 +205,3 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
-def contact_us(request):
-    user_form = UserRegisterForm()
-    profile_form = UserProfileForm()
-    context_dict = {'user_form': user_form,
-                    'profile_form': profile_form, }
-    return render(request, 'trimit/contact_us.html', context=context_dict)
