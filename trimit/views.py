@@ -151,21 +151,22 @@ def ajax_search_filter(request):
 
         # print(profile_picture_urls)
         user = request.user
-        if UserProfile.objects.filter(user=user).exists(): #not request.user.is_anonymous():
+        if not request.user.is_anonymous():
+            if UserProfile.objects.filter(user=user).exists(): 
 
-            # print(UserProfile.objects.filter(user=user).first().favourites.all())
+                # print(UserProfile.objects.filter(user=user).first().favourites.all())
 
-            favourites = UserProfile.objects.filter(user=user).first().favourites.all()
-            # print(favourites, "111")
-            favourite_usernames = [fav.user.pk for fav in favourites]
-            # print(favourite_usernames, "222")
-            favourites_json = str(favourite_usernames) #serializers.serialize('json', favourite_usernames)
+                favourites = UserProfile.objects.filter(user=user).first().favourites.all()
+                # print(favourites, "111")
+                favourite_usernames = [fav.user.pk for fav in favourites]
+                # print(favourite_usernames, "222")
+                favourites_json = str(favourite_usernames) #serializers.serialize('json', favourite_usernames)
 
-            return JsonResponse({'results': resultset,
-                                 'profile_picture_urls': profile_picture_urls,
-                                 'ratings': overall_ratings,
-                                 'new_pages': new_pages,
-                                 'favourites': favourites_json})
+                return JsonResponse({'results': resultset,
+                                     'profile_picture_urls': profile_picture_urls,
+                                     'ratings': overall_ratings,
+                                     'new_pages': new_pages,
+                                     'favourites': favourites_json})
 
         else:
             return JsonResponse({'results': resultset,

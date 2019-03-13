@@ -99,7 +99,7 @@ def populate():
             "country": "GB",
         },
         {
-            "name": "fuckup",
+            "name": "fortune",
             "str": "90 triq il-kbira",
             "city": "Siggiewi",
             "country": "MT",
@@ -313,15 +313,6 @@ def populate():
         add_user(us['username'], us['password'], us['email'])
         add_userprofile(us['username'])
 
-    for treatment in hairdresser_treatments:
-        slug = treatment.pop('hairdresser_slug')
-        page = Page.objects.get(slug=slug)
-
-        Treatment.objects.get_or_create(
-            page=page,
-            **treatment
-        )[0].save()
-
     i = 0
 
     for hs in stylists:
@@ -358,6 +349,14 @@ def populate():
     for pp in page_pictures['pic']:
         add_page_picture(page_pictures['dir'], pp['user'], pp['img'])
 
+    for treatment in hairdresser_treatments:
+        slug = treatment.pop('hairdresser_slug')
+        page = Page.objects.get(slug=slug)
+
+        Treatment.objects.get_or_create(
+            page=page,
+            **treatment
+        )[0].save()
 
 if __name__ == '__main__':
     print("Starting trimit population script...")

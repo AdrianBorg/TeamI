@@ -9,6 +9,7 @@ from TeamI.settings import GoogleGeocodeKey
 from django.conf import settings
 from django.db.models import Avg
 import tagulous.models
+import django.utils.timezone
 from TeamI.settings import STATIC_URL
 
 API_KEY = GoogleGeocodeKey
@@ -48,11 +49,11 @@ class Page(models.Model):
     contact_number = models.CharField(max_length=15, blank=True)
 
     # Ratings
-    overall_rating = models.DecimalField(max_digits=3, decimal_places=1, default=0)
-    mean_atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1)
-    mean_price_rating = models.DecimalField(max_digits=10, decimal_places=1)
-    mean_service_rating = models.DecimalField(max_digits=10, decimal_places=1)
-    number_of_reviews = models.DecimalField(max_digits=5, decimal_places=0, default=0)
+    overall_rating = models.DecimalField(max_digits=3, decimal_places=1, default=0, null=True)
+    mean_atmosphere_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    mean_price_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    mean_service_rating = models.DecimalField(max_digits=10, decimal_places=1, null=True)
+    number_of_reviews = models.DecimalField(max_digits=5, decimal_places=0, default=0, null=True)
 
     # Map Location
     latitude = models.DecimalField(decimal_places=5, max_digits=9, blank=True, null=True, default=None)
@@ -115,7 +116,8 @@ class Page(models.Model):
 
     @property
     def avgo(self):
-        return Review.objects.filter(page=self).aggregate(Avg('overall_rating'))['overall_rating__avg']
+        return Review.objects.filter(page=self).aggregate(Avg('average_rating'))['average_rating__avg']
+
 
 class Treatment(models.Model):
     page = models.ForeignKey('Page',
@@ -123,6 +125,7 @@ class Treatment(models.Model):
                              related_name='page')
     description = models.CharField(max_length=50)
     price = models.CharField(max_length=150)
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
@@ -160,13 +163,13 @@ class Review(models.Model):
     price_rating = models.DecimalField(max_digits=10, decimal_places=1)
     service_rating = models.DecimalField(max_digits=10, decimal_places=1)
     comment = models.CharField(max_length=500, null=True, blank=True)
-    time = models.DateTimeField(null=True)#,default=datetime.datetime.now())
+    time = models.DateTimeField(null=True) # ,default=datetime.datetime.now())
     picture = models.ImageField(upload_to='review_images', blank=True)
 
     def save(self, *args, **kwargs):
         all_ratings = [self.atmosphere_rating, self.price_rating, self.service_rating]
         self.average_rating = sum([i for i in all_ratings if i if not None])/3
-        self.time = datetime.datetime.now()
+        self.time = django.utils.timezone.now()
         super(Review, self).save(*args, **kwargs)
         self.page.update_overall_rating()
 
