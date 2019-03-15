@@ -13,6 +13,7 @@ $(document).ready(function() {
 
 function AutoCompleteSelectHandler(event, ui) {
     var selectedObj = ui.item;
+    $('#search').val(selectedObj.value)
     $('#searchType').val(selectedObj.type)
     if (selectedObj.slug) {
         $('#searchSlug').val(selectedObj.slug)
