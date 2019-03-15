@@ -218,26 +218,72 @@ img.logo {
     margin-bottom: 2%;
 }
 
-/* autocomplete images */
+/* autocomplete */
 
-    .ui-menu img{
-        width:32px;
-        height:32px;
-    }
-    .ui-menu li > div > div{
-        font-size:inherit;
-        /*padding:0 0 10px 10px;*/
-        margin:0 0 0 4px;
-        white-space:nowrap;
-    }
-    .ui-menu-item-wrapper {
-        display: flex;
-        align-items: center;
-    }
+.ui-widget {
+    display: flex;
+    width: 100%;
+}
 
-@media all and (max-width: 789px) {
+.ui-widget input#searchAC, .ui-widget input#search{
+    width: 75%;
+    height: 50px;
+    background: #ffffff;
+    border: none;
+    font-size: 10pt;
+    color: #63717f;
+    padding-left: 45px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-left: 12.5%;
+}
+
+.ui-widget .icon{
+    position: relative;
+    left: calc(12.5% + 14px);
+    top: 16px;
+    width: 0;
+}
+
+ul.ui-menu {
+    display: unset;
+}
+
+.searchBar .ui-widget{
+    width: fit-content;
+}
+
+.searchBar .ui-widget .icon{
+    left: 14px;
+}
+
+.searchBar .ui-widget input#searchAC {
+    width: 100%;
+    margin-left: 0;
+    -webkit-box-shadow: -16px 0 0px -15px #a81d73, 16px 0 0px -15px #a81d73;
+    box-shadow: -16px 0 0px -15px #a81d73, 16px 0 0px -15px #a81d73;
+}
+
+.ui-menu img{
+    width:32px;
+    height:32px;
+}
+.ui-menu li > div > div{
+    font-size:inherit;
+    /*padding:0 0 10px 10px;*/
+    margin:0 0 0 4px;
+    white-space:nowrap;
+}
+.ui-menu-item-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+@media all and (max-width: 1010px) {
     .menu {
-        justify-content: space-around;
+        /*justify-content: space-around;*/
+        justify-content: center;
     }
 
     .navigate a {
@@ -287,6 +333,19 @@ img.logo {
     .nav {
         width: 100%;
     }
+
+    .searchBar {
+        width: 100%;
+        border-top: 1px solid rgba(0,0,0,0.1);
+        justify-content: center;
+    }
+
+    .searchBar .ui-widget {
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 }
 
 /*div {*/

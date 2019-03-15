@@ -336,7 +336,7 @@
 
 }
 
-input, select, textarea{
+.modal input, .content input, select, textarea{
     border-radius: 7px;
     padding: 2px 0.5em;
     border-color: #f4eaff;

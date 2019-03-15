@@ -6,15 +6,7 @@
 {% endblock %}
 
 {% block import_block %}
-    <link rel="stylesheet" href="{% static 'libraries/fontawesome/css/all.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}" />
-    <link rel="stylesheet" type="text/css" href="{% static "libraries/jquery-ui.min.css" %}" />
-    <script src="{% static "libraries/jquery-ui.min.js" %}"></script>
-    <script>
-        var ajax_search_link = "{% url 'search_input' %}";
-        var search_url = "{% url 'search_results' %}";
-        var page_url = "{% url 'index' %}hairdresser/";
-    </script>
 {% endblock %}
 
 {% block custom_content %}
@@ -27,12 +19,12 @@
                 <span class="icon"><i class="fa fa-search"></i></span>
                 <input type="search" id="search" placeholder="Search..." data-type="" data-slug=""/>
             </div>
-            <input type="hidden" id="searchType"/>
-            <input type="hidden" id="searchSlug"/>
+            <input type="hidden" id="searchType2"/>
+            <input type="hidden" id="searchSlug2"/>
         </div>
     </div>
 
 {% endblock %}
+<script src="{% static "js/index.js" %}"></script>
 {% block end_block %}
-<script src="{% static "js/search_autocomplete.js" %}"></script>
 {% endblock %}

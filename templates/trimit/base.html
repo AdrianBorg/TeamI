@@ -19,13 +19,18 @@
 
     <!--Imports-->
 
-    {#    <link rel="stylesheet" type="text/css" href="{% static "libraries/bootstrap.min.css" %}" />#}
-
+    <link rel="stylesheet" href="{% static 'libraries/fontawesome/css/all.min.css' %}">
     <script src="{% static "libraries/jquery-3.3.1.min.js" %}"></script>
-    {#    <script src="{% static "libraries/bootstrap.bundle.min.js" %}"></script>#}
+    <link rel="stylesheet" type="text/css" href="{% static "libraries/jquery-ui.min.css" %}" />
+    <script src="{% static "libraries/jquery-ui.min.js" %}"></script>
 
     <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
     <link rel="stylesheet" type="text/css" href="{% static "css/login.css" %}" />
+    <script>
+        var ajax_search_link = "{% url 'search_input' %}";
+        var search_url = "{% url 'search_results' %}";
+        var page_url = "{% url 'index' %}hairdresser/";
+    </script>
     {% block import_block %}
         <!--Other file imports go here-->
     {% endblock %}
@@ -40,6 +45,14 @@
             {#                <a href="#logo" onclick=home();>#}
             <img class="logo home-btn" src="{% static "images/logo.png" %}">
             {#                </a>#}
+        </div>
+        <div class="searchBar">
+            <div class="ui-widget">
+                <span class="icon"><i class="fa fa-search"></i></span>
+                <input type="search" id="searchAC" placeholder="Search..." data-type="" data-slug=""/>
+                <input type="hidden" id="searchType"/>
+                <input type="hidden" id="searchSlug"/>
+            </div>
         </div>
         <div class="nav">
             <ul class="navigate">
@@ -234,6 +247,7 @@
     </div>
     <script src="{% static "js/baseScript.js" %}"></script>
     <script src="{% static "js/modal.js" %}"></script>
+    <script src="{% static "js/search_autocomplete.js" %}"></script>
     {% block end_block %}
     {% endblock %}
 </div>

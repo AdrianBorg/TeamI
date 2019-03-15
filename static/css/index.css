@@ -42,30 +42,4 @@ div.container h1{
     text-align: left;
 }
 
-.ui-widget {
-    display: flex;
-    width: 100%;
-}
-
-.ui-widget input#search{
-    width: 75%;
-    height: 50px;
-    background: #ffffff;
-    border: none;
-    font-size: 10pt;
-    color: #63717f;
-    padding-left: 45px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    margin-left: 12.5%;
-}
-
-.ui-widget .icon{
-    position: relative;
-    left: calc(12.5% + 14px);
-    top: 16px;
-    width: 0;
-}
-
  
