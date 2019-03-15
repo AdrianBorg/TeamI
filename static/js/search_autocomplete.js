@@ -35,5 +35,7 @@ function selectionMade() {
         window.location.href = search_url + '?q=' + $('#search').val();
     } else if ($('#searchType').val() == 'page') {
         window.location.href = page_url + $('#searchSlug').val() + '/';
+    } else {
+        window.location.href = search_url + '?q=' + $('#search').val();
     }
 }
