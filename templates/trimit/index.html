@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block import_block %}
+    <link rel="stylesheet" href="{% static 'libraries/fontawesome/css/all.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}" />
     <link rel="stylesheet" type="text/css" href="{% static "libraries/jquery-ui.min.css" %}" />
     <script src="{% static "libraries/jquery-ui.min.js" %}"></script>
@@ -23,6 +24,7 @@
 
 {#            <span class="icon"><i class="fa fa-search"></i></span>#}
             <div class="ui-widget">
+                <span class="icon"><i class="fa fa-search"></i></span>
                 <input type="search" id="search" placeholder="Search..." data-type="" data-slug=""/>
             </div>
             <input type="hidden" id="searchType"/>

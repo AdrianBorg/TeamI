@@ -1,5 +1,5 @@
 
-  .index-content{
+.index-content{
     display: flex;
     display: -webkit-box;
     display: -moz-box;
@@ -12,8 +12,8 @@
     background: url(/static/images/home.jpg);
     background-size: cover;
     /* Photo credit: College Girl Free Photo —By Ryan McGuire (Royalty Free)*/
-  }
-  div.container{
+}
+div.container{
     display: flex;
     display: -webkit-box;
     display: -moz-box;
@@ -30,9 +30,9 @@
     margin: 50px;
     position: flex-start;
     /* opacity: 0.5; */
-  }
+}
 
-  div.container h1{
+div.container h1{
     display: block;
     font-size: 30px;
     font-weight: 300;
@@ -40,29 +40,32 @@
     padding: 10px 10px 10px 10px;
     color: #a81d73;
     text-align: left;
-  }
+}
 
-  .container input#search{
-    width: 300px;
+.ui-widget {
+    display: flex;
+    width: 100%;
+}
+
+.ui-widget input#search{
+    width: 75%;
     height: 50px;
     background: #ffffff;
     border: none;
     font-size: 10pt;
-    float: center;
     color: #63717f;
     padding-left: 45px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-  }
+    margin-left: 12.5%;
+}
 
-  .container .icon{
-    position: absolute;
-    top: 50%;
-    margin-left: 17px;
-    margin-top: 17px;
-    z-index: 1;
-    color: white;
-  }
+.ui-widget .icon{
+    position: relative;
+    left: calc(12.5% + 14px);
+    top: 16px;
+    width: 0;
+}
 
  
