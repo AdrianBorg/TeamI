@@ -14,7 +14,7 @@
 
 #user_data{
     align-self:stretch;
-    height: 100%;
+    margin-bottom: 8px;
     display: flex;
     flex-direction: row;
     }
@@ -27,42 +27,47 @@
     overflow-x: auto;
     overflow-y: auto;
     }
+ #reviews_box_header{
+    margin-top: 5px;
+
+    font-weight: bold;
+ }
 
 .review_section{
     display: flex;
     justify-content: space-between;
-    margin-top: 3px;
+    margin-top: 10px;
+    }
 
-
-}
 .review_picture{
     width: 200px;
     }
+
 .review_picture img{
-    height: 100%;
     max-width: 200px;
    }
-
 
 .user_details{
     display:flex;
     flex-direction: column;
-    justify-content: space-evenly;
     width: 70%;
    }
 
 
-
 #user_picture img{
-
     margin: auto;
-    width: 100%;
-    height: auto;
-
+    width: auto;
+    height: 100%;
     }
 
+#user_picture{
+    flex: 0 0;
+    }
+.user_review{
+    display: flex;
+    flex-direction: column;
+    }
 #favourites{
-
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -70,7 +75,6 @@
     }
 
 #favourites_header{
-
     height: 30%;
     }
 
@@ -82,45 +86,91 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow-y: auto;
     }
+
 .favourites_name_picture{
     display: flex;
     flex-direction: column;
-    height: 100%;
-    width: 100%;
+    flex: 1 0 70%;
     }
 p4{
-    font-size: 500%;
+    flex: 1 0 30%;
     color: red;
+    font-size: 220%;
 
+    }
+.heart_picture{
+     align-self: center;
     }
 
 #p1{
-   margin-top: 20%;
+   margin-top: 20px;
     }
 
 #details_header{
     text-indent: 6%;
     font-size: 25px;
     font-weight: bold;
+    margin-bottom: 10px;
+
     }
 
 .user_name, .user_email{
     text-indent: 2%;
+    margin-bottom: 10px;
     }
+
 .favourites_box{
     display: flex;
     flex-direction:column;
     }
+
  .favourite_top_box{
     display: flex;
     flex-direction: row;
     }
+
 #favourites_picture img{
     width: 80%;
     height: auto;
     max-width: 200px;
     }
+
 #favourites_name{
     padding: 16px;
     }
+a{text-decoration: none}
+p3{margin-top: 3px;}
+
+
+@media all and (max-width: 658px) {
+    #box{
+        flex-direction:column;
+    }
+
+    #user_data_and_reviews{
+        width: 100%;
+        }
+    .favourites{
+        width: 100%;
+        }
+    .review_section{
+        flex-direction: column;
+        width: 100%;
+        }
+
+    #user_data{
+        flex-direction: column;
+        width: 100%;
+            }
+    }
+    #user_picture{
+        /*width: 100%;*/
+    }
+    .user_details{
+        width: unset;
+    }
+    #favourites{
+    width: unset;}
+}
