@@ -218,6 +218,23 @@ img.logo {
     margin-bottom: 2%;
 }
 
+/* autocomplete images */
+
+    .ui-menu img{
+        width:32px;
+        height:32px;
+    }
+    .ui-menu li > div > div{
+        font-size:inherit;
+        /*padding:0 0 10px 10px;*/
+        margin:0 0 0 4px;
+        white-space:nowrap;
+    }
+    .ui-menu-item-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
 @media all and (max-width: 789px) {
     .menu {
         justify-content: space-around;
@@ -269,25 +286,6 @@ img.logo {
     .nav {
         width: 100%;
     }
-
-    /* autocomplete dropdown menu formatting */
-
-    .ui-menu img{
-        width:20px;
-        height:20px;
-    }
-    .ui-menu li > div > div{
-        font-size:inherit;
-        padding:0 0 0 4px;
-        margin:0 0 0 0;
-        white-space:nowrap;
-    }
-    .ui-menu li > div {
-        display: flex;
-        align-content: flex-start;
-        align-items: center;
-    }
-
 }
 
 /*div {*/
