@@ -18,5 +18,6 @@ urlpatterns = [
     #url(r'^search(?P<q>\w{0,50})/$', views.results, name='search_results'),
     url(r'^ajax_search_results/$', views.ajax_search_filter, name='ajax_search_results'),
     url(r'^user_profile/$', views.user_profile, name='user_profile'),
-    url(r'^search_input/', views.autocompleteModel, name='autocompleteModel'),
+    url(r'^ajax_calls_search/', views.autocompleteModel, name='autocompleteModel'),
+    url(r'^api/get_names/', views.get_names, name='get_names'),
 ]

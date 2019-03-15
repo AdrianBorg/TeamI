@@ -18,10 +18,15 @@
     
         <div class="container">
             <h1>Search for your perfect hairdresser by name or location:</h1>
-            <form id="search" method="POST" action="ajax_search_input.html">
-            <input type="text" class="form-control" id="txtSearch" name="txtSearch" placeholder="Search..." />
+            <form id="search" method="POST" action="/trimit/ajax_calls_search/">
+            <input type="text" class="form-control" id="txtSearch" name="q" placeholder="Search..." />
             <button type="submit" class="btn btn-defult btn-submit">Search</button>
         </form>
+        </div>
+
+        <div class="ui-widget">
+            <label for="name">Names</label>
+            <input id="name">
         </div>
     </div>
 

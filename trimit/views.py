@@ -11,7 +11,6 @@ from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg
 from django.views.decorators.cache import never_cache
-# from django.core.context_processors import csrf
 import json
 import TeamI.settings
 from django.db.models import Count
@@ -32,30 +31,39 @@ def index(request):
 def autocompleteModel(request):
     if request.is_ajax():
         q = request.GET.get('term', '').capitalize()
-        search_qs = Page.objects.filter(name__contains=q)
-        results = []
-        
-        print(q)
+        search_qs = Page.objects.filter(name__startswith=q, city__startswith=q)
+        results = []   
+        # print(q)
         for page in search_qs:
             page_json = {}
             page_json['name'] = page.name
             page_json['slug'] = page.slug
+            page_json['city'] = page.city
             results.append(page_json)
 
         data_json = json.dumps(results)
     else:
-        data_json: 'fail'
+        data_json = 'fail'
     mimetype = 'application/json'
 
-    return HttpResponse(data_json, mimetype,'trimit/ajax_search_input.html')
+    return HttpResponse(data_json, mimetype)
 
-    # if request.method == "POST":
-    #     search_text = request.POST['search_text']
-    # else:
-    #     search_text = ""
+@csrf_exempt
+def get_names(request):
+    if request.is_ajax():
+        q = request.GET.get('term','')
+        names = Page.objects.filter(name__startswith=q)
+        results = []
+        for name in names:
+            name_json = {}
+            name_json = name.name + "," + name.slug
+            results.append(name_json)
+        data = json.dumps(results)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
-    # search_results = Page.objects.filter(name__contains=search_text) # might be title__contains if it doesn't work.
-    # return render('ajax_search_input.html', {'search_results': search_results}) #!
 
 @login_required()
 def user_profile(request):
