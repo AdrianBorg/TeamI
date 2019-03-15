@@ -6,19 +6,31 @@
 {% endblock %}
 
 {% block import_block %}
-
- <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}" /> 
+    <link rel="stylesheet" type="text/css" href="{% static "css/index.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "libraries/jquery-ui.min.css" %}" />
+    <script src="{% static "libraries/jquery-ui.min.js" %}"></script>
+    <script>
+        var ajax_search_link = "{% url 'search_input' %}";
+        var search_url = "{% url 'search_results' %}";
+        var page_url = "{% url 'index' %}hairdresser/";
+    </script>
 {% endblock %}
 
 {% block custom_content %}
-<div class="index-content">
+    <div class="index-content">
         <div class="container">
             <h1>Search for your perfect hairdresser by name or location:</h1>
+
             <span class="icon"><i class="fa fa-search"></i></span>
-            <input type="search" id="search" placeholder="Search..." />
+            <div class="ui-widget">
+                <input type="search" id="search" placeholder="Search..." data-type="" data-slug=""/>
+            </div>
+            <input type="hidden" id="searchType"/>
+            <input type="hidden" id="searchSlug"/>
         </div>
     </div>
 
 {% endblock %}
 {% block end_block %}
+<script src="{% static "js/search_autocomplete.js" %}"></script>
 {% endblock %}

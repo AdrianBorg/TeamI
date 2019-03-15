@@ -84,7 +84,7 @@ class HairdresserPageForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         self.fields['name'].label = 'Display name'
         self.fields['name'].widget.attrs.update({'id': 'name-field',
                                                  'placeholder': "e.g. Hairy Mary's"})
@@ -104,7 +104,7 @@ class HairdresserPageForm(forms.ModelForm):
         self.fields['city'].label = 'City*'
         self.fields['country'].label = 'Country*'
         self.fields['opening_times'].required = False
-   
+
 
 class HairPageSpecialityForm(forms.ModelForm):
     # form used for the search page in order to render the proper tags field

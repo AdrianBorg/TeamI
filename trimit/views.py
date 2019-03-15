@@ -55,13 +55,39 @@ def user_profile(request):
 
 
 def search_input(request):
-    if request.method == "POST":
-        search_text = request.POST['search_text']
-    else:
-        search_text = ""
+    # if request.method == "POST":
+    #     search_text = request.POST['search_text']
+    # else:
+    #     search_text = ""
+    #
+    # search_results = Page.objects.filter(name__contains=search_text) # might be title__contains if it doesn't work.
+    # return render_to_response('ajax_search_input.html', {'search_results': search_results}) #!
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        qs1 = Page.objects.filter(name__icontains=q)
+        qs2 = Page.objects.filter(city__icontains=q)
+        results = []
 
-    search_results = Page.objects.filter(name__contains=search_text) # might be title__contains if it doesn't work.
-    return render_to_response('ajax_search_input.html', {'search_results': search_results}) #!
+        for page in qs2:
+            temp = {'value': page.city,
+                    'label': 'City: ' + page.city,
+                    'type': 'city'}
+            if temp not in results:
+                results.append(temp)
+
+        for page in qs1:
+            results.append({'value': page.name,
+                            'label': 'Page: ' + page.name,
+                            'type': 'page',
+                            'slug': page.slug})
+
+        print(results)
+        data = json.dumps(results)
+        print(data)
+    else:
+        data = 'fail'
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
 
 
 @never_cache
