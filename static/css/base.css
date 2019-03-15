@@ -247,9 +247,10 @@ img.logo {
 }
 
 @media all and (max-width: 600px) {
-    /*body {*/
+    body {
+        display: block;
     /*flex-flow: row wrap;*/
-    /*}*/
+    }
 
     /*#head, .content, .foot {*/
     /*flex: 1 0 100%;*/
