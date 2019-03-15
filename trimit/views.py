@@ -71,7 +71,8 @@ def search_input(request):
         for page in qs2:
             temp = {'value': page.city,
                     'label': 'City: ' + page.city,
-                    'type': 'city'}
+                    'type': 'city',
+                    'img': TeamI.settings.STATIC_URL + 'images/search_city_32.png',}
             if temp not in results:
                 results.append(temp)
 
@@ -79,7 +80,8 @@ def search_input(request):
             results.append({'value': page.name,
                             'label': 'Page: ' + page.name,
                             'type': 'page',
-                            'slug': page.slug})
+                            'slug': page.slug,
+                            'img': TeamI.settings.STATIC_URL + 'images/search_hairdresser_32.png',})
 
         print(results)
         data = json.dumps(results)

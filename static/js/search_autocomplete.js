@@ -5,7 +5,10 @@ $(document).ready(function() {
             AutoCompleteSelectHandler(event, ui)
         },
         minLength: 1,
-    });
+    })
+    .autocomplete( "instance" )._renderItem = function( ul, item ) {
+        return $( "<li><div><img src='"+item.img+"'><div>"+item.value+"</div></div></li>" ).appendTo( ul );
+      };
 });
 
 function AutoCompleteSelectHandler(event, ui) {
