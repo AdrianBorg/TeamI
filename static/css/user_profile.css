@@ -45,6 +45,7 @@
 .review_picture img{
     max-width: 200px;
     border-radius: 10px;
+    max-height: 99px;
    }
 
 .user_details{
@@ -201,5 +202,3 @@ p3{margin-top: 3px;}
 
 
     }
-
-}
