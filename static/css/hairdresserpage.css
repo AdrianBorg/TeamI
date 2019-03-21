@@ -12,11 +12,18 @@
     
   
 }
+.favText {
+    font-size:10px;
+    margin-left: 15px;
+    
+}
 .favourites {
 
 color: #f2f2f2;
 cursor: pointer;
 font-size: 50px;
+margin-left: 30px;
+
 }
 a {
     font-size:15px;
@@ -85,6 +92,7 @@ h4 {
     display:flex;
     flex-wrap:wrap;
     flex-direction:column;
+    align-items:center;
     color:black;
     margin-left:auto;
     height:10%;
@@ -117,7 +125,7 @@ h4 {
 /* Map */
 #map_box{
     
-    margin-left:40px;
+    
     margin-top:30px;
     width: 70%;
     border-style: solid;

@@ -356,6 +356,8 @@ def write_review(request, hairdresser_slug):
             review.user = UserProfile.objects.get(user=request.user)
 
             review.save()
+            slug = hairdresser.slug
+            return HttpResponseRedirect(reverse('hairdresser_page', args=[slug]))
         else:
             print(review_form.errors)
     else:
@@ -390,9 +392,8 @@ def edit_hairdresserpage(request):
             profile.save()
            
             hairdresserpage_form.save_m2m()
-
+            print("SAVED CHANGED TO HAIRPAGE ", current_hairdresser.slug)
             slug = current_hairdresser.slug
-
             return HttpResponseRedirect(reverse('hairdresser_page', args=[slug]))
         else:
             print(hairdresserpage_form.errors)

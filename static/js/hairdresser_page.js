@@ -8,9 +8,10 @@ window.onload = function () {
       
       success: function (json) {
          if (json.is_favourite) {
-            
+            $('favText').text("Click to remove from favourites")
             $('.favourites').css('color', '#a81d73')
          } else {
+            $('favText').html("Click to remove from favourites")
             $('.favourites').css('color', '#f2f2f2')
          }
 
