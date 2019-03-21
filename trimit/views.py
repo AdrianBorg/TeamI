@@ -289,7 +289,8 @@ def ajax_user_login(request):
 def hairdresser_page(request, hairdresser_slug):
     user = request.user #UserProfile.objects.get(id=request.user.id)
     hairdresser = Page.objects.get(slug=hairdresser_slug)
-    has_user_page = UserProfile.objects.filter(user=request.user).exists()
+    if request.user.is_anonymous:
+        has_user_page = UserProfile.objects.filter(user=request.user).exists()
     review_list = Review.objects.filter(page__slug=hairdresser.slug)
     a = (hairdresser.user==request.user)
     
