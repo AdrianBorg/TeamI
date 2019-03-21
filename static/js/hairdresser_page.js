@@ -1,6 +1,26 @@
 
+window.onload = function () {
+   if (has_user_page) {
+      console.log('dadaf');
+   $.ajax({
+      url: window.location.href + "checkfavourite",
+
+      
+      success: function (json) {
+         if (json.is_favourite) {
+            
+            $('.favourites').css('color', '#a81d73')
+         } else {
+            $('.favourites').css('color', '#f2f2f2')
+         }
+
+      }
+   });
+};
+}
+
 function treatment() {
- 
+
    $(".changing-content").load("loadtest .treatment-content")
 }
 
@@ -8,24 +28,23 @@ function review() {
    $(" .changing-content").load(location.href + " .review-content")
 }
 function makeReview() {
-  
- window.location.href = window.location.href +"review"; 
+
+   window.location.href = window.location.href + "review";
 }
 
 function addFavourite() {
-   
    $.ajax({
       url: window.location.href + "addfavourite",
-     
+
       success: function (json) {
-         
-          if(json.exists) {
-            $('.favourites').css('color', 'red')
-          } else {
-             $('.favourites').css('color', 'yellow')
-          }
-      
+
+         if (json.exists) {
+            $('.favourites').css('color', '#a81d73')
+         } else {
+            $('.favourites').css('color', '#f2f2f2')
+         }
+
       }
-    });
-   
+   });
+
 }

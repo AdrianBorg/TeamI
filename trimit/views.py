@@ -228,21 +228,24 @@ def ajax_user_login(request):
 
 @never_cache
 def hairdresser_page(request, hairdresser_slug):
+    user = request.user #UserProfile.objects.get(id=request.user.id)
     hairdresser = Page.objects.get(slug=hairdresser_slug)
-    user = UserProfile.objects.filter(id=request.user.id).exists()
+    has_user_page = UserProfile.objects.filter(user=request.user).exists()
     review_list = Review.objects.filter(page__slug=hairdresser.slug)
     a = (hairdresser.user==request.user)
     
-
-
-
+    if has_user_page:
+        hsp = 'true'
+    else:
+        hsp = None
     return render(request,
                   'trimit/hairdresserpage.html',
                   context={
                       'hairdresser': hairdresser,
                       'review_list': review_list,
                       'is_users_page': a,
-                      'has_user_profile' : user,
+                      'has_user_profile' : hsp,
+                      
                   }
                   )
 
@@ -256,6 +259,7 @@ def hairdresser_load(request, hairdresser_slug):
                       'treatment_list': treatment_list,
                   }
                   )
+@never_cache
 @login_required
 def add_to_favourites(request, hairdresser_slug):
     
@@ -269,7 +273,16 @@ def add_to_favourites(request, hairdresser_slug):
         user.favourites.add(Page.objects.get(slug=hairdresser_slug))
         
         return JsonResponse({'exists': True})
-    
+
+@never_cache
+def check_favourites(request, hairdresser_slug):
+    user = UserProfile.objects.get(id=request.user.id)
+    if user.favourites.filter(slug=hairdresser_slug).exists():
+        return JsonResponse({'is_favourite': True }) 
+    else:
+        return JsonResponse({'is_favourite': False})
+       
+
 
 
 

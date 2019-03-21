@@ -3,7 +3,14 @@
 
 {% block import_block %}
 <link rel="stylesheet" href="{% static 'css/hairdresserpage.css' %}">
-
+<script>
+    {% if has_user_profile %}
+        var has_user_page = true;
+    {% else %}
+        var has_user_page = false;
+    {% endif %}
+    
+</script>
 {% endblock %}
 
 {% block body_block %}
@@ -12,13 +19,12 @@
 <div class="hairPage">
       
     <div class="leftContent">
-            <p class="favourites" onclick = addFavourite();>&hearts;</p>
-        {% if is_users_page %}
-        <a href="../h/edit">Edit page</a>
 
+        {% if is_users_page %}
+            <a href="../h/edit">Edit page</a>
         {% endif %}
-        {% if has_user_profile and user.is_authenticated %}
-       
+        {% if has_user_profile %}
+        <p class="favourites" onclick = addFavourite();> &hearts;</p>
         {% endif %}
         
         <div class="hairProfile">
@@ -72,16 +78,17 @@
 
         <!--Changing content-->
         <div class="changing-content">
-            <div class="review-content">
+            
                  {% for review in review_list %} 
                  <div id="singleReview">
-                <div class="userImgContainer">
-                    <div id = "nameContainer">
+                <div class="userReviewContainer">
+                    
                         <p id="time">{{review.time}}</p>
                 <h3>{{review.user}}</h3>
-                </div>
                 
+                   <div id = "userImgContainer">
                     <img id="userPic" src="{{ MEDIA_URL }}{{review.user.profile_picture}}">
+                </div>
                 </div>
                 <p id="reviewRatings">
                     Overall rating {{review.average_rating}} </br>
@@ -98,7 +105,7 @@
 
 
         <!--End of change-->
-    </div>
+   
 
     </div>
 
