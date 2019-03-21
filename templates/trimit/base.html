@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load base_extra %}
 <html lang="en"></html>
 
 <html>
@@ -42,9 +43,7 @@
 
     <div class="menu" id="menu">
         <div class="logo">
-            {#                <a href="#logo" onclick=home();>#}
             <img class="logo home-btn" src="{% static "images/logo.png" %}">
-            {#                </a>#}
         </div>
         <div class="searchBar">
             <div class="ui-widget">
@@ -57,9 +56,15 @@
         <div class="nav">
             <ul class="navigate">
                 {% if user.is_authenticated %}
-                    <!-- <a class="account-btn" data-link="{url ""}" -->
-                    <a class="logout-btn" data-link="{% url "logout" %}">Logout</a>
-                    <a class="contact-us-btn">contact</a>
+                        {% if user|is_hairdresser %}
+                            <a class="account-btn" data-link="{% url "hairdresser_page" user.username %}">Account</a>
+                            <a class="logout-btn" data-link="{% url "logout" %}">Logout</a>
+                            <a class="contact-us-btn">contact</a>
+                        {% else %}
+                            <a class="profile-btn" data-link="{% url "user_profile" %}">Profile</a>
+                            <a class="logout-btn" data-link="{% url "logout" %}">Logout</a>
+                            <a class="contact-us-btn">contact</a>
+                        {% endif %}
                 {% else %}
                     <a class="hairdresser-signup-btn">Hairdresser Sign Up</a>
                     <a class="user-signup-btn">User Sign Up</a>
@@ -69,7 +74,7 @@
             </ul>
         </div>
     </div>
-    {% block header_block%}
+    {% block header_block %}
         <!--add to base header-->
     {% endblock %}
 
@@ -246,9 +251,6 @@
                     {% endif %}
                 </ul>
             </div>
-            <!-- <div class="col logo">
-                <img src="{% static "images/footer.png" %}" style="width: 200px; height: 170px;">
-        </div> -->
     </div>
     <script src="{% static "js/baseScript.js" %}"></script>
     <script src="{% static "js/modal.js" %}"></script>

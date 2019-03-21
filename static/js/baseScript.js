@@ -32,3 +32,13 @@ $(".logout-btn").on('click', function(){
     var url = $("li.logout-btn").attr("data-link");
      window.location = url;
 });
+
+$(".profile-btn").on('click', function(){
+    var url = $("a.profile-btn").attr("data-link");
+    debugger;
+    window.location = url;
+});
+$(".account-btn").on('click', function(){
+    var url = $("a.account-btn").attr("data-link");
+    window.location = url;
+});
