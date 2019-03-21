@@ -1,3 +1,4 @@
+
 #box{
     display: flex;
     flex-direction: row;
@@ -6,6 +7,7 @@
     height: 100%;
     background-color: #e089c1
 }
+
 #user_data_and_reviews{
     width: 80%;
     display: flex;
@@ -18,10 +20,9 @@
     margin-bottom: 8px;
     display: flex;
     flex-direction: row;
+    flex: 1 0 150px;
     }
-.edit_button{
-    margin-top: 67px;
-    }
+
 
 #reviews_box{
     align-self: stretch;
@@ -31,13 +32,11 @@
     overflow-x: auto;
     overflow-y: auto;
     }
- #reviews_box_header{
-    margin-top: 5px;
 
+ #reviews_box_header{
+    margin-top: 8px;
     font-weight: bold;
  }
-
-
 
 .review_picture{
     width: 200px;
@@ -51,13 +50,16 @@
 .user_details{
     display:flex;
     flex-direction: column;
+    margin-left: 5px;
+    margin-top: 2px;
     }
-
 
 #user_picture img{
     margin: auto;
     width: auto;
     height: 100%;
+    border-radius:50%;
+    max-width: 192px;
     }
 
 #user_picture{
@@ -67,8 +69,9 @@
     display: flex;
     flex-direction: column;
     }
+
 .review_section{
-display: flex;
+    display: flex;
     justify-content: space-between;
     margin-top: 10px;
     background-color: #faebd7;
@@ -95,6 +98,7 @@ display: flex;
     font-size: 25px;
     font-weight: bold;
     }
+
 .favourites_info{
     display: flex;
     flex-direction: column;
@@ -107,12 +111,13 @@ display: flex;
     flex-direction: column;
     flex: 1 0 70%;
     }
+
 p4{
     flex: 1 0 30%;
     color: red;
     font-size: 220%;
-
     }
+
 .heart_picture{
      align-self: center;
     }
@@ -126,7 +131,6 @@ p4{
     font-size: 25px;
     font-weight: bold;
     margin-bottom: 10px;
-
     }
 
 .user_name, .user_email{
@@ -181,13 +185,21 @@ p3{margin-top: 3px;}
         flex-direction: column;
         width: 100%;
             }
-    }
-    #user_picture{
-        /*width: 100%;*/
-    }
-    .user_details{
-        width: unset;
-    }
+        #user_picture{
+
+        width: auto;
+        height: 150px;
+        }
+
     #favourites{
-    width: unset;}
+        width: unset;
+         }
+    #user_data{
+        flex: unset;
+        }
+
+
+
+    }
+
 }

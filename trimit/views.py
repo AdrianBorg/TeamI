@@ -31,7 +31,7 @@ def index(request):
 
 @login_required()
 def user_profile(request):
-
+    # sets the form to register from
     user_form = UserRegisterForm()
 
     profile_form = UserProfileForm()
@@ -41,9 +41,7 @@ def user_profile(request):
     reviews = Review.objects.filter(user=profile)
     # sends information of a users favourite hairdressers
     hairdressers = profile.favourites.all()
-    #print(hairdressers[0].profile_picture)
-
-
+    # sets what will be rendered
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form,
                     'reviews': reviews,
@@ -59,8 +57,8 @@ def search_input(request):
     else:
         search_text = ""
 
-    search_results = Page.objects.filter(name__contains=search_text) # might be title__contains if it doesn't work.
-    return render_to_response('ajax_search_input.html', {'search_results': search_results}) #!
+    search_results = Page.objects.filter(name__contains=search_text)
+    return render_to_response('ajax_search_input.html', {'search_results': search_results})
 
 
 @never_cache
@@ -375,46 +373,37 @@ def edit_hairdresserpage(request):
 
 
 def edit_user_profile(request):
+    # defines that this user will make the request to edit his profile and not another one
     current_user = request.user
 
     current_user_profile = UserProfile.objects.get(user=current_user)
-
+    # Handles file upload
     if request.method == 'POST':
 
         user_profile_form = UserProfileForm(request.POST, instance=current_user)
-        # user_form = UserEditForm(request.POST, instance=request.user)
 
-        if user_profile_form.is_valid():  # and hairdresserpage_form.is_valid():
-            # user = user_form.save()
-            #
-            # user.set_password(user.password)
-            # user.save()
+        if user_profile_form.is_valid():
 
             profile = user_profile_form.save(commit=False)
             profile.user = request.user
-
             if 'profile_picture' in request.FILES:
-                profile.profile_picture = request.FILES['profile_picture']
+                pic = request.FILES['profile_picture']
+                user_profile = UserProfile.objects.get(user=request.user)
+                user_profile.profile_picture = pic
+                user_profile.save()
 
-            profile.save()
-            # page_form.save()
-            user_profile_form.save_m2m()
-
-            slug = current_user_profile.slug
-
-            return HttpResponseRedirect(reverse('user_profile_page', args=[slug]))
+            # redirect to the document after the POST request
+            return HttpResponseRedirect(reverse('user_profile'))
         else:
             print(user_profile_form.errors)
     else:
         user_profile_form = UserProfileForm(instance=current_user_profile)
-        # user_form = UserEditForm(instance=request.user)
 
     return render(request,
-                  'trimit/edit_hairdresserpage.html',
+                  'trimit/edit_user_profile.html',
                   context={
-                      'hairdresserpage_form': user_profile_form,
+                      'user_profile_form': user_profile_form,
                       'page_form_media': user_profile_form.media,
-                      # 'hairdresser_form': user_form,
                   })
 
 

@@ -43,6 +43,7 @@ class UserRegisterForm(forms.ModelForm):
         return email
 
 class UserEditForm(UserRegisterForm):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget = forms.HiddenInput()

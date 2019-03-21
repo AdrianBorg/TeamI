@@ -6,7 +6,7 @@ $('document').ready(function(){
     // debugger;
     searchGeocode(searchLocation);
 });
-
+// generic slider used by different ratings
 function sliderSettings(handle) {
     return {
         orientation: "horizontal",
@@ -39,27 +39,24 @@ function sliderSlide(handle, event, ui) {
         handle.text(ui.value / 10 + '+');
     }
 }
-
+// value rating slider
 $( function() {
     var handle = $( "#vrating_handle" );
     $( "#vrating_slider" ).slider(sliderSettings(handle));
 } );
-
+// service rating slider
 $( function() {
     var handle = $( "#srating_handle" );
-
     $( "#srating_slider" ).slider(sliderSettings(handle));
 } );
-
+// atmosphere rating slider
 $( function() {
     var handle = $( "#arating_handle" );
-
     $( "#arating_slider" ).slider(sliderSettings(handle));
 } );
-
+// // overall rating slider
 $( function() {
     var handle = $( "#orating_handle" );
-
     $( "#orating_slider" ).slider(sliderSettings(handle));
 } );
 
