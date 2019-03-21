@@ -215,9 +215,11 @@
     {% endblock %}
 </div>
 <div class="foot">
+    {% block reults_override_block %}
     <script src="{% static "libraries/jquery-3.3.1.min.js" %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static "libraries/jquery-ui.min.css" %}" />
     <script src="{% static "libraries/jquery-ui.min.js" %}"></script>
+    {% endblock %}
     {% block footer_block %}
         <!--add before base footer-->
     {% endblock %}
