@@ -1,25 +1,18 @@
 from django.shortcuts import render
 from trimit.forms import ReviewForm, UserRegisterForm, UserProfileForm, HairdresserPageForm, HairPageSpecialityForm, UserEditForm
-from trimit.models import Page, UserProfile, Specialities, Review, Treatment, User
+from trimit.models import Page, UserProfile, Review, Treatment
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse, resolve
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.utils.safestring import mark_safe
-from django.views.decorators.csrf import csrf_exempt
-from django.db.models import Avg
 from django.views.decorators.cache import never_cache
-
 import json
 import TeamI.settings
-from django.db.models import Count
-import tagulous.forms
-
-
 
 # Create your views here.
+
 
 def index(request):
     # request.user = None
@@ -46,7 +39,6 @@ def index(request):
                     'slug': slug,}
                     
     return render(request, 'trimit/index.html', context=context_dict)
-
 
 
 @login_required()

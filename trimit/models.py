@@ -10,16 +10,12 @@ from django.conf import settings
 from django.db.models import Avg
 import tagulous.models
 import django.utils.timezone
-from TeamI.settings import STATIC_URL
 
 API_KEY = GoogleGeocodeKey
 HAIRDRESSER_GROUP = 'hairdressers'
 USER_GROUP = 'users'
 
 User = settings.AUTH_USER_MODEL
-
-# class EUser(AbstractUser):
-#     email = models.EmailField(unique=True, blank=False)
 
 
 class Specialities(tagulous.models.TagModel):

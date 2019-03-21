@@ -72,7 +72,6 @@ class HairdresserPageForm(forms.ModelForm):
                                                                 message="Contact number must be 8 to 15 digits long "
                                                                         "and can have a leading '+'.")])
 
-    # specialities = TagField(widget=TagWidget(), required=False)
 
     class Meta:
         model = Page
