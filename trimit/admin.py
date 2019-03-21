@@ -1,5 +1,5 @@
 from django.contrib import admin
-from trimit.models import Page, UserProfile, Review, Treatment, PageImage, UserHairImage, Specialities#, EUser
+from trimit.models import Page, UserProfile, Review, Treatment, Specialities
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 import tagulous.admin
@@ -24,8 +24,6 @@ tagulous.admin.register(Page)
 admin.site.register(UserProfile)
 admin.site.register(Review)
 admin.site.register(Treatment)
-admin.site.register(PageImage)
-admin.site.register(UserHairImage)
 
 admin.site.unregister(User)
 admin.site.register(User, MyUserAdmin)

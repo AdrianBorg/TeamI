@@ -3,8 +3,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'TeamI.settings')
 import django
 django.setup()
-from trimit.models import Page, UserProfile, Review, UserHairImage, PageImage, Treatment, Specialities
-# from trimit.models import EUser as User
+from trimit.models import Page, UserProfile, Review, Treatment, Specialities
 from django.contrib.auth.models import User
 from django.conf import settings
 from django_countries import countries
@@ -495,28 +494,28 @@ def populate():
         filedir = os.path.join(dir, filename)
         user.profile_picture.save(filename, File(open(filedir, 'rb')))
 
-    def add_hair_picture(dir, username, filename):
-        filedir = os.path.join(dir, filename)
-        hairimage = UserHairImage.objects.create(user=UserProfile.objects.get(user=User.objects.get(username=username)))
-        hairimage.image.save(filename, File(open(filedir, 'rb')))
-        hairimage.save()
-
-    def add_page_picture(dir, username, filename):
-        filedir = os.path.join(dir, filename)
-        pageimage = PageImage.objects.create(page=Page.objects.get(user=User.objects.get(username=username)))
-        pageimage.image.save(filename, File(open(filedir, 'rb')))
-        pageimage.save()
+    # def add_hair_picture(dir, username, filename):
+    #     filedir = os.path.join(dir, filename)
+    #     hairimage = UserHairImage.objects.create(user=UserProfile.objects.get(user=User.objects.get(username=username)))
+    #     hairimage.image.save(filename, File(open(filedir, 'rb')))
+    #     hairimage.save()
+    #
+    # def add_page_picture(dir, username, filename):
+    #     filedir = os.path.join(dir, filename)
+    #     pageimage = PageImage.objects.create(page=Page.objects.get(user=User.objects.get(username=username)))
+    #     pageimage.image.save(filename, File(open(filedir, 'rb')))
+    #     pageimage.save()
 
     def delete_duplicatable_objects():
-        hairimages = UserHairImage.objects.all()
-        pageimages = PageImage.objects.all()
+        # hairimages = UserHairImage.objects.all()
+        # pageimages = PageImage.objects.all()
         reviews = Review.objects.filter(user__isnull=True)
 
-        for hi in hairimages:
-            hi.delete()
-
-        for pi in pageimages:
-            pi.delete()
+        # for hi in hairimages:
+        #     hi.delete()
+        #
+        # for pi in pageimages:
+        #     pi.delete()
 
         for r in reviews:
             r.delete()
@@ -557,11 +556,11 @@ def populate():
     for pp in profile_pictures['pic']:
         add_profile_picture(profile_pictures['dir'], pp['user'], pp['img'])
 
-    for hp in hair_pictures['pic']:
-        add_hair_picture(hair_pictures['dir'], hp['user'], hp['img'])
-
-    for pp in page_pictures['pic']:
-        add_page_picture(page_pictures['dir'], pp['user'], pp['img'])
+    # for hp in hair_pictures['pic']:
+    #     add_hair_picture(hair_pictures['dir'], hp['user'], hp['img'])
+    #
+    # for pp in page_pictures['pic']:
+    #     add_page_picture(page_pictures['dir'], pp['user'], pp['img'])
 
     for treatment in hairdresser_treatments:
         slug = treatment.pop('hairdresser_slug')

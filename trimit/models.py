@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 from django_countries.fields import CountryField
 from django.template.defaultfilters import slugify
 from geopy.geocoders import GoogleV3
-import datetime
 from TeamI.settings import GoogleGeocodeKey
 from django.conf import settings
 from django.db.models import Avg
@@ -94,7 +93,6 @@ class Page(models.Model):
                                self.mean_service_rating) / 3 
 
         super(Page, self).save()
-        
 
     def __str__(self):
         return self.user.username
@@ -177,30 +175,30 @@ class Review(models.Model):
         return str(self.id) + ' | ' + str(self.page) + " | " + u + " | " + self.comment
 
 
-class PageImage(models.Model):
-    image = models.ImageField(upload_to='hairpage_images', blank=False)
-    page = models.ForeignKey('Page', on_delete=models.CASCADE, related_name='images')
-    text = models.CharField(max_length=140, blank=True)
-    upload_time = models.DateTimeField(null=True)
-
-    def save(self, *args, **kwargs):
-        self.upload_time = datetime.datetime.now()
-        super(PageImage, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return 'image ' + str(self.id) + ' ' + str(self.page) + ' ' + str(self.upload_time.date())
-
-
-class UserHairImage(models.Model):
-    image = models.ImageField(upload_to='user_hair_images', blank=False)
-    user = models.ForeignKey('UserProfile', on_delete=models.CASCADE, related_name='images')
-    text = models.CharField(max_length=140, blank=True)
-    upload_time = models.DateTimeField(null=True)
-
-    def save(self, *args, **kwargs):
-        self.upload_time = datetime.datetime.now()
-        super(UserHairImage, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return 'image ' + str(self.id) + ' ' + str(self.user) + ' ' + str(self.upload_time.date())
+# class PageImage(models.Model):
+#     image = models.ImageField(upload_to='hairpage_images', blank=False)
+#     page = models.ForeignKey('Page', on_delete=models.CASCADE, related_name='images')
+#     text = models.CharField(max_length=140, blank=True)
+#     upload_time = models.DateTimeField(null=True)
+#
+#     def save(self, *args, **kwargs):
+#         self.upload_time = datetime.datetime.now()
+#         super(PageImage, self).save(*args, **kwargs)
+#
+#     def __str__(self):
+#         return 'image ' + str(self.id) + ' ' + str(self.page) + ' ' + str(self.upload_time.date())
+#
+#
+# class UserHairImage(models.Model):
+#     image = models.ImageField(upload_to='user_hair_images', blank=False)
+#     user = models.ForeignKey('UserProfile', on_delete=models.CASCADE, related_name='images')
+#     text = models.CharField(max_length=140, blank=True)
+#     upload_time = models.DateTimeField(null=True)
+#
+#     def save(self, *args, **kwargs):
+#         self.upload_time = datetime.datetime.now()
+#         super(UserHairImage, self).save(*args, **kwargs)
+#
+#     def __str__(self):
+#         return 'image ' + str(self.id) + ' ' + str(self.user) + ' ' + str(self.upload_time.date())
 
