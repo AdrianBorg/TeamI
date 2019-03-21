@@ -8,7 +8,6 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.utils.safestring import mark_safe
-
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Avg
 from django.views.decorators.cache import never_cache
@@ -23,11 +22,33 @@ import tagulous.forms
 # Create your views here.
 
 def index(request):
+    # request.user = None
     user_form = UserRegisterForm()
     profile_form = UserProfileForm()
+    user_account = None
+    hairdresser_account = None
+    slug = None
+
+    if not request.user.is_anonymous:
+        print('logged in')
+        user_account = UserProfile.objects.filter(user=request.user).exists()
+        # user = UserProfile.objects.filter(id=request.user.id).exists()
+        hairdresser_account = Page.objects.filter(user=request.user).exists()
+    
+    if hairdresser_account:
+        print('hdressrr')
+        slug = Page.objects.filter(user=request.user)[0].slug
+        
+    
+    
     context_dict = {'user_form': user_form,
-                    'profile_form': profile_form, }
+                    'profile_form': profile_form,
+                    'check_hairdresser': hairdresser_account,
+                    'check_user': user_account,
+                    'slug': slug,}
+                    
     return render(request, 'trimit/index.html', context=context_dict)
+
 
 
 @login_required()
