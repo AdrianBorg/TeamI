@@ -128,4 +128,5 @@ dmypy.json
 
 # extra media files
 media/*/
+trimit/migrations/
 
