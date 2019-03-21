@@ -49,22 +49,19 @@ $( function() {
     var handle = $( "#vrating_handle" );
     $( "#vrating_slider" ).slider(sliderSettings(handle));
 } );
-
+// service rating slider
 $( function() {
     var handle = $( "#srating_handle" );
-
     $( "#srating_slider" ).slider(sliderSettings(handle));
 } );
-
+// atmosphere rating slider
 $( function() {
     var handle = $( "#arating_handle" );
-
     $( "#arating_slider" ).slider(sliderSettings(handle));
 } );
-
+// // overall rating slider
 $( function() {
     var handle = $( "#orating_handle" );
-
     $( "#orating_slider" ).slider(sliderSettings(handle));
 } );
 

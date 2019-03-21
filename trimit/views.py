@@ -32,7 +32,7 @@ def index(request):
 
 @login_required()
 def user_profile(request):
-
+    # sets the form to register from
     user_form = UserRegisterForm()
 
     profile_form = UserProfileForm()
@@ -42,9 +42,7 @@ def user_profile(request):
     reviews = Review.objects.filter(user=profile)
     # sends information of a users favourite hairdressers
     hairdressers = profile.favourites.all()
-    #print(hairdressers[0].profile_picture)
-
-
+    # sets what will be rendered
     context_dict = {'user_form': user_form,
                     'profile_form': profile_form,
                     'reviews': reviews,
@@ -397,6 +395,41 @@ def edit_hairdresserpage(request):
                       'hairdresserpage_form': hairdresserpage_form,
                       'page_form_media': hairdresserpage_form.media,
                       #'hairdresser_form': user_form,
+                  })
+
+
+def edit_user_profile(request):
+    # defines that this user will make the request to edit his profile and not another one
+    current_user = request.user
+
+    current_user_profile = UserProfile.objects.get(user=current_user)
+    # Handles file upload
+    if request.method == 'POST':
+
+        user_profile_form = UserProfileForm(request.POST, instance=current_user)
+
+        if user_profile_form.is_valid():
+
+            profile = user_profile_form.save(commit=False)
+            profile.user = request.user
+            if 'profile_picture' in request.FILES:
+                pic = request.FILES['profile_picture']
+                user_profile = UserProfile.objects.get(user=request.user)
+                user_profile.profile_picture = pic
+                user_profile.save()
+
+            # redirect to the document after the POST request
+            return HttpResponseRedirect(reverse('user_profile'))
+        else:
+            print(user_profile_form.errors)
+    else:
+        user_profile_form = UserProfileForm(instance=current_user_profile)
+
+    return render(request,
+                  'trimit/edit_user_profile.html',
+                  context={
+                      'user_profile_form': user_profile_form,
+                      'page_form_media': user_profile_form.media,
                   })
 
 
