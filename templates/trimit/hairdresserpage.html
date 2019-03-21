@@ -22,9 +22,12 @@
 
         {% if is_users_page %}
             <a href="../h/edit">Edit page</a>
+    
         {% endif %}
         {% if has_user_profile %}
-        <p class="favourites" onclick = addFavourite();> &hearts;</p>
+        <div class = "favText">Add/remove </br>to favourites</div>
+        <span class="favourites" onclick = addFavourite();> &hearts;</span>
+        
         {% endif %}
         
         <div class="hairProfile">
@@ -51,7 +54,10 @@
 
             <div id="about">
                 Specialties: <i>{{hairdresser.specialities}}</i>
-                <p>{{hairdresser.description}}</p>
+                <p>{% if hairdresser.description %}
+                    {{hairdresser.description}}
+                    {% endif %}
+                </p>
             </div>
 
             <div class="treatment">
