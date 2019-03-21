@@ -243,6 +243,7 @@ img.logo {
 
 ul.ui-menu {
     display: unset;
+    height: auto;
 }
 
 .searchBar .ui-widget{
@@ -318,7 +319,6 @@ ul.ui-menu {
     }
 
     .searchBar {
-        -webkit-appearance: searchfield;
         appearance: none;
         width: 100%;
         border-top: 1px solid rgba(0,0,0,0.1);

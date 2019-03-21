@@ -30,13 +30,11 @@ def index(request):
     slug = None
 
     if not request.user.is_anonymous:
-        print('logged in')
         user_account = UserProfile.objects.filter(user=request.user).exists()
         # user = UserProfile.objects.filter(id=request.user.id).exists()
         hairdresser_account = Page.objects.filter(user=request.user).exists()
     
     if hairdresser_account:
-        print('hdressrr')
         slug = Page.objects.filter(user=request.user)[0].slug
         
     
@@ -102,9 +100,7 @@ def search_input(request):
                             'slug': page.slug,
                             'img': TeamI.settings.STATIC_URL + 'images/search_hairdresser_32.png',})
 
-        print(results)
         data = json.dumps(results)
-        print(data)
     else:
         data = 'fail'
     mimetype = 'application/json'
@@ -302,10 +298,7 @@ def hairdresser_page(request, hairdresser_slug):
     hairdresser = Page.objects.get(slug=hairdresser_slug)
     user = UserProfile.objects.filter(id=request.user.id).exists()
     review_list = Review.objects.filter(page__slug=hairdresser.slug)
-    a = (hairdresser.user==request.user)
-    
-
-
+    a = (hairdresser.user == request.user)
 
     return render(request,
                   'trimit/hairdresserpage.html',
