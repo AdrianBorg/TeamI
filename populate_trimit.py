@@ -13,6 +13,7 @@ import os
 
 POPULATE_DIR = os.path.join(settings.STATIC_DIR, 'population')
 
+
 def populate():
 
     users = [
