@@ -216,9 +216,8 @@ img.logo {
 
 .ui-widget {
     display: -webkit-flex;
-    
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
 }
 
 .ui-widget input#searchAC, .ui-widget input#search{
@@ -272,7 +271,7 @@ ul.ui-menu {
     white-space:nowrap;
 }
 .ui-menu-item-wrapper {
-    display: -webkit-flex;
+    display: flex;
     align-items: center;
 }
 
@@ -320,8 +319,7 @@ ul.ui-menu {
     }
 
     .searchBar {
-        -webkit-appearance: searchfield;
-        appearance: none;
+        /* -webkit-appearance: searchfield; */
         width: 100%;
         border-top: 1px solid rgba(0,0,0,0.1);
         justify-content: center;

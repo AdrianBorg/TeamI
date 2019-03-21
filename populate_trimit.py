@@ -76,19 +76,67 @@ def populate():
             "username": "stylist4",
             "password": "4",
             "email": "stylist4@trimit.com",
+        },
+        {
+            "username": "stylist5",
+            "password": "5",
+            "email": "stylist5@trimit.com",
         }
     ]
 
     hairdresser_pages = [
         {
-            "name": "Hanna",
-            "str": "1 Argyle Str",
+            "name": "Hannah at Blowout",
+            "str": "1 Argyle Street",
             "city": "Glasgow",
             "country": "GB",
         },
         {
             "name": "BubbleBath",
-            "str": "5 Bath Str",
+            "str": "5 Bath Street",
+            "city": "Glasgow",
+            "country": "GB",
+        },
+        {
+            "name": "Blowout",
+            "str": "1 Argyle Street",
+            "city": "Glasgow",
+            "country": "GB",
+        },
+         {
+            "name": "Partick Hair club",
+            "str": "378 Dumbarton Road",
+            "city": "Glasgow",
+            "country": "GB",
+        },
+         {
+            "name": "Hairy Mary",
+            "str": "20 Buchanan Street",
+            "city": "Glasgow",
+            "country": "GB",
+        },
+         {
+            "name": "Blow",
+            "str": "30 George Street",
+            "city": "Glasgow",
+            "country": "GB",
+        },
+
+         {
+            "name": "Toni&Guy",
+            "str": "50 Bath Street",
+            "city": "Glasgow",
+            "country": "GB",
+        },
+         {
+            "name": "Genesis",
+            "str": "20 Bath Street",
+            "city": "Glasgow",
+            "country": "GB",
+        },
+         {
+            "name": "BubbleBath",
+            "str": "5 Bath Street",
             "city": "Glasgow",
             "country": "GB",
         },
@@ -113,35 +161,35 @@ def populate():
             "user": users[0]["username"],
             "page": stylists[0]["username"],
             "rating": (5.0, 4.5, 3.2),
-            "comment": "test1",
+            "comment": "Beccy xxx",
             "img": 'revpic.jpg',
         },
         {
             "user": users[1]["username"],
             "page": stylists[1]["username"],
             "rating": (3.5, 2.2, 5),
-            "comment": "test2",
+            "comment": "Jim",
             "img": None,
         },
         {
             "user": users[2]["username"],
             "page": stylists[0]["username"],
             "rating": (4.5, 4.6, 4),
-            "comment": "test3",
+            "comment": "Sarah",
             "img": None,
         },
         {
             "user": users[0]["username"],
             "page": stylists[1]["username"],
             "rating": (2.7, 3.5, 4.8),
-            "comment": "test4",
+            "comment": "Jennyxo",
             "img": None,
         },
         {
             "user": users[0]["username"],
             "page": stylists[2]["username"],
             "rating": (3.2, 1.5, 1),
-            "comment": "test5",
+            "comment": "Meghan",
             "img": None,
         },
         {
@@ -157,17 +205,17 @@ def populate():
         {
             "hairdresser_slug": "stylist4",
             "description": "hair dye",
-            "price": "25£",
+            "price": "£25",
         },
         {
             "hairdresser_slug": "stylist4",
             "description": "head massage",
-            "price": "35£/h",
+            "price": "£35/hr",
         },
         {
             "hairdresser_slug": "stylist1",
             "description": "hair dye",
-            "price": "30£",
+            "price": "£30",
         },
     ]
 
