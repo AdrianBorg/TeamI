@@ -21,6 +21,7 @@ User = settings.AUTH_USER_MODEL
 # class EUser(AbstractUser):
 #     email = models.EmailField(unique=True, blank=False)
 
+
 class Specialities(tagulous.models.TagModel):
     class TagMeta:
         space_delimiter = False
@@ -44,9 +45,9 @@ class Page(models.Model):
     postcode = models.CharField(max_length=30, blank=True)
     country = CountryField(blank=False)
     opening_times = models.CharField(max_length=200, blank=True, null=True)
-    webpage = models.URLField(blank=True)
-    instagram = models.URLField(blank=True)
-    contact_number = models.CharField(max_length=15, blank=True)
+    webpage = models.URLField(blank=True, null=True)
+    instagram = models.URLField(blank=True, null=True)
+    contact_number = models.CharField(max_length=15, blank=True, null=True)
 
     # Ratings
     overall_rating = models.DecimalField(max_digits=3, decimal_places=1, default=0, null=True)
@@ -131,7 +132,6 @@ class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile')
     profile_picture = models.ImageField(upload_to='user_profile_images', default='DefaultUserPic.png', blank=True)
     favourites = models.ManyToManyField(to='Page', related_name='favourited')
-   # hairpicture = models.ImageField(upload_to='user_images', blank=True)
 
     def save(self, *args, **kwargs):
         group = Group.objects.get_or_create(name=USER_GROUP)[0]
