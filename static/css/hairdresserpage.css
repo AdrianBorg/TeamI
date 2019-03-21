@@ -4,7 +4,7 @@
 
 
 .hairPage {
-  background: linear-gradient(rgba(168,29,115,.6), rgba(168,29,115,.6)), url("/static/images/stock.jpg");
+  background: linear-gradient(rgba(168,29,115,.4), rgba(168,29,115,.4)), url("/static/images/stock.jpg");
    display:flex;
    flex-direction:row;
    
@@ -13,6 +13,43 @@
   
 }
 
+a {
+    font-size:15px;
+    color:black;
+    font-style:times;
+    margin-right:auto;
+}
+
+.pagelinks {
+    display:flex;
+    justify-content: space-evenly;
+
+    width: 100%;
+   
+  
+    width:100%;
+    height:50px;
+    margin-bottom: 20px;
+    
+}
+button {
+    width:25%;
+    height:100%;
+    background-color: rgb(168,29,115);
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.3);
+    border: 1px solid grey;
+    color:white;
+    border-radius: 10px;
+
+}
+
+a {
+    background:rgba(255,255,255,0.3);
+    color:white;
+    border-radius:10px;
+    width:100px;
+    height:50px;
+}
 
 h1 {
 
@@ -20,6 +57,7 @@ h1 {
     text-align: center;
     width: 100%;
     height:10%;
+    margin-top:20px;
     
 
 }
@@ -29,10 +67,10 @@ h4 {
 
 .leftContent {
    
-    width:60%;
+    width:50%;
     height:100%;
     
-    
+    background-color:white;
  
     
    
@@ -41,7 +79,7 @@ h4 {
 .rightContent {
     display:flex;
     flex-wrap:wrap;
-    flex-direction:row;
+    flex-direction:column;
     color:black;
     margin-left:auto;
     height:10%;
@@ -50,7 +88,7 @@ h4 {
     border-radius:15px;
   
     margin-top:50px;
-    margin-right:50px;
+    margin-right:100px;
    
    
    
@@ -73,10 +111,10 @@ h4 {
 
 /* Map */
 #map_box{
-    width: 48%;
-}
-
-#map_box {
+    
+    margin-left:40px;
+    margin-top:30px;
+    width: 70%;
     border-style: solid;
     border-width: 2px;
     border-radius: 10px;
@@ -88,6 +126,7 @@ h4 {
 }
 
 .container-map {
+
     height: 100%;
     width: 100%;
 }
@@ -100,14 +139,24 @@ h4 {
 
 
 .hairProfile {
-   display:inline-flex;
- flex-wrap:wrap;
+
+ 
    background-color:white;
    width:100%;
+   min-height:400px;
    
    
   
   /* box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.3);*/
+}
+
+.introduction {
+    margin-left: 10px;
+    margin-top:10px;
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:row;
+    justify-content: space-evenly;
 }
 
 
@@ -115,6 +164,8 @@ h4 {
  
  max-width:100%;
  max-height:auto;
+
+
  
  
 
@@ -123,24 +174,40 @@ h4 {
 }
 
 .container-profile-pic {
-   overflow:hidden;
-   margin-left:20px;
-   margin-top:20px;
-   height:20%;
-   width:40%;
-   justify-content: center;
-   border-radius:10px;
-   border: 5px solid #a81d73 ;
+   
+
+    
+   height:180px;
+   width:180px;
+  border-radius: 50%;
+ overflow:hidden;
+   border: 2px solid #a81d73;
+   box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.1);
+   
    
 
 }
 
-#rating {
-    
-    width: 100%;
-    height: 40%;
-    margin-left:40px;
+.rating {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content: space-evenly;
+    align-content: space-between;
+    width: 50%;
+    height: 50%;
+    margin-left: 20px;
+    margin-top:30px;
+    font-size:20px;
+   
+   
+   
+  
 
+}
+span {
+    width:50%;
+    
 }
 
 
@@ -157,7 +224,7 @@ h4 {
    display:flex;
    flex-direction:row;
    flex-wrap:wrap;
-   
+   background-color:white;
     width:100%;
     min-height:500px;
    

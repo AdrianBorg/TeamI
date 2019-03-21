@@ -229,9 +229,11 @@ def ajax_user_login(request):
 @never_cache
 def hairdresser_page(request, hairdresser_slug):
     hairdresser = Page.objects.get(slug=hairdresser_slug)
+    user = UserProfile.objects.filter(id=request.user.id).exists()
     review_list = Review.objects.filter(page__slug=hairdresser.slug)
-
     a = (hairdresser.user==request.user)
+    
+
 
 
     return render(request,
@@ -240,6 +242,7 @@ def hairdresser_page(request, hairdresser_slug):
                       'hairdresser': hairdresser,
                       'review_list': review_list,
                       'is_users_page': a,
+                      'has_user_profile' : user,
                   }
                   )
 
@@ -303,7 +306,7 @@ def write_review(request, hairdresser_slug):
         context={'form': review_form, 'hairdresser': hairdresser}
     )
 
-
+@login_required
 def edit_hairdresserpage(request):
     current_user = request.user
 
@@ -312,13 +315,10 @@ def edit_hairdresserpage(request):
     if request.method == 'POST':
 
         hairdresserpage_form = HairdresserPageForm(request.POST, instance=current_hairdresser)
-        # user_form = UserEditForm(request.POST, instance=request.user)
+     
 
-        if hairdresserpage_form.is_valid():#and hairdresserpage_form.is_valid():
-            # user = user_form.save()
-            #
-            # user.set_password(user.password)
-            # user.save()
+        if hairdresserpage_form.is_valid():
+           
 
             profile = hairdresserpage_form.save(commit=False)
             profile.user = request.user
@@ -327,14 +327,14 @@ def edit_hairdresserpage(request):
                 profile.profile_picture = request.FILES['profile_picture']
 
             profile.save()
-            # page_form.save()
+           
             hairdresserpage_form.save_m2m()
             print("SAVED CHANGED TO HAIRPAGE")
         else:
             print("HAIRPAGE EDIT ERRORS")
     else:
         hairdresserpage_form = HairdresserPageForm(instance=current_hairdresser)
-        # user_form = UserEditForm(instance=request.user)
+       
 
 
     return render(request,

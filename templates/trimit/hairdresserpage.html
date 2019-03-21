@@ -6,27 +6,36 @@
 {% endblock %}
 
 {% block body_block %}
+
+
 <div class="hairPage">
 
     <div class="leftContent">
+        
+            {% if is_users_page %}
+                <a href="../h/edit">Edit page</a>
+                
+                {% endif %}
 
         <div class="hairProfile">
+               
+                
+                
+                <div class="introduction">
+                        <h1>{{hairdresser.name}}</h1>
             <div class="container-profile-pic">
                 <img id="profile-pic" src="{{MEDIA_URL}}{{hairdresser.profile_picture}}" alt="hairdresser image" />
             </div>
-            <div id="introduction">
-                {% if not a %}
-                EDIT BUTTON
-                {% endif %}
-                <h1>{{hairdresser.name}}</h1>
-                <div id="rating">
-                    <p>
-                        Atmosphere: {{hairdresser.mean_atmosphere_rating}} <br />
-                        Price : {{hairdresser.mean_price_rating}} <br />
-                        Service : {{hairdresser.mean_service_rating}} <br />
+            
+               
+              
+                <div class="rating">
+                    <span>Atmosphere: </span>  <span>{{hairdresser.mean_atmosphere_rating}} </span>
+                    <span> Price : </span><span>{{hairdresser.mean_price_rating}}</span>
+                    <span> Service : </span> <span>{{hairdresser.mean_service_rating}} </span>
                         <br />
-                        Overall : {{hairdresser.overall_rating}} <br />
-                    </p>
+                        <span>Overall :</span><span>{{hairdresser.overall_rating}}</span>
+                    
                 </div>
             </div>
 
@@ -42,22 +51,27 @@
                 </div>
                 {% endfor %}
             </div>
-
-
+            
             <div class="pagelinks">
                 <button id="review-button" onclick=review();>Reviews </button>
                 <button id="treatment-button" onclick=treatment();>Treatment </button>
-                <button id="gallery-button">Gallery </button>
+              
+                {% if has_user_profile and user.is_authenticated %}
                 <button id="make-review-button" onclick=makeReview();>Make a review </button>
-
+                {% endif %}
+              
+                
             </div>
+
+        </div>
+            
 
 
             <!--Changing content-->
             <div class="changing-content">
-                <div class="review-content">
+                <div class="review-content"
                     {% for review in review_list %}
-                    <div id="singleReview">
+                        <div id="singleReview">
                         <h3>{{review.user}}</h3>
                         <p id ="time">{{review.time}}</p>
                         <div class="userImgContainer">
@@ -75,7 +89,7 @@
                 {% endfor %}
 
             </div>
-            </div>
+           
             <!--End of change-->
 
 
@@ -85,12 +99,22 @@
 
 
 
-        </div>
+       
     </div>
 
 
 
     <div class="rightContent">
+
+            <div id="map_box">
+                    <div class="container-map">
+                         <img id="map" src="https://maps.googleapis.com/maps/api/staticmap?
+                                            center={{ hairdresser.latitude }},{{ hairdresser.longitude }}
+                                            &zoom=14&size=400x400&scale=2
+                                            &markers=color:red%7C{{ hairdresser.latitude }},{{ hairdresser.longitude }}
+                                            &key=AIzaSyBh1c6xCPIo3PNhfUGmTJhKwU76AuIaJ8o">
+                     </div>
+                 </div>
         <div id="adress">
             <p>
                 <h4>Address</h4>
@@ -117,11 +141,8 @@
                 {{hairdresser.contact_number}}</br>
             </p>
         </div>
-        <!--<div id="map_box">
-           <div class="container-map">
-                <div id="map"></div>
-            </div>
-        </div>-->
+       
+     
 
     </div>
 
