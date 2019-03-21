@@ -35,7 +35,6 @@ $(".logout-btn").on('click', function(){
 
 $(".profile-btn").on('click', function(){
     var url = $("a.profile-btn").attr("data-link");
-    debugger;
     window.location = url;
 });
 $(".account-btn").on('click', function(){
