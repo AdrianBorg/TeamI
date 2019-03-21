@@ -12,7 +12,10 @@
     
   
 }
-
+.favourites {
+color:yellow;
+font-size: 50px;
+}
 a {
     font-size:15px;
     color:black;
@@ -57,7 +60,7 @@ h1 {
     text-align: center;
     width: 100%;
     height:10%;
-    margin-top:20px;
+    
     
 
 }
@@ -233,10 +236,10 @@ span {
 }
 #singleReview {
     display:inline-flex;
-    flex-direction:column;
+    flex-direction:row;
     align-items: center;
-    width: 50%;
-    height:300px;
+    width: 100%;
+    height:200px;
     border-radius:15px;
     overflow:hidden;
   
@@ -246,12 +249,12 @@ span {
 }
 
 #singleReview p{
- margin-top: -5px;
+
 }
 
 #time {
     
-    font-size: 12px;
+    font-size: 10px;
 }
 
 #reviewRatings{
@@ -279,15 +282,28 @@ width:auto;
 
 }
 .userImgContainer {
-    width:30%;
-    height:40%;
+    display: flex;
+    flex-direction: column;
+    width:50%;
+    height:50%;
     
  
    
 }
+
+#nameContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height:30%;
+
+
+}
 #userPic {
-    max-width:100%;
-   height:auto;
+    
+    
+   max-height:100%;
+   max-width:auto;
    border-radius: 50%;
    
 
