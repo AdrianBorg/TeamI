@@ -353,7 +353,7 @@ def write_review(request, hairdresser_slug):
         if review_form.is_valid():
             review = review_form.save(commit=False)
             review.page = hairdresser
-            review.user = UserProfile.objects.get(id=request.user.id)
+            review.user = UserProfile.objects.get(user=request.user)
 
             review.save()
         else:
