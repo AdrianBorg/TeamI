@@ -125,3 +125,7 @@ dmypy.json
 
 # Git
 *.orig
+
+# extra media files
+media/*/
+
