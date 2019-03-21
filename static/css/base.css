@@ -123,6 +123,8 @@ h2 {
     -webkit-box-shadow: -16px 0 0px -15px #a81d73;
     box-shadow: -16px 0 0px -15px #a81d73;
     border-top: none;
+    white-space: nowrap;
+    width: unset;
 }
 
 .menu a:first-child {
